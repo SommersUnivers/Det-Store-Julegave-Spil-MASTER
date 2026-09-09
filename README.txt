@@ -1,5 +1,9 @@
-Det Store Julegave-Spil V12.1 – Gameplay Sync
+DET STORE JULEGAVE-SPIL — V14.1 LUXURY JULETEMA
 
-Bygget oven på V12 Supabase Realtime.
-Forbedringer: idempotente gavevalg, beskyttelse mod dobbelttryk, ejerskabs-kontrol, korrekt afslutning efter bonus/kaos og slut-audit af alle gaver.
-Supabase Realtime-forbindelsen er bevaret.
+GitHub-klar version.
+- Jule-luksusgrafikken er indbygget direkte i index.html.
+- Ingen ekstra billedfil skal uploades.
+- Supabase Realtime multiplayer og gameplay fra den stabile version er bevaret.
+
+Upload kun index.html og README.txt til roden af samme GitHub MASTER-repository.
+Behold den eksisterende vercel.json.
