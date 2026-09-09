@@ -1,9 +1,6 @@
-DET STORE JULEGAVE-SPIL — V14.1 LUXURY JULETEMA
+DET STORE JULEGAVE-SPIL — V15 FULL CHRISTMAS WORLD
 
-GitHub-klar version.
-- Jule-luksusgrafikken er indbygget direkte i index.html.
-- Ingen ekstra billedfil skal uploades.
-- Supabase Realtime multiplayer og gameplay fra den stabile version er bevaret.
-
-Upload kun index.html og README.txt til roden af samme GitHub MASTER-repository.
-Behold den eksisterende vercel.json.
+Bygget direkte oven på V14.1/V12.1 multiplayer-MASTER.
+Supabase Realtime og gameplay-synkronisering er bevaret.
+Hele spillet har nu gennemgående julelandsby, træ/guld, sne, lys, gran og premium juletema.
+Upload index.html og README.txt til GitHub-MASTER. Behold eksisterende vercel.json.
