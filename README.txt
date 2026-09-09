@@ -1,4 +1,3 @@
-V11.1 Player Lobby Fix
+V11.2 Connection Fix
 
-Retter blank spiller-side efter join.
-VIGTIGT: Deploy som ny deployment i SAMME Vercel-projekt/domæne, så lokal Supabase-konfiguration bevares.
+Stabiliserer nye spil og genforbindelse på mobil. Rydder gamle PeerJS-forbindelser helt, forhindrer overlappende reconnect-forsøg og prøver automatisk igen ved timeout.
