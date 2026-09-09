@@ -1,3 +1,3 @@
-V11.2 Connection Fix
+V11.3 Multiplayer Stability Fix
 
-Stabiliserer nye spil og genforbindelse på mobil. Rydder gamle PeerJS-forbindelser helt, forhindrer overlappende reconnect-forsøg og prøver automatisk igen ved timeout.
+Stabiliserer mobil-join med klient-token, gentaget join-håndtryk, én aktiv reconnect-cyklus og ekstra start-synkronisering til alle spillere.
