@@ -1,3 +1,3 @@
-V11.3 Multiplayer Stability Fix
+V12 Supabase Realtime
 
-Stabiliserer mobil-join med klient-token, gentaget join-håndtryk, én aktiv reconnect-cyklus og ekstra start-synkronisering til alle spillere.
+PeerJS er fjernet som multiplayer-motor. Lobby, start, game-state og spillerhandlinger kører via Supabase Realtime Broadcast/Presence. Upload index.html og README.txt til samme GitHub repository; behold eksisterende vercel.json.

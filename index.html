@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#8f1023"><title>Det Store Julegave-Spil V10 Cloud</title>
-<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#8f1023"><title>Det Store Julegave-Spil</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--red:#99172d;--red2:#d62e4a;--gold:#ffd86f;--gold2:#c79220;--cream:#fff9e9;--green:#0d6a43;--ink:#35160d;--blue:#194a7a}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:ui-rounded,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -12%,#d33a52 0,#8e1023 40%,#39070f 100%);color:#fff}body{min-height:100vh;overflow-x:hidden}.snow{position:fixed;inset:0;pointer-events:none;opacity:.42;background-image:radial-gradient(#fff 1.3px,transparent 1.4px),radial-gradient(#fff 1px,transparent 1.1px);background-size:42px 42px,65px 65px;background-position:0 0,21px 21px;animation:fall 13s linear infinite}@keyframes fall{to{background-position:0 460px,21px 660px}}.wrap{width:min(980px,100%);margin:auto;padding:18px 16px 88px;position:relative}.brand{text-align:center;padding:8px 0 18px}.brand .emoji{font-size:56px;filter:drop-shadow(0 7px 8px #0005)}h1{font-size:clamp(34px,7.8vw,64px);line-height:.94;margin:8px 0;color:var(--gold);text-shadow:0 4px 0 #580918,0 9px 18px #0008}.tag{font-weight:950;letter-spacing:.08em;font-size:clamp(12px,2.4vw,18px)}.card{background:linear-gradient(180deg,#fffef8,#fff2ce);color:var(--ink);border:3px solid var(--gold);border-radius:28px;padding:22px;box-shadow:0 18px 45px #0007,inset 0 0 0 2px #fff8}.screen{display:none}.screen.active{display:block}.grid{display:grid;gap:14px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.btn{appearance:none;border:0;border-radius:18px;padding:17px 19px;font-weight:1000;font-size:18px;cursor:pointer;color:white;background:linear-gradient(#e83c56,#a81129);box-shadow:0 7px 0 #4e0713,0 10px 18px #0003;transition:.12s}.btn:active{transform:translateY(4px);box-shadow:0 3px 0 #4e0713}.btn.gold{background:linear-gradient(#ffe69d,#e6b638);color:#5c2800;box-shadow:0 7px 0 #95610e}.btn.green{background:linear-gradient(#1a9660,#0b5736);box-shadow:0 7px 0 #05341f}.btn.blue{background:linear-gradient(#3075ae,#164673);box-shadow:0 7px 0 #0c2945}.btn.ghost{background:#fff;color:#71182a;border:2px solid #e3c46a;box-shadow:none}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}.field{width:100%;padding:15px 16px;border-radius:15px;border:2px solid #dcc06a;background:#fff;font-size:18px;margin:7px 0 14px}.label{font-weight:950}.tiny{font-size:13px;opacity:.78}.center{text-align:center}.code{font-size:48px;font-weight:1000;letter-spacing:.17em;text-align:center;color:var(--red);background:#fff3c7;border:2px dashed #d5a82c;border-radius:18px;padding:10px;margin:8px 0}.joinbox{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:center}.qr{background:white;border-radius:22px;padding:12px;border:3px solid #e5c55f;display:flex;align-items:center;justify-content:center;min-height:220px}.qr img{width:100%;max-width:200px;display:block}.players{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:14px 0}.player{background:#fff;border:2px solid #e8cc76;border-radius:18px;padding:14px;text-align:center;font-weight:950;position:relative}.player.host{background:#fff6d3}.avatar{font-size:34px}.ready{font-size:12px;color:#0f7247;margin-top:4px}.status{border-radius:14px;padding:11px 13px;font-weight:900;margin:10px 0;text-align:center}.status.good{background:#dff4e8;color:#0d6a43}.status.warn{background:#fff1c5;color:#7a4b00}.status.bad{background:#ffe0e3;color:#8b1428}.hud{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:12px}.pill{background:#5e0a1acc;border:1px solid #f5d475;border-radius:16px;padding:11px;text-align:center;font-weight:950}.turn{text-align:center;padding:20px;background:linear-gradient(135deg,#fff3c2,#fff);border-radius:22px;border:3px solid #efc752;margin:10px 0}.turn .name{font-size:38px;color:var(--red);font-weight:1000}.gifts{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:14px 0}.gift{aspect-ratio:1;border:0;border-radius:14px;background:linear-gradient(135deg,#df2847,#8f1023);color:#fff;font-weight:1000;font-size:14px;box-shadow:inset 0 0 0 2px var(--gold),0 5px 10px #0003;cursor:pointer}.gift.taken{background:#c8c0ad;color:#726a5b;box-shadow:none;opacity:.62}.event{font-size:20px;font-weight:950;text-align:center;padding:17px;border-radius:18px;background:#f8e3a0;margin:12px 0}.secret{background:linear-gradient(135deg,#172b56,#37184c);color:#fff;border:2px solid #ffdb73;border-radius:22px;padding:17px;margin:12px 0;text-align:center;box-shadow:inset 0 0 24px #0004}.secret .cardname{font-size:24px;font-weight:1000;color:#ffe082}.log{max-height:190px;overflow:auto;background:#fff;border-radius:14px;padding:10px;border:1px solid #ead18a;font-size:14px}.log div{padding:6px 4px;border-bottom:1px solid #f1e6c6}.score{display:flex;justify-content:space-between;padding:11px 4px;border-bottom:1px solid #ead18a;font-weight:900}.big{font-size:72px}.divider{height:1px;background:#ecd58d;margin:15px 0}.hostonly{display:block}.playeronly{display:none}.footer{text-align:center;margin-top:16px;font-size:12px;opacity:.68}@media(max-width:700px){.two{grid-template-columns:1fr}.joinbox{grid-template-columns:1fr}.qr{min-height:auto}.qr img{max-width:175px}.gifts{grid-template-columns:repeat(4,1fr)}.hud{grid-template-columns:1fr}.wrap{padding-top:8px}.card{padding:16px}.brand .emoji{font-size:48px}.code{font-size:40px}}
@@ -14,7 +13,7 @@
 
 .onlineBadge{position:fixed;right:12px;top:12px;z-index:90;background:#fff8;border:1px solid #ffd86f;color:#3b190c;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:950;backdrop-filter:blur(8px)}.onlineBadge.off{background:#5e0a1add;color:#fff;border-color:#ff8ca0}
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand"><div class="emoji">🎅🏻🎁🧑🏻‍🎄</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">🎄 LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS 🎄</div></div><div class="card grid"><button class="btn gold" onclick="show('host')">🎅🏻 OPRET JULESPIL</button><button class="btn green" onclick="show('join')">📱 DELTAG I SPIL</button><div class="tiny center">V11.2 STABIL FORBINDELSE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand"><div class="emoji">🎅🏻🎁🧑🏻‍🎄</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">🎄 LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS 🎄</div></div><div class="card grid"><button class="btn gold" onclick="show('host')">🎅🏻 OPRET JULESPIL</button><button class="btn green" onclick="show('join')">📱 DELTAG I SPIL</button><div class="tiny center">MASTER • QR • CLOUD • AUTO-GEM • SPILLER-LOBBY</div></div></section>
 
 <section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card"><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="Juleaften 2026"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="3"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="24"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="Sommer"><div class="hostMenu"><button class="btn blue" onclick="openGiftAdmin()">🎁 HEMMELIG GAVELISTE</button><button class="btn green" onclick="openSettings()">⚙️ SPILINDSTILLINGER</button></div><button class="btn gold" style="width:100%;margin-bottom:12px" onclick="openCloudSetup()">☁️ SUPABASE CLOUD-OPSÆTNING</button><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div><div class="tiny center" style="margin-bottom:12px">Gaver og priser er hemmelige. I indstillingerne bestemmer du selv kaos, dueller, Julemanden og finalen.</div><button class="btn gold" style="width:100%" onclick="createLiveGame()">✨ OPRET LIVE-SPILLET</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="goHome()">← Tilbage</button></div></section>
 
@@ -56,12 +55,17 @@ function getSettings(){try{return {...DEFAULT_SETTINGS,...JSON.parse(localStorag
 function openSettings(){let s=getSettings();document.getElementById('setChaos').checked=s.chaos;document.getElementById('setDuels').checked=s.duels;document.getElementById('setSanta').checked=s.santa;document.getElementById('setReveal').checked=s.reveal;document.getElementById('setChaosChance').value=s.chaosChance;document.getElementById('chaosValue').textContent=s.chaosChance+'%';show('settings')}
 function saveSettings(){let s={chaos:document.getElementById('setChaos').checked,duels:document.getElementById('setDuels').checked,santa:document.getElementById('setSanta').checked,reveal:document.getElementById('setReveal').checked,chaosChance:+document.getElementById('setChaosChance').value};localStorage.setItem(settingsKey(),JSON.stringify(s));alert('⚙️ Spilindstillingerne er gemt!');show('host')}
 
-let mode=null,peer=null,hostConn=null,connections=[],roomCode='',myName='',myId='',state=null,miniTimer=null,reconnectTimer=null,reconnectAttempts=0,mySessionKey='',peerGeneration=0,joinTimeout=null,joinEpoch=0,joinSendTimer=null,myClientToken='';
-function hardCloseLive(){peerGeneration++;joinEpoch++;clearTimeout(reconnectTimer);clearTimeout(joinTimeout);clearInterval(joinSendTimer);reconnectTimer=null;joinTimeout=null;joinSendTimer=null;try{if(hostConn){hostConn.removeAllListeners&&hostConn.removeAllListeners();hostConn.close&&hostConn.close()}}catch(e){}hostConn=null;for(const c of connections){try{c.removeAllListeners&&c.removeAllListeners();c.close&&c.close()}catch(e){}}connections=[];try{if(peer){peer.removeAllListeners&&peer.removeAllListeners();peer.disconnect&&peer.disconnect();peer.destroy&&peer.destroy()}}catch(e){}peer=null;}
-function freshPeer(afterClose){hardCloseLive();return new Promise(r=>setTimeout(r,afterClose||180));}
+let mode=null,peer=null,hostConn=null,connections=[],roomCode='',myName='',myId='',state=null,miniTimer=null,reconnectTimer=null,reconnectAttempts=0,mySessionKey='';
+let realtimeChannel=null,realtimeReady=false,joinRetryTimer=null;
 let cloudClient=null; const CLOUD_URL_DEFAULT='https://wudctmmnqaifjhxdhlwd.supabase.co';
+const CLOUD_KEY_DEFAULT='sb_publishable_AwsVN_rCKm89ENrA3kvhaQ_PHOUdtR2';
+function deviceKey(){let k=localStorage.getItem('juleRealtimeDevice');if(!k){try{k=crypto.randomUUID()}catch(e){k='dev-'+Math.random().toString(36).slice(2)+Date.now().toString(36)}localStorage.setItem('juleRealtimeDevice',k)}return k}
+function closeRealtime(){clearInterval(joinRetryTimer);joinRetryTimer=null;realtimeReady=false;if(realtimeChannel&&cloudClient){try{cloudClient.removeChannel(realtimeChannel)}catch(e){}}realtimeChannel=null}
+async function rtSend(event,payload){if(!realtimeChannel)return false;try{let r=await realtimeChannel.send({type:'broadcast',event,payload});return r==='ok'||r===true||!r}catch(e){console.error('Realtime send',e);return false}}
+function rtTopic(){return 'julegave-room-'+roomCode}
+
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));let el=document.getElementById(id);if(!el){console.error('Mangler skærm:',id);return false}el.classList.add('active');scrollTo(0,0);return true}
-function goHome(){mode=null;hardCloseLive();location.href=location.pathname}
+function goHome(){clearTimeout(reconnectTimer);closeRealtime();mode=null;location.href=location.pathname}
 function makeCode(){return String(Math.floor(1000+Math.random()*9000))}
 function safeName(s){return (s||'Spiller').trim().slice(0,24)}
 function setStatus(el,msg,type='warn'){el.className='status '+type;el.textContent=msg}
@@ -69,7 +73,7 @@ function inviteLink(){return joinUrl(roomCode)}
 async function copyInviteLink(){try{await navigator.clipboard.writeText(inviteLink());alert('📋 Invitationslinket er kopieret!')}catch(e){prompt('Kopiér invitationslinket:',inviteLink())}}
 async function shareInviteLink(){let data={title:'Det Store Julegave-Spil',text:'🎄 Kom med i vores julegave-spil! Spillekode: '+roomCode,url:inviteLink()};if(navigator.share){try{await navigator.share(data);return}catch(e){}}copyInviteLink()}
 function playerSessionKey(code){return 'julegave-v7-player-'+code}
-function savePlayerSession(){if(!roomCode||!myId)return;try{localStorage.setItem(playerSessionKey(roomCode),JSON.stringify({id:myId,name:myName,sessionKey:mySessionKey,clientToken:myClientToken,giftCount:+document.getElementById('joinGiftCount').value||0}))}catch(e){}}
+function savePlayerSession(){if(!roomCode||!myId)return;try{localStorage.setItem(playerSessionKey(roomCode),JSON.stringify({id:myId,name:myName,sessionKey:mySessionKey,giftCount:+document.getElementById('joinGiftCount').value||0}))}catch(e){}}
 function getPlayerSession(code){try{return JSON.parse(localStorage.getItem(playerSessionKey(code))||'null')}catch(e){return null}}
 function clearPlayerSession(code){try{localStorage.removeItem(playerSessionKey(code))}catch(e){}}
 function showReconnect(on,text){let el=document.getElementById('reconnectToast');if(!el)return;el.textContent=text||'🔄 Genforbinder til Julecentralen…';el.classList.toggle('show',!!on)}
@@ -107,21 +111,11 @@ function updateRestoreUI(){
   if(fresh){const d=new Date(b.updatedAt||Date.now());hint.textContent='Senest gemt '+d.toLocaleString('da-DK')+' · kode '+b.roomCode;}
 }
 function clearHostBackup(){try{localStorage.removeItem(hostBackupKey())}catch(e){} updateRestoreUI()}
-function openRecoveredHostPeer(){
-  let tries=0;
-  function open(){
-    tries++;
-    try{peer&&peer.destroy()}catch(e){}
-    peer=new Peer('julegave-'+roomCode,{debug:0});
-    peer.on('open',()=>{setStatus(document.getElementById('lobbyHelp'),'✅ Gendannet! Julecentralen er online igen.','good');updateConnectionUI();broadcastLobby()});
-    peer.on('connection',c=>{connections.push(c);c.on('data',d=>handleHostData(c,d));c.on('close',()=>handleDisconnect(c));c.on('error',()=>handleDisconnect(c))});
-    peer.on('error',e=>{setStatus(document.getElementById('lobbyHelp'),'⚠️ Kunne ikke genåbne den gamle spillekode. Opret evt. et nyt spil.','bad')});
-  }
-  open();
+function openRecoveredHostRealtime(){
+  openHostRealtime(false);
 }
 function restoreLastGame(){
   const b=getHostBackup();if(!b||!b.state||!b.roomCode){alert('Der blev ikke fundet et gemt spil.');return}
-  if(typeof Peer==='undefined'){alert('Live-forbindelsen kunne ikke indlæses. Kontrollér internetforbindelsen.');return}
   mode='host';roomCode=String(b.roomCode);state=b.state;myId='host';myName=(state.players&&state.players.find(p=>p.id==='host')||{}).name||'Vært';
   state.giftSecrets=getGiftSecrets();
   (state.players||[]).forEach(p=>{p.online=p.id==='host';});
@@ -129,12 +123,12 @@ function restoreLastGame(){
   document.getElementById('roomCode').textContent=roomCode;document.getElementById('qrImg').src=qrUrl(joinUrl(roomCode));
   document.getElementById('hostControls').style.display='block';document.getElementById('shareRow').style.display='grid';document.getElementById('waitingText').style.display='none';
   if(state.finished){renderFinish();show('finish')}else if(state.started){renderGame();show('game')}else{renderLobby();show('lobby')}
-  openRecoveredHostPeer();saveHostBackup();
+  openRecoveredHostRealtime();saveHostBackup();
 }
 function openCloudSetup(){
   const cfg=JSON.parse(localStorage.getItem('juleCloudConfig')||'{}');
   document.getElementById('cloudUrl').value=cfg.url||CLOUD_URL_DEFAULT;
-  document.getElementById('cloudKey').value=cfg.key||'';
+  document.getElementById('cloudKey').value=cfg.key||CLOUD_KEY_DEFAULT;
   show('cloudSetup'); updateCloudBadge();
 }
 function cloudHostToken(){
@@ -147,9 +141,11 @@ function cloudHostToken(){
 }
 function initCloud(){
   try{
+    if(cloudClient)return true;
     const cfg=JSON.parse(localStorage.getItem('juleCloudConfig')||'{}');
-    if(!cfg.url||!cfg.key||!window.supabase){cloudClient=null;return false}
-    cloudClient=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:false}});return true;
+    const url=cfg.url||CLOUD_URL_DEFAULT,key=cfg.key||CLOUD_KEY_DEFAULT;
+    if(!url||!key||!window.supabase){cloudClient=null;return false}
+    cloudClient=window.supabase.createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});return true;
   }catch(e){cloudClient=null;return false}
 }
 async function saveCloudConfig(){
@@ -157,7 +153,7 @@ async function saveCloudConfig(){
   const key=(document.getElementById('cloudKey').value||'').trim();
   const box=document.getElementById('cloudStatusBox');
   if(!url||!key){setStatus(box,'⚠️ Indsæt både Project URL og publishable/anon key.','bad');return}
-  localStorage.setItem('juleCloudConfig',JSON.stringify({url,key})); initCloud();
+  localStorage.setItem('juleCloudConfig',JSON.stringify({url,key})); cloudClient=null; initCloud();
   setStatus(box,'🔄 Tester forbindelsen…','warn');
   try{
     const {data,error}=await cloudClient.rpc('julegave_cloud_healthcheck');
@@ -167,7 +163,7 @@ async function saveCloudConfig(){
 }
 function updateCloudBadge(){
   const b=document.getElementById('cloudBadge'); if(!b)return;
-  const ok=initCloud(); b.className='status '+(ok?'good':'warn'); b.textContent=ok?'☁️ Cloud: konfiguration gemt':'☁️ Cloud: ikke forbundet endnu';
+  const ok=initCloud(); b.className='status '+(ok?'good':'warn'); b.textContent=ok?'☁️ Supabase: klar':'☁️ Supabase: kunne ikke indlæses';
   const rb=document.getElementById('cloudRestoreBtn');if(rb)rb.style.display=ok?'block':'none';
 }
 function cloudSafeState(){
@@ -196,7 +192,6 @@ async function cloudRoomExists(code){
 }
 async function restoreFromCloud(){
   if(!initCloud()){alert('Cloud er ikke sat op endnu.');return}
-  if(typeof Peer==='undefined'){alert('Live-forbindelsen kunne ikke indlæses. Kontrollér internetforbindelsen.');return}
   const btn=document.getElementById('cloudRestoreBtn');if(btn){btn.disabled=true;btn.textContent='☁️ HENTER…'}
   try{
     const {data,error}=await cloudClient.rpc('julegave_load_latest_snapshot',{p_host_token:cloudHostToken()});
@@ -211,66 +206,73 @@ async function restoreFromCloud(){
     document.getElementById('roomCode').textContent=roomCode;document.getElementById('qrImg').src=qrUrl(joinUrl(roomCode));
     document.getElementById('hostControls').style.display='block';document.getElementById('shareRow').style.display='grid';document.getElementById('waitingText').style.display='none';
     if(state.finished){renderFinish();show('finish')}else if(state.started){renderGame();show('game')}else{renderLobby();show('lobby')}
-    openRecoveredHostPeer();saveHostBackup();
+    openRecoveredHostRealtime();saveHostBackup();
   }catch(e){alert('Cloud-gendannelse kunne ikke gennemføres. Kontrollér V10 database-setup og forbindelsen.')}
   finally{if(btn){btn.disabled=false;btn.textContent='☁️ GENDAN SENESTE CLOUD-SPIL'}}
 }
-function createLiveGame(){if(typeof Peer==='undefined'){alert('Live-forbindelsen kunne ikke indlæses. Kontrollér internetforbindelsen og prøv igen.');return}hardCloseLive();mode='host';myName=safeName(document.getElementById('hostName').value);state=initState();state.giftSecrets=getGiftSecrets();myId='host';state.players.push({id:'host',name:myName,avatar:AVATARS[0],bonus:BONUS[Math.floor(Math.random()*BONUS.length)],broughtGifts:state.hostGiftCount,online:true});state.owners.host=[];appendGiftBatch('host',myName,state.hostGiftCount,true);document.getElementById('lobbyTitle').textContent=state.name.toUpperCase();document.getElementById('hostControls').style.display='block';document.getElementById('waitingText').style.display='none';document.getElementById('shareRow').style.display='grid';show('lobby');let tries=0;function openHost(){tries++;roomCode=makeCode();document.getElementById('roomCode').textContent=roomCode;document.getElementById('qrImg').src=qrUrl(joinUrl(roomCode));renderLobby();try{peer&&peer.destroy()}catch(e){}peer=null;peer=new Peer('julegave-'+roomCode,{debug:0});peer.on('open',()=>{setStatus(document.getElementById('lobbyHelp'),'✅ QR-spillet er online – scan koden fra en anden mobil!','good');updateConnectionUI()});peer.on('connection',c=>{connections.push(c);c.on('data',d=>handleHostData(c,d));c.on('close',()=>handleDisconnect(c));c.on('error',()=>handleDisconnect(c))});peer.on('error',e=>{if(e&&e.type==='unavailable-id'&&tries<6){setStatus(document.getElementById('lobbyHelp'),'🔄 Finder en ny ledig spillekode…','warn');setTimeout(openHost,250);return}setStatus(document.getElementById('lobbyHelp'),'⚠️ Forbindelsesfejl: '+(e.type||'prøv igen'),'bad')})}openHost()}
-function handleDisconnect(c){connections=connections.filter(x=>x!==c);let p=state&&state.players.find(x=>x.id===c.__playerId);if(!p)return;if(!state.started){state.players=state.players.filter(x=>x.id!==p.id);delete state.owners[p.id];for(let n of Object.keys(state.giftOrigins||{})){if(state.giftOrigins[n].playerId===p.id){delete state.giftOrigins[n];delete state.giftSecrets[n]}}rebuildGiftNumbering();addLog('📴 '+p.name+' forlod lobbyen')}else{p.online=false;addLog('📴 '+p.name+' mistede forbindelsen – pladsen gemmes til genforbindelse')}broadcastLobby()}
+function createLiveGame(){
+  if(!initCloud()){alert('Supabase kunne ikke indlæses. Kontrollér internetforbindelsen og prøv igen.');return}
+  mode='host';myName=safeName(document.getElementById('hostName').value);state=initState();state.giftSecrets=getGiftSecrets();myId='host';
+  state.players.push({id:'host',name:myName,avatar:AVATARS[0],bonus:BONUS[Math.floor(Math.random()*BONUS.length)],broughtGifts:state.hostGiftCount,online:true});state.owners.host=[];appendGiftBatch('host',myName,state.hostGiftCount,true);
+  document.getElementById('lobbyTitle').textContent=state.name.toUpperCase();document.getElementById('hostControls').style.display='block';document.getElementById('waitingText').style.display='none';document.getElementById('shareRow').style.display='grid';show('lobby');
+  roomCode=makeCode();document.getElementById('roomCode').textContent=roomCode;document.getElementById('qrImg').src=qrUrl(joinUrl(roomCode));renderLobby();openHostRealtime(true);
+}
+function openHostRealtime(isNew){
+  closeRealtime();if(!initCloud())return;setStatus(document.getElementById('lobbyHelp'),'☁️ Forbinder Julecentralen til Supabase…','warn');
+  realtimeChannel=cloudClient.channel(rtTopic(),{config:{broadcast:{ack:true,self:false},presence:{key:deviceKey()}}});
+  realtimeChannel.on('broadcast',{event:'join-request'},({payload})=>handleRealtimeJoin(payload||{}));
+  realtimeChannel.on('broadcast',{event:'player-action'},({payload})=>handleRealtimeAction(payload||{}));
+  realtimeChannel.on('presence',{event:'sync'},()=>syncRealtimePresence());
+  realtimeChannel.subscribe(async(status,err)=>{
+    if(status==='SUBSCRIBED'){realtimeReady=true;await realtimeChannel.track({role:'host',id:'host',name:myName,device:deviceKey(),online_at:new Date().toISOString()});setStatus(document.getElementById('lobbyHelp'),'✅ Supabase Live er online – scan QR-koden!','good');updateConnectionUI();broadcastLobby();}
+    else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){realtimeReady=false;setStatus(document.getElementById('lobbyHelp'),'⚠️ Supabase Live kunne ikke forbinde – prøver igen…','bad');setTimeout(()=>{if(mode==='host')openHostRealtime(false)},1800)}
+  });
+}
+function syncRealtimePresence(){
+  if(!realtimeChannel||!state)return;let flat=Object.values(realtimeChannel.presenceState()||{}).flat();
+  if(mode==='host'){let changed=false;for(let p of state.players){let on=p.id==='host'||flat.some(x=>(x.id&&x.id===p.id)||(p.device&&x.device===p.device));if(p.online!==on){p.online=on;changed=true}}if(changed){renderLobby();broadcastLobby()}}
+}
+function handleRealtimeJoin(d){
+  if(mode!=='host'||!state||!d||d.roomCode!==roomCode)return;
+  let resume=d.resumeId&&d.sessionKey?state.players.find(p=>p.id===d.resumeId&&p.sessionKey===d.sessionKey):null;
+  if(resume){resume.online=true;resume.device=d.device||resume.device;rtSend('host-message',{target:d.device,type:'welcome',id:resume.id,sessionKey:resume.sessionKey,roomCode,state:publicStateFor(resume.id),resumed:true});broadcastLobby();return}
+  let existing=state.players.find(p=>p.device&&p.device===d.device);
+  if(existing){existing.online=true;rtSend('host-message',{target:d.device,type:'welcome',id:existing.id,sessionKey:existing.sessionKey,roomCode,state:publicStateFor(existing.id),resumed:true});broadcastLobby();return}
+  if(state.started){rtSend('host-message',{target:d.device,type:'reject',message:'Spillet er allerede startet. Brug samme mobil for at genforbinde 🎄'});return}
+  if(state.players.length>=state.maxPlayers){rtSend('host-message',{target:d.device,type:'reject',message:'Lobbyen er fuld 🎁'});return}
+  let id='p'+Date.now()+Math.random().toString(16).slice(2,6),sessionKey=Math.random().toString(36).slice(2)+Date.now().toString(36),brought=Math.max(0,Math.min(100,+d.giftCount||0));
+  let p={id,name:safeName(d.name),avatar:AVATARS[state.players.length%AVATARS.length],bonus:BONUS[Math.floor(Math.random()*BONUS.length)],broughtGifts:brought,sessionKey,online:true,device:d.device};state.players.push(p);state.owners[id]=[];appendGiftBatch(id,p.name,brought,false);addLog('📱 '+p.name+' kom ind i lobbyen med '+brought+' gaver');
+  rtSend('host-message',{target:d.device,type:'welcome',id,sessionKey,roomCode,state:publicStateFor(id)});setTimeout(()=>rtSend('host-message',{target:d.device,type:'welcome',id,sessionKey,roomCode,state:publicStateFor(id)}),400);broadcastLobby();
+}
+function handleRealtimeAction(d){if(mode!=='host'||!state||!d||d.roomCode!==roomCode)return;if(d.type==='takeGift'&&state.started){let p=state.players.find(x=>x.id===d.playerId&&x.sessionKey===d.sessionKey);if(p&&p.id===currentPlayer().id)takeGiftHost(p.id,+d.gift)}else if(d.type==='ping'){rtSend('host-message',{target:d.device,type:'pong',at:Date.now()})}}
 function rebuildGiftNumbering(){if(state.started)return;let oldOrigins=state.giftOrigins||{},hostSecrets=state.giftSecrets||{},newOrigins={},newSecrets={},n=0;for(let p of state.players){for(let i=0;i<(p.broughtGifts||0);i++){n++;newOrigins[n]={playerId:p.id,playerName:p.name,localNumber:i+1};let old=Object.keys(oldOrigins).find(k=>oldOrigins[k].playerId===p.id&&oldOrigins[k].localNumber===i+1);if(old&&hostSecrets[old])newSecrets[n]=hostSecrets[old]}}state.giftCount=n;state.giftOrigins=newOrigins;state.giftSecrets=newSecrets}
-function handleHostData(c,d){if(!d||typeof d!=='object')return;if(d.type==='join'){let byToken=d.clientToken?state.players.find(p=>p.clientToken===d.clientToken):null;if(byToken){byToken.conn=c.peer;byToken.online=true;c.__playerId=byToken.id;let wp={type:'welcome',id:byToken.id,sessionKey:byToken.sessionKey,roomCode,state:publicStateFor(byToken.id),resumed:true};try{c.send(wp)}catch(e){};setTimeout(()=>{try{if(c.open)c.send(wp)}catch(e){}},350);broadcastLobby();return}let resume=d.resumeId&&d.sessionKey?state.players.find(p=>p.id===d.resumeId&&p.sessionKey===d.sessionKey):null;if(resume){resume.conn=c.peer;resume.online=true;c.__playerId=resume.id;let welcomePacket={type:'welcome',id:resume.id,sessionKey:resume.sessionKey,roomCode,state:publicStateFor(resume.id),resumed:true};c.send(welcomePacket);setTimeout(()=>{try{if(c.open)c.send(welcomePacket)}catch(e){}},450);addLog('📶 '+resume.name+' blev genforbundet');broadcastLobby();return}if(state.started){c.send({type:'reject',message:'Spillet er allerede startet. Genforbind med den samme mobil for at komme tilbage 🎄'});return}if(state.players.length>=state.maxPlayers){c.send({type:'reject',message:'Lobbyen er fuld 🎁'});return}let id='p'+Date.now()+Math.random().toString(16).slice(2,6),sessionKey=Math.random().toString(36).slice(2)+Date.now().toString(36);let brought=Math.max(0,Math.min(100,+d.giftCount||0));let p={id,name:safeName(d.name),clientToken:d.clientToken||'',avatar:AVATARS[state.players.length%AVATARS.length],bonus:BONUS[Math.floor(Math.random()*BONUS.length)],conn:c.peer,broughtGifts:brought,sessionKey,online:true};state.players.push(p);state.owners[id]=[];appendGiftBatch(id,p.name,brought,false);c.__playerId=id;let welcomePacket={type:'welcome',id,sessionKey,roomCode,state:publicStateFor(id)};c.send(welcomePacket);setTimeout(()=>{try{if(c.open)c.send(welcomePacket)}catch(e){}},450);addLog('📱 '+p.name+' kom ind i lobbyen med '+brought+' gaver');broadcastLobby()}else if(d.type==='takeGift'&&state.started){let pid=c.__playerId;if(pid===currentPlayer().id)takeGiftHost(pid,+d.gift)}else if(d.type==='ping'){c.send({type:'pong',at:Date.now()})}}
-function broadcastLobby(){renderLobby();cloudSaveState();connections.filter(c=>c.open).forEach(c=>{let pid=c.__playerId;if(pid)c.send({type:'lobby',state:publicStateFor(pid)})})}
+function broadcastLobby(){renderLobby();cloudSaveState();if(mode==='host'&&realtimeChannel){for(let p of state.players.filter(x=>x.id!=='host'))rtSend('host-message',{target:p.device,type:'lobby',state:publicStateFor(p.id)})}}
 function publicStateFor(pid){let s=JSON.parse(JSON.stringify(state));s.players=s.players.map(p=>({id:p.id,name:p.name,avatar:p.avatar,broughtGifts:p.broughtGifts||0,online:p.id==='host'?true:p.online!==false,bonus:p.id===pid?p.bonus:null}));if(!s.finished)delete s.giftSecrets;return s}
-function broadcastGame(special){renderGame();cloudSaveState();connections.filter(c=>c.open).forEach(c=>{let pid=c.__playerId;if(pid)c.send({type:'state',state:publicStateFor(pid),special:special||null})});if(special)showSpecial(special)}
-async function joinLiveGame(isReconnect=false){
-  if(typeof Peer==='undefined'){setStatus(document.getElementById('joinStatus'),'Live-forbindelsen kunne ikke indlæses. Kontrollér internetforbindelsen.','bad');return}
-  roomCode=(document.getElementById('joinCode').value||roomCode||'').replace(/\D/g,'').slice(0,4);
-  myName=safeName(document.getElementById('joinName').value||myName);
-  if(roomCode.length!==4||!myName){setStatus(document.getElementById('joinStatus'),'Skriv en 4-cifret kode og dit navn 🎄','bad');return}
-  mode='player';
-  let saved=getPlayerSession(roomCode);
-  if(saved){myId=saved.id||myId||'';mySessionKey=saved.sessionKey||mySessionKey||'';myClientToken=saved.clientToken||myClientToken||'';if(!document.getElementById('joinName').value)myName=saved.name||myName}
-  if(!myClientToken)myClientToken='c'+Date.now().toString(36)+Math.random().toString(36).slice(2,10);
-  setStatus(document.getElementById('joinStatus'),isReconnect?'🔄 Genforbinder til Julecentralen…':'🔔 Forbinder til Julecentralen…','warn');
-  document.getElementById('joinBtn').disabled=true;
-  const epoch=++joinEpoch;
-  await freshPeer(isReconnect?650:420);
-  if(mode!=='player'||epoch!==joinEpoch)return;
-  const gen=peerGeneration;
-  peer=new Peer(undefined,{debug:0});
-  peer.on('open',()=>{if(gen!==peerGeneration||epoch!==joinEpoch)return;connectToHost(saved||null,gen,epoch)});
-  peer.on('disconnected',()=>{if(gen!==peerGeneration||epoch!==joinEpoch||mode!=='player')return;try{peer.reconnect&&peer.reconnect()}catch(e){scheduleReconnect('Peer-forbindelsen blev afbrudt')}});
-  peer.on('error',e=>{if(gen!==peerGeneration||epoch!==joinEpoch)return;document.getElementById('joinBtn').disabled=false;setStatus(document.getElementById('joinStatus'),'⚠️ Forbindelsesfejl: '+((e&&e.type)||'ukendt')+'. Vi prøver igen…','warn');scheduleReconnect((e&&e.type)||'peer-error')});
+function broadcastGame(special){renderGame();cloudSaveState();if(mode==='host'&&realtimeChannel){for(let p of state.players.filter(x=>x.id!=='host'))rtSend('host-message',{target:p.device,type:'state',state:publicStateFor(p.id),special:special||null})}if(special)showSpecial(special)}
+function joinLiveGame(isReconnect=false){
+  if(!initCloud()){setStatus(document.getElementById('joinStatus'),'Supabase Live kunne ikke indlæses. Kontrollér internetforbindelsen.','bad');return}
+  roomCode=(document.getElementById('joinCode').value||roomCode||'').replace(/\D/g,'').slice(0,4);myName=safeName(document.getElementById('joinName').value||myName);if(roomCode.length!==4||!myName){setStatus(document.getElementById('joinStatus'),'Skriv en 4-cifret kode og dit navn 🎄','bad');return}
+  mode='player';let saved=getPlayerSession(roomCode);if(saved){myId=saved.id||myId||'';mySessionKey=saved.sessionKey||mySessionKey||'';if(!document.getElementById('joinName').value)myName=saved.name||myName}
+  setStatus(document.getElementById('joinStatus'),'☁️ Forbinder til Julecentralen via Supabase…','warn');document.getElementById('joinBtn').disabled=true;openPlayerRealtime(saved||null);
 }
-function connectToHost(saved,gen=peerGeneration,epoch=joinEpoch){
-  if(gen!==peerGeneration||epoch!==joinEpoch||!peer)return;
-  try{hostConn=peer.connect('julegave-'+roomCode,{reliable:true,serialization:'json'})}catch(e){scheduleReconnect('Kunne ikke åbne forbindelsen');return}
-  const c=hostConn;let welcomed=false,joinSent=0;
-  const payload=()=>({type:'join',name:myName,giftCount:Math.max(0,Math.min(100,+document.getElementById('joinGiftCount').value||0)),resumeId:(saved&&saved.id)||myId||'',sessionKey:(saved&&saved.sessionKey)||mySessionKey||'',clientToken:myClientToken});
-  function sendJoin(){if(welcomed||gen!==peerGeneration||epoch!==joinEpoch||c!==hostConn||!c.open)return;try{c.send(payload());joinSent++;setStatus(document.getElementById('joinStatus'),'🔔 Forbundet – venter på bekræftelse fra Julecentralen…','warn')}catch(e){}}
-  c.on('open',()=>{if(gen!==peerGeneration||epoch!==joinEpoch||c!==hostConn)return;showReconnect(false);sendJoin();clearInterval(joinSendTimer);joinSendTimer=setInterval(sendJoin,1200);updateConnectionUI()});
-  c.on('data',d=>{if(gen!==peerGeneration||epoch!==joinEpoch||c!==hostConn)return;if(d&&d.type==='welcome'){welcomed=true;clearInterval(joinSendTimer);clearTimeout(joinTimeout);reconnectAttempts=0}handlePlayerData(d)});
-  c.on('close',()=>{if(gen===peerGeneration&&epoch===joinEpoch&&mode==='player'&&!welcomed){scheduleReconnect('Forbindelsen lukkede før bekræftelse')}else if(gen===peerGeneration&&epoch===joinEpoch&&mode==='player'&&welcomed){showReconnect(true);scheduleReconnect('Forbindelsen blev afbrudt')}});
-  c.on('error',e=>{if(gen===peerGeneration&&epoch===joinEpoch&&mode==='player'){setStatus(document.getElementById('joinStatus'),'⚠️ Mobilforbindelsen fejlede. Prøver igen…','warn');scheduleReconnect((e&&e.type)||'connection-error')}});
-  clearTimeout(joinTimeout);
-  joinTimeout=setTimeout(()=>{if(gen!==peerGeneration||epoch!==joinEpoch||mode!=='player'||welcomed)return;clearInterval(joinSendTimer);document.getElementById('joinBtn').disabled=false;setStatus(document.getElementById('joinStatus'),'🔄 Julecentralen svarede ikke endnu. Nyt forbindelsesforsøg starter…','warn');scheduleReconnect('Ingen welcome-pakke')},7000)
+function openPlayerRealtime(saved){
+  closeRealtime();realtimeChannel=cloudClient.channel(rtTopic(),{config:{broadcast:{ack:true,self:false},presence:{key:deviceKey()}}});
+  realtimeChannel.on('broadcast',{event:'host-message'},({payload})=>{if(payload&&payload.target===deviceKey())handlePlayerData(payload)});
+  realtimeChannel.subscribe(async(status,err)=>{
+    if(status==='SUBSCRIBED'){realtimeReady=true;reconnectAttempts=0;showReconnect(false);await realtimeChannel.track({role:'player',id:myId||'',name:myName,device:deviceKey(),online_at:new Date().toISOString()});sendJoinRequest(saved);clearInterval(joinRetryTimer);joinRetryTimer=setInterval(()=>{if(mode==='player'&&!myId)sendJoinRequest(saved)},1500)}
+    else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){realtimeReady=false;document.getElementById('joinBtn').disabled=false;showReconnect(true,'🔄 Supabase genforbinder…');setTimeout(()=>{if(mode==='player')openPlayerRealtime(saved)},1800)}
+  });
 }
-function scheduleReconnect(reason=''){
-  clearTimeout(reconnectTimer);clearTimeout(joinTimeout);clearInterval(joinSendTimer);joinSendTimer=null;
-  if(!roomCode||mode!=='player')return;
-  reconnectAttempts++;
-  let delay=Math.min(7000,700+reconnectAttempts*650);
-  showReconnect(true,'🔄 Genforbinder… forsøg '+reconnectAttempts);
-  reconnectTimer=setTimeout(()=>{if(mode==='player')joinLiveGame(true)},delay)
-}
-function handlePlayerData(d){if(!d||typeof d!=='object')return;if(d.type==='reject'){document.getElementById('joinBtn').disabled=false;showReconnect(false);setStatus(document.getElementById('joinStatus'),d.message,'bad');return}if(d.type==='welcome'){clearTimeout(joinTimeout);reconnectAttempts=0;myId=d.id;mySessionKey=d.sessionKey||mySessionKey;roomCode=String(d.roomCode||roomCode);state=d.state||{};savePlayerSession();showReconnect(false);document.getElementById('joinBtn').disabled=false;if(state.finished){show('finish');try{renderFinish()}catch(e){console.error(e)}}else if(state.started){show('game');try{renderGame()}catch(e){console.error(e)}}else{show('playerLobby');try{renderPlayerLobby()}catch(e){console.error('Spiller-lobby fejl',e);let info=document.getElementById('playerLobbyInfo');if(info)info.textContent='✅ Du er forbundet. Venter på Julecentralen…'}}return}if(d.type==='lobby'){state=d.state||state||{};if(mode==='player'){if(myId){show('playerLobby');try{renderPlayerLobby()}catch(e){console.error(e)}}else{show('join');setStatus(document.getElementById('joinStatus'),'✅ Du er registreret hos værten – venter på bekræftelse…','good')}}else{show('lobby');renderLobby()}return}if(d.type==='state'){state=d.state||state||{};if(state.finished){show('finish');renderFinish()}else{show('game');renderGame()}if(d.special)showSpecial(d.special);return}if(d.type==='pong'){updateConnectionUI();return}}
+function sendJoinRequest(saved){rtSend('join-request',{roomCode,name:myName,giftCount:Math.max(0,Math.min(100,+document.getElementById('joinGiftCount').value||0)),resumeId:(saved&&saved.id)||myId||'',sessionKey:(saved&&saved.sessionKey)||mySessionKey||'',device:deviceKey()})}
+function scheduleReconnect(){if(mode!=='player')return;showReconnect(true,'🔄 Supabase genforbinder…');setTimeout(()=>openPlayerRealtime(getPlayerSession(roomCode)||null),1200)}
+function handlePlayerData(d){if(!d||typeof d!=='object')return;if(d.type==='reject'){clearInterval(joinRetryTimer);document.getElementById('joinBtn').disabled=false;showReconnect(false);setStatus(document.getElementById('joinStatus'),d.message,'bad');return}if(d.type==='welcome'){clearInterval(joinRetryTimer);myId=d.id;mySessionKey=d.sessionKey||mySessionKey;roomCode=String(d.roomCode||roomCode);state=d.state||{};savePlayerSession();showReconnect(false);document.getElementById('joinBtn').disabled=false;try{realtimeChannel.track({role:'player',id:myId,name:myName,device:deviceKey(),online_at:new Date().toISOString()})}catch(e){}if(state.finished){show('finish');renderFinish()}else if(state.started){show('game');renderGame()}else{show('playerLobby');renderPlayerLobby()}return}if(d.type==='lobby'){state=d.state||state||{};if(myId){show('playerLobby');renderPlayerLobby()}return}if(d.type==='state'){state=d.state||state||{};if(state.finished){show('finish');renderFinish()}else{show('game');renderGame()}if(d.special)showSpecial(d.special);return}if(d.type==='pong'){updateConnectionUI();return}}
 function renderPlayerLobby(){if(!state)return;let ps=Array.isArray(state.players)?state.players:[];let me=ps.find(p=>p.id===myId);document.getElementById('playerLobbyName').textContent=me?me.name:myName;document.getElementById('playerLobbyInfo').textContent='🎁 '+((me&&me.broughtGifts)||0)+' medbragte gaver · '+(+state.giftCount||0)+' gaver under træet';document.getElementById('playerLobbyCode').textContent=roomCode||'----';document.getElementById('playerLobbyPlayers').innerHTML=ps.map(p=>`<div class="player ${p.id==='host'?'host':''} ${p.online===false?'offline':''}"><div class="avatar">${p.avatar||'🎄'}</div>${escapeHtml(p.name||'Spiller')}${p.id==='host'?'<div class="tiny">🎅🏻 Vært</div>':''}<div class="onlineTag ${p.online===false?'off':'on'}">${p.online===false?'📴 Frakoblet':'🟢 Online'}</div></div>`).join('');updateConnectionUI()}
 function renderLobby(){if(!state)return;document.getElementById('players').innerHTML=state.players.map(p=>`<div class="player ${p.id==='host'?'host':''} ${p.online===false?'offline':''}"><div class="avatar">${p.avatar}</div>${escapeHtml(p.name)}${p.id==='host'?'<div class="tiny">🎅🏻 Vært</div>':''}<div class="giftOrigin">🎁 ${p.broughtGifts||0} medbragt${(p.broughtGifts||0)===1?' gave':'e gaver'}</div><div class="onlineTag ${p.online===false?'off':'on'}">${p.online===false?'📴 Frakoblet – plads gemt':'🟢 Online'}</div></div>`).join('');let sum=document.getElementById('giftArrivalSummary');if(sum)sum.textContent='🎁 '+state.giftCount+' gaver er kommet under træet';updateConnectionUI();if(mode==='host'){let can=state.players.length>=2&&state.giftCount>0&&state.players.filter(p=>p.online!==false).length>=2;document.getElementById('startBtn').disabled=!can;document.getElementById('startBtn').textContent=can?'🔔 START JULESPILLET':state.players.length<2?'⏳ VENTER PÅ MINDST 1 SPILLER':state.giftCount<1?'🎁 DER SKAL VÆRE MINDST 1 GAVE':'📶 VENTER PÅ AT SPILLEREN ER ONLINE'}}
-function hostStartGame(){if(mode!=='host'||state.players.length<2||state.giftCount<1)return;state.started=true;state.turnIndex=Math.floor(Math.random()*state.players.length);state.turns=0;state.round=1;state.phase='Gavejagt';state.event='🎁 '+currentPlayer().name+' starter! Vælg en gave.';addLog('🔔 Julegave-spillet er startet!');let intro={kind:'intro',emoji:'🔔🎄🔔',title:'JULESPILLET STARTER!',text:'Hold godt fast på gaverne – Julecentralen har officielt åbnet!'};broadcastGame(intro);setTimeout(()=>broadcastGame(intro),500);setTimeout(()=>broadcastGame(),1400);show('game')}
+function hostStartGame(){if(mode!=='host'||state.players.length<2||state.giftCount<1)return;state.started=true;state.turnIndex=Math.floor(Math.random()*state.players.length);state.turns=0;state.round=1;state.phase='Gavejagt';state.event='🎁 '+currentPlayer().name+' starter! Vælg en gave.';addLog('🔔 Julegave-spillet er startet!');broadcastGame({kind:'intro',emoji:'🔔🎄🔔',title:'JULESPILLET STARTER!',text:'Hold godt fast på gaverne – Julecentralen har officielt åbnet!'});show('game')}
 function currentPlayer(){return state.players[state.turnIndex%state.players.length]}
 function ownerOf(n){return state.players.find(p=>(state.owners[p.id]||[]).includes(n))}
 function renderGame(){if(!state)return;document.getElementById('round').textContent='Runde '+state.round;document.getElementById('remaining').textContent='🎁 '+(state.giftCount-state.taken.length)+' tilbage';document.getElementById('phase').textContent=state.phase==='Gavejagt'?'✨ Gavejagt':'😈 Julekaos';let cp=currentPlayer();let mine=cp.id===myId;document.getElementById('turnLead').textContent=mine?'🎅🏻 DET ER DIN TUR':'🎄 NU ER DET';document.getElementById('turnName').textContent=mine?'DIG – '+cp.name:cp.name;document.getElementById('instruction').textContent=mine?'Vælg én gave fra bunken!':'Vent mens '+cp.name+' vælger en gave.';document.getElementById('event').innerHTML=state.event;document.getElementById('gifts').innerHTML=Array.from({length:state.giftCount},(_,i)=>{let n=i+1,t=state.taken.includes(n),o=ownerOf(n),isMine=o&&o.id===myId,clickable=!t&&mine;return `<button class="gift ${t?'taken':''} ${isMine?'mine':''}" ${clickable?'':'disabled'} onclick="requestGift(${n})">🎁<br>#${n}${o?`<div class="owned">${escapeHtml(o.name)}</div>`:''}</button>`}).join('');let me=state.players.find(p=>p.id===myId);let sec=document.getElementById('secretCard');if(me&&me.bonus){sec.style.display='block';document.getElementById('secretName').textContent=me.bonus[0];document.getElementById('secretDesc').textContent=me.bonus[1]}else sec.style.display='none';document.getElementById('nextBtn').style.display=(mode==='host'&&state.awaitNext)?'block':'none';let cfg=state.settings||DEFAULT_SETTINGS;document.getElementById('hostBar').style.display=mode==='host'?'grid':'none';if(mode==='host'){let hb=document.getElementById('hostBar').children;hb[0].style.display=cfg.chaos?'block':'none';hb[1].style.display=cfg.duels?'block':'none';hb[2].style.display=cfg.santa?'block':'none';}document.getElementById('log').innerHTML=(state.log||[]).slice().reverse().map(x=>'<div>'+escapeHtml(x)+'</div>').join('')}
-function requestGift(n){if(!state||state.taken.includes(n)||currentPlayer().id!==myId)return;if(mode==='host')takeGiftHost('host',n);else hostConn&&hostConn.send({type:'takeGift',gift:n})}
+function requestGift(n){if(!state||state.taken.includes(n)||currentPlayer().id!==myId)return;if(mode==='host')takeGiftHost('host',n);else rtSend('player-action',{roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type:'takeGift',gift:n})}
 function takeGiftHost(pid,n){if(mode!=='host'||state.taken.includes(n)||currentPlayer().id!==pid)return;state.taken.push(n);state.owners[pid].push(n);let p=state.players.find(x=>x.id===pid);state.turns++;addLog('🎁 '+p.name+' tog gave #'+n);state.event='🥳 '+p.name+' fik gave #'+n+'!';if(state.taken.length>=state.giftCount){finishGame();return}if(state.turns>=state.players.length&&state.turns%state.players.length===0)state.round++;if(state.round>=2)state.phase='Julekaos';state.awaitNext=true;broadcastGame();let cfg=state.settings||DEFAULT_SETTINGS;if(state.round>=2&&cfg.chaos&&Math.random()<(cfg.chaosChance/100))setTimeout(()=>hostChaos(true),700)}
 function hostNextTurn(){if(mode!=='host'||!state.awaitNext)return;state.awaitNext=false;state.turnIndex=(state.turnIndex+1)%state.players.length;state.event='🎁 '+currentPlayer().name+' skal vælge en gave.';broadcastGame()}
 function hostChaos(auto=false){if(mode!=='host'||!state.started||state.finished||!(state.settings||DEFAULT_SETTINGS).chaos)return;let e=CHAOS[Math.floor(Math.random()*CHAOS.length)],detail=resolveChaos(e);state.phase='Julekaos';state.event=`<div style="font-size:28px">${e.name}</div><div style="font-size:15px;margin-top:7px">${detail}</div>`;addLog(e.name+' '+detail);broadcastGame({kind:'chaos',emoji:e.name.split(' ')[0],title:e.name,text:detail});}
