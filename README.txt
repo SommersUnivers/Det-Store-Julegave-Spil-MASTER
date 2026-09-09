@@ -1,3 +1,5 @@
-V12 Supabase Realtime
+Det Store Julegave-Spil V12.1 – Gameplay Sync
 
-PeerJS er fjernet som multiplayer-motor. Lobby, start, game-state og spillerhandlinger kører via Supabase Realtime Broadcast/Presence. Upload index.html og README.txt til samme GitHub repository; behold eksisterende vercel.json.
+Bygget oven på V12 Supabase Realtime.
+Forbedringer: idempotente gavevalg, beskyttelse mod dobbelttryk, ejerskabs-kontrol, korrekt afslutning efter bonus/kaos og slut-audit af alle gaver.
+Supabase Realtime-forbindelsen er bevaret.
