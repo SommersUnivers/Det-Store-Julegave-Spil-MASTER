@@ -455,6 +455,10 @@ h2 { color: #7d1222; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
 
+.quizPanel{padding:22px;margin:22px 0;border:2px solid #bc8525;border-radius:18px;background:linear-gradient(#fffdf2,#f2d795);box-shadow:0 0 0 3px #f5ce70,0 8px 20px #401b0926;color:#35170d}
+.quizPanel h2{margin:0 0 12px;font-size:1.6rem}.quizQuestion{font-size:1.3rem;line-height:1.45;font-weight:800}
+.quizAnswers{display:grid;gap:18px;margin:20px 5px}.quizAnswers .btn{white-space:normal;text-align:left;line-height:1.4;font-size:1rem;min-height:54px}
+.quizAnswers .btn:disabled{opacity:1;cursor:default;filter:none}.quizAnswers .btn.quizRight{background:#d5f4df;color:#12452b}.quizAnswers .btn.quizWrong{background:#f7ccd0;color:#74172c}.quizFeedback{line-height:1.5;font-size:1rem}
 /* =========================================================
    GRAND NOEL LUXURY EDITION — premium visual layer
    Gameplay and Supabase code are intentionally untouched.
@@ -817,7 +821,7 @@ h1 {
 }
 
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('host')">OPRET JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • LUKSUSUDGAVE • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('host')">OPRET JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • QUIZ V5 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
 
 <section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card"><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="" required autocomplete="off"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="" required autocomplete="off"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="" required autocomplete="off"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="" required autocomplete="off"><div class="hostMenu"><button class="btn blue" onclick="openGiftAdmin()">🎁 HEMMELIG GAVELISTE</button><button class="btn green" onclick="openSettings()">⚙️ SPILINDSTILLINGER</button></div><button class="btn gold" style="width:100%;margin-bottom:12px" onclick="openCloudSetup()">☁️ SUPABASE CLOUD-OPSÆTNING</button><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div><div class="tiny center" style="margin-bottom:12px">Gaver og priser er hemmelige. I indstillingerne bestemmer du selv kaos, dueller, Julemanden og finalen.</div><button class="btn gold" style="width:100%" onclick="createLiveGame()">✨ OPRET LIVE-SPILLET</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="goHome()">← Tilbage</button></div></section>
 
@@ -1202,4 +1206,174 @@ function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':
 function updateNetBadge(){let b=document.getElementById('netBadge');if(!b)return;let secure=location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';let on=navigator.onLine;if(on&&secure){b.className='onlineBadge';b.textContent='🟢 ONLINE'}else if(on){b.className='onlineBadge off';b.textContent='⚠️ Skal udgives med HTTPS'}else{b.className='onlineBadge off';b.textContent='🔴 Ingen internet'} }
 window.addEventListener('online',updateNetBadge);window.addEventListener('offline',updateNetBadge);
 window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRestoreUI();let m=location.hash.match(/join=(\d{4})/);if(m){show('join');document.getElementById('joinCode').value=m[1];document.getElementById('qrDetected').style.display='block';let saved=getPlayerSession(m[1]);if(saved){document.getElementById('joinName').value=saved.name||'';document.getElementById('joinGiftCount').value=saved.giftCount||0;setStatus(document.getElementById('joinStatus'),'🎄 Denne mobil har været med før – tryk for at genforbinde.','good')}}});
+</script><script>
+/* Quiz turns use the existing host-authoritative transport and snapshot. */
+(() => {
+  const bank = [
+    ['Hvilken måned fejrer vi juleaften i Danmark?', 'December', 'November', 'Januar'],
+    ['Hvilken dato er juleaften i Danmark?', '24. december', '23. december', '31. december'],
+    ['Hvad gemmer man traditionelt i risalamande?', 'En mandel', 'En valnød', 'En rosin'],
+    ['Hvilken farve har Rudolfs næse?', 'Rød', 'Blå', 'Grøn'],
+    ['Hvor mange lys er der traditionelt i en adventskrans?', 'Fire', 'Tre', 'Fem'],
+    ['Hvad kaldes dagen den 31. december?', 'Nytårsaften', 'Juleaften', 'Sankthansaften'],
+    ['Hvilket dyr trækker julemandens kane i fortællingerne?', 'Rensdyr', 'Løver', 'Pingviner'],
+    ['Hvad hænger man ofte øverst på juletræet?', 'En stjerne', 'En stegepande', 'En støvle'],
+    ['Hvilken grød forbindes traditionelt med nisser?', 'Risengrød', 'Havregrød', 'Byggrød'],
+    ['Hvilken sauce serveres ofte til risalamande?', 'Kirsebærsauce', 'Bearnaisesauce', 'Tomatsauce'],
+    ['Hvilken dato er første juledag?', '25. december', '24. december', '26. december'],
+    ['Hvilken dato er anden juledag?', '26. december', '25. december', '27. december'],
+    ['Hvad bruger man til at tælle dagene frem mod jul?', 'En julekalender', 'Et termometer', 'Et kompas'],
+    ['Hvilken af disse er en klassisk dansk julesmåkage?', 'Vaniljekrans', 'Croissant', 'Baguette'],
+    ['Hvad hedder Danmarks hovedstad?', 'København', 'Aarhus', 'Odense'],
+    ['Hvilket land ligger Oslo i?', 'Norge', 'Sverige', 'Finland'],
+    ['Hvilket land ligger Stockholm i?', 'Sverige', 'Norge', 'Island'],
+    ['Hvilket land ligger Paris i?', 'Frankrig', 'Spanien', 'Italien'],
+    ['Hvor mange dage er der i en uge?', 'Syv', 'Seks', 'Otte'],
+    ['Hvor mange måneder er der i et år?', 'Tolv', 'Ti', 'Fjorten'],
+    ['Hvor mange minutter er der i en time?', '60', '100', '30'],
+    ['Hvor mange sider har en trekant?', 'Tre', 'Fire', 'Fem'],
+    ['Hvor mange sider har en sekskant?', 'Seks', 'Fem', 'Otte'],
+    ['Hvad er 7 + 8?', '15', '14', '16'],
+    ['Hvad er 6 gange 4?', '24', '20', '28'],
+    ['Hvad er halvdelen af 50?', '25', '20', '30'],
+    ['Hvilken planet kaldes den røde planet?', 'Mars', 'Venus', 'Jupiter'],
+    ['Hvilken planet bor vi på?', 'Jorden', 'Saturn', 'Neptun'],
+    ['Hvad er Solen?', 'En stjerne', 'En planet', 'En måne'],
+    ['Hvor mange ben har en edderkop?', 'Otte', 'Seks', 'Ti'],
+    ['Hvor mange ben har et insekt?', 'Seks', 'Fire', 'Otte'],
+    ['Hvilket dyr siger normalt mjav?', 'En kat', 'En ko', 'En and'],
+    ['Hvilket dyr giver os uld til fåreuldsgarn?', 'Fåret', 'Hesten', 'Grisen'],
+    ['Hvilket af disse dyr er et pattedyr?', 'Delfinen', 'Hajen', 'Torsken'],
+    ['Hvilken fugl er kendt for ikke at kunne flyve?', 'Strudsen', 'Svalen', 'Ørnen'],
+    ['Hvad laver bier af blomsternektar?', 'Honning', 'Smør', 'Mel'],
+    ['Hvilken farve får man ved at blande blå og gul maling?', 'Grøn', 'Lilla', 'Orange'],
+    ['Hvilket instrument har sorte og hvide tangenter?', 'Et klaver', 'En trompet', 'En violin'],
+    ['Hvad måler et termometer?', 'Temperatur', 'Afstand', 'Vægt'],
+    ['Hvilken retning peger et almindeligt kompas mod med nordenden?', 'Nord', 'Syd', 'Vest'],
+    ['Hvilken årstid kommer efter vinter?', 'Forår', 'Sommer', 'Efterår'],
+    ['Hvilken årstid kommer efter sommer?', 'Efterår', 'Vinter', 'Forår'],
+    ['Hvilket af disse tal er et lige tal?', '12', '9', '15'],
+    ['Hvad er 100 minus 25?', '75', '65', '85'],
+    ['Hvilken frugt tørrer man for at lave rosiner?', 'Vindruer', 'Æbler', 'Pærer'],
+    ['Hvilken grøntsag er normalt orange?', 'Gulerod', 'Agurk', 'Broccoli'],
+    ['Hvad hedder en hunds unge?', 'En hvalp', 'Et føl', 'En kalv'],
+    ['Hvad hedder en hests unge?', 'Et føl', 'Et lam', 'En killing']
+  ];
+  const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a; };
+  const oldRender=renderGame, oldPublic=publicStateFor, oldHandle=handleRealtimeAction;
+  const oldLobby=broadcastLobby, oldPlayerData=handlePlayerData;
+  let sending=false;
+  const turnKey=()=>String(state.turns)+':'+String(state.turnIndex);
+  function prepare(){
+    if(mode!=='host'||!state||!state.started||state.finished||state.awaitNext)return;
+    if(state.quiz && state.quiz.turn===turnKey())return;
+    if(!Array.isArray(state.quizDeck)||!state.quizDeck.length)state.quizDeck=shuffle(bank.map((_,i)=>i));
+    const row=bank[state.quizDeck.pop()];
+    const answers=shuffle(row.slice(1).map((text,i)=>({text,right:i===0})));
+    state.quiz={turn:turnKey(),playerId:currentPlayer().id,question:row[0],options:answers.map(a=>a.text),answerIndex:answers.findIndex(a=>a.right),status:'question',recipient:null,selected:null};
+    state.event=currentPlayer().name+' skal svare på et spørgsmål.';
+  }
+  function active(pid,turn){return state&&state.started&&!state.finished&&!state.awaitNext&&state.quiz&&state.quiz.turn===turn&&state.quiz.playerId===pid&&currentPlayer().id===pid;}
+  function hostQuizAction(pid,d){
+    if(mode!=='host'||!active(pid,d.turn))return false;
+    const q=state.quiz;
+    if(d.type==='quizAnswer'){
+      if(q.status!=='question'||!Number.isInteger(d.answer)||d.answer<0||d.answer>2)return false;
+      q.selected=d.answer;q.correct=d.answer===q.answerIndex;
+      q.status=q.correct?'gift':'recipient';q.recipient=q.correct?pid:null;
+      state.event=currentPlayer().name+(q.correct?' svarede rigtigt!':' svarede forkert og giver en gave fra bunken til en anden.');
+      addLog(state.event);broadcastGame();return true;
+    }
+    if(d.type==='quizRecipient'){
+      if(q.status!=='recipient'||d.recipient===pid||!state.players.some(p=>p.id===d.recipient))return false;
+      q.recipient=d.recipient;q.status='gift';broadcastGame();return true;
+    }
+    if(d.type==='takeGift')return takeGiftHost(pid,d.gift,d.turn);
+    return false;
+  }
+  publicStateFor=function(pid){
+    prepare();const s=oldPublic(pid);delete s.quizDeck;
+    if(s.quiz&&s.quiz.status==='question')delete s.quiz.answerIndex;
+    return s;
+  };
+  // Presence/rejoin updates must not send a running player back to the lobby.
+  broadcastLobby=function(){if(state&&state.started){broadcastGame();return}oldLobby();};
+  handlePlayerData=function(d){
+    if(d&&d.type==='lobby'&&d.state&&d.state.started)d={...d,type:'state'};
+    if(d&&['state','welcome','lobby'].includes(d.type))sending=false;
+    oldPlayerData(d);
+  };
+  handleRealtimeAction=function(d){
+    if(!d||!['quizAnswer','quizRecipient','takeGift'].includes(d.type)){oldHandle(d);return}
+    if(mode!=='host'||!state||d.roomCode!==roomCode)return;
+    const p=state.players.find(p=>p.id!=='host'&&p.id===d.playerId&&p.sessionKey&&p.sessionKey===d.sessionKey&&p.device===d.device);
+    if(!p)return;
+    hostQuizAction(p.id,d);
+    // Send authoritative state even when an action was stale or duplicated.
+    rtSend('host-message',{target:p.device,type:'state',state:publicStateFor(p.id)});
+  };
+  async function sendAction(type,extra={}){
+    if(sending||!state||!state.quiz||!active(myId,state.quiz.turn))return;
+    const d={roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type,turn:state.quiz.turn,actionId:nextActionId(),...extra};
+    if(mode==='host'){hostQuizAction(myId,d);return}
+    sending=true;renderGame();
+    const ok=await rtSend('player-action',d);
+    setTimeout(()=>{sending=false;if(state&&state.started&&!state.finished){renderGame();if(!ok){const b=document.getElementById('quizFeedback');if(b)b.textContent='Svaret blev ikke sendt. Kontrollér forbindelsen og prøv igen.'}}},ok?1800:0);
+  }
+  requestGift=function(n){return sendAction('takeGift',{gift:n});};
+  takeGiftHost=function(pid,n,turn){
+    if(mode!=='host'||!active(pid,turn)||state.quiz.status!=='gift'||!Number.isInteger(n)||n<1||n>state.giftCount||state.taken.includes(n))return false;
+    const q=state.quiz,to=state.players.find(p=>p.id===q.recipient);
+    if(!to||(q.correct?to.id!==pid:to.id===pid))return false;
+    q.status='done';q.gift=n;state.awaitNext=true;
+    state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);validateGameState();state.turns++;
+    state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til sig selv.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
+    if(state.taken.length>=state.giftCount){finishGame();return true}
+    if(state.turns%state.players.length===0)state.round++;
+    if(state.round>=2)state.phase='Julekaos';
+    const cfg=state.settings||DEFAULT_SETTINGS;
+    state.autoChaosPending=state.round>=2&&cfg.chaos&&Math.random()<cfg.chaosChance/100;
+    broadcastGame();
+    if(state.autoChaosPending){clearTimeout(autoChaosTimer);autoChaosTimer=setTimeout(()=>{autoChaosTimer=null;if(mode==='host'&&state&&state.autoChaosPending)hostChaos(true)},700)}
+    return true;
+  };
+  // Bonus games are still available between quiz turns, not during a question.
+  for(const [name,fn] of [['hostChaos',hostChaos],['hostDuel',hostDuel],['hostSanta',hostSanta],['useBonusHost',useBonusHost]]){
+    window[name]=function(...args){if(!state||state.finished||!state.awaitNext)return;return fn(...args)};
+  }
+  renderGame=function(){
+    prepare();oldRender();if(!state||!state.started)return;
+    const q=state.quiz, mine=q&&q.playerId===myId, can=mine&&!sending&&!state.finished&&!state.awaitNext;
+    let panel=document.getElementById('quizPanel');
+    if(!panel){panel=document.createElement('section');panel.id='quizPanel';panel.className='quizPanel';document.getElementById('gifts').before(panel)}
+    panel.replaceChildren();
+    const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
+    add('h2','JULEQUIZZEN');
+    if(!q){add('p','Venter på spørgsmålet fra værten …');return}
+    add('p',q.question,'quizQuestion');
+    const list=document.createElement('div');list.className='quizAnswers';panel.appendChild(list);
+    q.options.forEach((text,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='btn ghost quizAnswer';b.textContent=String.fromCharCode(65+i)+' · '+text;
+      b.disabled=!can||q.status!=='question';
+      if(q.status!=='question'&&i===q.answerIndex)b.classList.add('quizRight');
+      if(q.status!=='question'&&i===q.selected&&q.correct===false)b.classList.add('quizWrong');
+      b.addEventListener('click',()=>sendAction('quizAnswer',{answer:i}));list.appendChild(b);
+    });
+    let text='';
+    if(q.status==='question')text=mine?'Vælg ét svar. Rigtigt: en gave til dig. Forkert: en gave fra bunken til en anden.':'Vent, mens '+currentPlayer().name+' svarer.';
+    else if(q.status==='recipient')text='Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. '+(mine?'Vælg, hvem der skal have en gave fra bunken.':'Spilleren vælger en modtager.');
+    else if(q.status==='gift'){const to=state.players.find(p=>p.id===q.recipient);text=(q.correct?'Rigtigt svar! ':'Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. ')+(mine?'Vælg en gave fra bunken til '+(q.correct?'dig selv':to.name)+'.':'Venter på gavevalget.');}
+    else text='Gaven er fordelt. Værten fortsætter til næste spiller.';
+    const feedback=add('p',sending?'Sender dit valg …':text,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
+    document.getElementById('instruction').textContent=text;
+    if(q.status==='recipient'){
+      const recipients=add('div','','quizAnswers');
+      state.players.filter(p=>p.id!==q.playerId).forEach(p=>{const b=document.createElement('button');b.type='button';b.className='btn green';b.textContent=p.name;b.disabled=!can;b.addEventListener('click',()=>sendAction('quizRecipient',{recipient:p.id}));recipients.appendChild(b)});
+    }
+    document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(can&&q.status==='gift'&&!b.classList.contains('taken'));});
+    document.querySelectorAll('#hostBar .btn').forEach(b=>{b.disabled=!state.awaitNext||state.finished});
+    const bonus=document.getElementById('bonusBtn');if(bonus)bonus.disabled=bonus.disabled||!state.awaitNext||state.finished;
+  };
+})();
+
 </script></body></html>
