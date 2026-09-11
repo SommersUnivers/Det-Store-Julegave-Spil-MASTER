@@ -3,6 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
+  --dice-cream:#fff5d0;
   --red: #b4092c;
   --red-dark: #650014;
   --green: #087343;
@@ -16,6 +17,8 @@
   --ink: #35170d;
   --blue: #164c72;
 }
+.diceFace{font-family:serif;font-size:clamp(100px,22vw,150px);line-height:1.25;text-align:center;color:#611624;text-shadow:0 2px 0 white; margin:15px auto;border:2px solid #c8993b;border-radius:20px;background:var(--dice-cream);width:180px;max-width:100%}
+.gameMenu{gap:26px}.gameMenu .btn{padding:24px 18px}.gameMenu span{display:block;font-size:15px;font-weight:500;line-height:1.5;margin-top:10px}
 
 * { box-sizing: border-box; }
 
@@ -821,9 +824,9 @@ h1 {
 }
 
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('host')">OPRET JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • QUIZ V5 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • SPILMENU V6 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
 
-<section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card"><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="" required autocomplete="off"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="" required autocomplete="off"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="" required autocomplete="off"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="" required autocomplete="off"><div class="hostMenu"><button class="btn blue" onclick="openGiftAdmin()">🎁 HEMMELIG GAVELISTE</button><button class="btn green" onclick="openSettings()">⚙️ SPILINDSTILLINGER</button></div><button class="btn gold" style="width:100%;margin-bottom:12px" onclick="openCloudSetup()">☁️ SUPABASE CLOUD-OPSÆTNING</button><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div><div class="tiny center" style="margin-bottom:12px">Gaver og priser er hemmelige. I indstillingerne bestemmer du selv kaos, dueller, Julemanden og finalen.</div><button class="btn gold" style="width:100%" onclick="createLiveGame()">✨ OPRET LIVE-SPILLET</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="goHome()">← Tilbage</button></div></section>
+<section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card"><p id="selectedGameLabel" class="summaryBox">Julequiz</p><button class="btn ghost" style="margin-bottom:20px" onclick="show('gameMenu')">Skift spil</button><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="" required autocomplete="off"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="" required autocomplete="off"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="" required autocomplete="off"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="" required autocomplete="off"><div class="hostMenu"><button class="btn blue" onclick="openGiftAdmin()">🎁 HEMMELIG GAVELISTE</button><button class="btn green" onclick="openSettings()">⚙️ SPILINDSTILLINGER</button></div><button class="btn gold" style="width:100%;margin-bottom:12px" onclick="openCloudSetup()">☁️ SUPABASE CLOUD-OPSÆTNING</button><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div><div class="tiny center" style="margin-bottom:12px">Gaver og priser er hemmelige. I indstillingerne bestemmer du selv kaos, dueller, Julemanden og finalen.</div><button class="btn gold" style="width:100%" onclick="createLiveGame()">✨ OPRET LIVE-SPILLET</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="goHome()">← Tilbage</button></div></section>
 
 <section id="giftAdmin" class="screen"><div class="brand"><div class="emoji">🎁🔐🎁</div><h1>HEMMELIG GAVEADMIN</h1></div><div class="card"><div class="lockNote">🔐 Kun værten kan se denne liste. Spillerne ser kun gave-numrene.</div><div class="adminActions"><button class="btn gold" onclick="loadSommerGiftList()">🎄 INDLÆS 24-GAVERS JULELISTE</button><button class="btn ghost" onclick="prefillGiftNames()">✨ EKSEMPLER</button><button class="btn ghost" onclick="clearGiftNames()">🧹 RYD LISTEN</button></div><div class="tiny center">Den indlæste juleliste kan rettes frit bagefter.</div><div id="giftAdminList" class="adminList"></div><div id="giftTotal" class="summaryBox">🎁 Registreret total: 0 kr.</div><button class="btn gold" style="width:100%" onclick="saveGiftAdmin()">💾 GEM GAVELISTEN</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="show('host')">← TILBAGE TIL JULECENTRALEN</button></div></section>
 
@@ -840,6 +843,7 @@ h1 {
 <section id="game" class="screen"><div class="brand" style="margin-bottom:6px"><div class="tag">🎄 DET STORE JULEGAVE-SPIL 🎄</div></div><div class="hud"><div class="pill" id="round">Runde 1</div><div class="pill" id="remaining">🎁 24 tilbage</div><div class="pill" id="phase">✨ Gavejagt</div></div><div class="card"><div class="turn"><div id="turnLead">🎅🏻 DET ER DIN TUR</div><div id="turnName" class="name">Sommer</div><div id="instruction">Vælg én gave fra bunken!</div></div><div id="secretCard" class="secret" style="display:none"><div>🃏 DIT HEMMELIGE BONUSKORT</div><div id="secretName" class="cardname">🛡️ Nisseskjold</div><div id="secretDesc" class="tiny" style="opacity:.95;margin-top:6px">Beskyt én gave mod tyveri.</div><button id="bonusBtn" class="btn gold" style="margin-top:12px;width:100%;padding:11px" onclick="requestBonus()">✨ AKTIVÉR BONUSKORT</button></div><div id="event" class="event">🎁 Venter på første tur…</div><div id="gifts" class="gifts"></div><div id="hostBar" class="hostbar" style="display:none"><button class="btn" onclick="hostChaos()">😈 JULEKAOS</button><button class="btn blue" onclick="hostDuel()">🎮 START DUEL</button><button class="btn green" onclick="hostSanta()">🎅🏻 JULEMANDEN</button></div><button id="nextBtn" class="btn gold" style="width:100%;display:none" onclick="hostNextTurn()">NÆSTE TUR ➜</button><div class="gameNote">🎁 Gaver med blå kant er dine. Julecentralen kan udløse overraskelser når som helst.</div><h3>📜 Julecentralens log</h3><div id="log" class="log"></div></div></section>
 
 <section id="finish" class="screen"><div class="brand"><div class="emoji">🔔🎄🔔</div><h1>GAVERNE MÅ ÅBNES!</h1></div><div class="card center"><div class="big">🎁🥳🎁</div><h2>JULESLAGET ER SLUT!</h2><p>Alle gaver er fordelt. Nu afslører Julecentralen også, hvad der gemte sig i pakkerne! 🎅🏻❤️💙</p><div id="scores"></div><button class="btn gold" style="width:100%;margin-top:18px" onclick="goHome()">🎄 NYT SPIL</button></div></section>
+<section id="gameMenu" class="screen"><div class="brand"><h1>VÆLG JULESPIL</h1></div><div class="card grid gameMenu"><button class="btn gold" onclick="chooseChristmasGame('quiz')">JULEQUIZ<span>Tre svar · Rigtigt: gave til dig · Forkert: gave til en anden</span></button><button class="btn green" onclick="chooseChristmasGame('dice')">KLASSISK TERNINGESPIL<span>Slå en 6’er og vælg en gave · 1–5: turen går videre</span></button><button class="btn ghost" onclick="show('home')">← Tilbage</button></div></section>
 </main>
 <div id="overlay" class="overlay"><div id="modal" class="modal"><div id="modalEmoji" class="mega">🎅🏻</div><h2 id="modalTitle">JULEMANDEN!</h2><div id="modalText"></div><div id="miniArea"></div><button id="modalBtn" class="btn gold" style="width:100%;margin-top:14px" onclick="closeOverlay()">FORTSÆT 🎄</button></div></div><div id="reconnectToast" class="reconnectToast">🔄 Genforbinder til Julecentralen…</div>
 
@@ -1261,12 +1265,24 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
   ];
   const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a; };
   const oldRender=renderGame, oldPublic=publicStateFor, oldHandle=handleRealtimeAction;
+  const oldInit=initState;
+  let selectedGame='quiz';
+  window.chooseChristmasGame=function(type){
+    if(!['quiz','dice'].includes(type))return;
+    selectedGame=type;show('host');
+    document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Slå en 6’er og vælg en gave':'Julequiz · Tre svarmuligheder og én gave fra bunken';
+  };
+  initState=function(){const s=oldInit();s.gameType=selectedGame;if(selectedGame==='dice')s.settings={...s.settings,chaos:false,duels:false,santa:false};return s;};
   const oldLobby=broadcastLobby, oldPlayerData=handlePlayerData;
   let sending=false;
   const turnKey=()=>String(state.turns)+':'+String(state.turnIndex);
   function prepare(){
     if(mode!=='host'||!state||!state.started||state.finished||state.awaitNext)return;
     if(state.quiz && state.quiz.turn===turnKey())return;
+    if(state.gameType==='dice'){
+      state.quiz={turn:turnKey(),playerId:currentPlayer().id,status:'roll',recipient:null,options:[],die:null};
+      state.event=currentPlayer().name+' skal slå med terningen.';return;
+    }
     if(!Array.isArray(state.quizDeck)||!state.quizDeck.length)state.quizDeck=shuffle(bank.map((_,i)=>i));
     const row=bank[state.quizDeck.pop()];
     const answers=shuffle(row.slice(1).map((text,i)=>({text,right:i===0})));
@@ -1277,7 +1293,17 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
   function hostQuizAction(pid,d){
     if(mode!=='host'||!active(pid,d.turn))return false;
     const q=state.quiz;
+    if(d.type==='diceRoll'){
+      if(state.gameType!=='dice'||q.status!=='roll')return false;
+      q.die=Math.floor(Math.random()*6)+1;q.correct=q.die===6;
+      q.status=q.correct?'gift':'done';q.recipient=q.correct?pid:null;
+      state.event=currentPlayer().name+' slog '+q.die+(q.correct?' og må vælge en gave!':'. Ingen gave på denne tur.');
+      addLog(state.event);
+      if(!q.correct){state.awaitNext=true;state.turns++;if(state.turns%state.players.length===0)state.round++;}
+      broadcastGame();return true;
+    }
     if(d.type==='quizAnswer'){
+      if(state.gameType==='dice')return false;
       if(q.status!=='question'||!Number.isInteger(d.answer)||d.answer<0||d.answer>2)return false;
       q.selected=d.answer;q.correct=d.answer===q.answerIndex;
       q.status=q.correct?'gift':'recipient';q.recipient=q.correct?pid:null;
@@ -1304,7 +1330,7 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     oldPlayerData(d);
   };
   handleRealtimeAction=function(d){
-    if(!d||!['quizAnswer','quizRecipient','takeGift'].includes(d.type)){oldHandle(d);return}
+    if(!d||!['diceRoll','quizAnswer','quizRecipient','takeGift'].includes(d.type)){oldHandle(d);return}
     if(mode!=='host'||!state||d.roomCode!==roomCode)return;
     const p=state.players.find(p=>p.id!=='host'&&p.id===d.playerId&&p.sessionKey&&p.sessionKey===d.sessionKey&&p.device===d.device);
     if(!p)return;
@@ -1330,16 +1356,16 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til sig selv.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
     if(state.taken.length>=state.giftCount){finishGame();return true}
     if(state.turns%state.players.length===0)state.round++;
-    if(state.round>=2)state.phase='Julekaos';
+    if(state.round>=2&&state.gameType!=='dice')state.phase='Julekaos';
     const cfg=state.settings||DEFAULT_SETTINGS;
-    state.autoChaosPending=state.round>=2&&cfg.chaos&&Math.random()<cfg.chaosChance/100;
+    state.autoChaosPending=state.gameType!=='dice'&&state.round>=2&&cfg.chaos&&Math.random()<cfg.chaosChance/100;
     broadcastGame();
     if(state.autoChaosPending){clearTimeout(autoChaosTimer);autoChaosTimer=setTimeout(()=>{autoChaosTimer=null;if(mode==='host'&&state&&state.autoChaosPending)hostChaos(true)},700)}
     return true;
   };
   // Bonus games are still available between quiz turns, not during a question.
   for(const [name,fn] of [['hostChaos',hostChaos],['hostDuel',hostDuel],['hostSanta',hostSanta],['useBonusHost',useBonusHost]]){
-    window[name]=function(...args){if(!state||state.finished||!state.awaitNext)return;return fn(...args)};
+    window[name]=function(...args){if(!state||state.finished||!state.awaitNext||state.gameType==='dice')return;return fn(...args)};
   }
   renderGame=function(){
     prepare();oldRender();if(!state||!state.started)return;
@@ -1348,8 +1374,20 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     if(!panel){panel=document.createElement('section');panel.id='quizPanel';panel.className='quizPanel';document.getElementById('gifts').before(panel)}
     panel.replaceChildren();
     const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
-    add('h2','JULEQUIZZEN');
+    add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':'JULEQUIZZEN');
     if(!q){add('p','Venter på spørgsmålet fra værten …');return}
+    if(state.gameType==='dice'){
+      document.getElementById('phase').textContent='Slå en 6’er';
+      const face=add('div',q.die?['⚀','⚁','⚂','⚃','⚄','⚅'][q.die-1]:'–','diceFace');
+      face.setAttribute('aria-label',q.die?'Terningen viser '+q.die:'Terningen er ikke slået');
+      const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?'Du slog en 6’er! Vælg en gave fra bunken.':currentPlayer().name+' slog en 6’er og vælger en gave.') : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
+      const feedback=add('p',sending?'Sender dit kast …':label,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
+      if(q.status==='roll'){const b=add('button','SLÅ MED TERNINGEN','btn green');b.type='button';b.disabled=!can;b.addEventListener('click',()=>sendAction('diceRoll'));}
+      document.getElementById('instruction').textContent=label;
+      document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(can&&q.status==='gift'&&!b.classList.contains('taken'));});
+      document.getElementById('secretCard').style.display='none';document.getElementById('hostBar').style.display='none';
+      return;
+    }
     add('p',q.question,'quizQuestion');
     const list=document.createElement('div');list.className='quizAnswers';panel.appendChild(list);
     q.options.forEach((text,i)=>{
