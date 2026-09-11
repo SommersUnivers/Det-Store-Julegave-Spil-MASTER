@@ -1,3 +1,4 @@
-Det Store Julegave-Spil V15.1 – Full Game Fix
-
-Bygget oven på V15 Full Christmas World. Supabase multiplayer og julegrafik er bevaret. Rettelser: bonuskort, tyveribeskyttelse, duelvinder/bonus, automatiske Julemand-effekter, unik spillekode-kontrol, fjern spiller i lobby, Supabase-status, auto-kaos timing og synlig cloud-gemmefejl.
+Det Store Julegave-Spil — V16 CHRISTMAS LUXURY GRAPHICS
+Bygget direkte oven på den testede V15.1 MASTER.
+Kun grafik/UI er opgraderet; Supabase multiplayer og gameplay-funktioner er bevaret.
+Upload index.html + README.txt til GitHub MASTER. Behold eksisterende vercel.json.
