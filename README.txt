@@ -1,4 +1,12 @@
-Det Store Julegave-Spil — V16 CHRISTMAS LUXURY GRAPHICS
-Bygget direkte oven på den testede V15.1 MASTER.
-Kun grafik/UI er opgraderet; Supabase multiplayer og gameplay-funktioner er bevaret.
-Upload index.html + README.txt til GitHub MASTER. Behold eksisterende vercel.json.
+Det Store Julegave-Spil — JULEBY EDITION
+
+Bygget direkte oven på den testede V16 MASTER.
+Grafikken er samlet og opgraderet til et ægte julebytema. Supabase multiplayer,
+cloud-gemning og gameplay-funktionerne er bevaret.
+
+Upload disse filer og mapper samlet til GitHub MASTER:
+- index.html
+- style.css
+- assets/christmas-village.png
+- README.txt
+- vercel.json
