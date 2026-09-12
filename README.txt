@@ -1,11 +1,11 @@
-Det Store Julegave-Spil — KOMPAKT JULECENTRAL V18
+Det Store Julegave-Spil — JULENS MAGISKE RUM V19
 
-Julecentralens værtsside er bygget om til ét kompakt luksuskontrolpanel.
-Julemanden, julekonen og rensdyret er integreret i topbjælken, så alle
-fire felter, Hemmelig gaveliste, Forbered spillet og startknappen kan
-ses samlet uden den tidligere lange figur- og formularside.
+Julecentralens kompakte luksuskontrolpanel er bevaret. Alle øvrige
+hovedsider har fået samme eksklusive formsprog, men hvert sit rum:
+spilleværksted, gavekammer, regelkammer, cloudstation, deltagerportal,
+venteværelse, julebalsal, spillesal og gavefinale.
 
 Supabase multiplayer, cloud-gemning, quiz, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V18-mappe til GitHub main.
+Upload alle filerne fra den færdige V19-mappe til GitHub main.
