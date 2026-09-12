@@ -1,0 +1,388 @@
+/* Quiz turns use the existing host-authoritative transport and snapshot. */
+(() => {
+  const bank = [
+    ['Hvilken måned fejrer vi juleaften i Danmark?', 'December', 'November', 'Januar'],
+    ['Hvilken dato er juleaften i Danmark?', '24. december', '23. december', '31. december'],
+    ['Hvad gemmer man traditionelt i risalamande?', 'En mandel', 'En valnød', 'En rosin'],
+    ['Hvilken farve har Rudolfs næse?', 'Rød', 'Blå', 'Grøn'],
+    ['Hvor mange lys er der traditionelt i en adventskrans?', 'Fire', 'Tre', 'Fem'],
+    ['Hvad kaldes dagen den 31. december?', 'Nytårsaften', 'Juleaften', 'Sankthansaften'],
+    ['Hvilket dyr trækker julemandens kane i fortællingerne?', 'Rensdyr', 'Løver', 'Pingviner'],
+    ['Hvad hænger man ofte øverst på juletræet?', 'En stjerne', 'En stegepande', 'En støvle'],
+    ['Hvilken grød forbindes traditionelt med nisser?', 'Risengrød', 'Havregrød', 'Byggrød'],
+    ['Hvilken sauce serveres ofte til risalamande?', 'Kirsebærsauce', 'Bearnaisesauce', 'Tomatsauce'],
+    ['Hvilken dato er første juledag?', '25. december', '24. december', '26. december'],
+    ['Hvilken dato er anden juledag?', '26. december', '25. december', '27. december'],
+    ['Hvad bruger man til at tælle dagene frem mod jul?', 'En julekalender', 'Et termometer', 'Et kompas'],
+    ['Hvilken af disse er en klassisk dansk julesmåkage?', 'Vaniljekrans', 'Croissant', 'Baguette'],
+    ['Hvad hedder Danmarks hovedstad?', 'København', 'Aarhus', 'Odense'],
+    ['Hvilket land ligger Oslo i?', 'Norge', 'Sverige', 'Finland'],
+    ['Hvilket land ligger Stockholm i?', 'Sverige', 'Norge', 'Island'],
+    ['Hvilket land ligger Paris i?', 'Frankrig', 'Spanien', 'Italien'],
+    ['Hvor mange dage er der i en uge?', 'Syv', 'Seks', 'Otte'],
+    ['Hvor mange måneder er der i et år?', 'Tolv', 'Ti', 'Fjorten'],
+    ['Hvor mange minutter er der i en time?', '60', '100', '30'],
+    ['Hvor mange sider har en trekant?', 'Tre', 'Fire', 'Fem'],
+    ['Hvor mange sider har en sekskant?', 'Seks', 'Fem', 'Otte'],
+    ['Hvad er 7 + 8?', '15', '14', '16'],
+    ['Hvad er 6 gange 4?', '24', '20', '28'],
+    ['Hvad er halvdelen af 50?', '25', '20', '30'],
+    ['Hvilken planet kaldes den røde planet?', 'Mars', 'Venus', 'Jupiter'],
+    ['Hvilken planet bor vi på?', 'Jorden', 'Saturn', 'Neptun'],
+    ['Hvad er Solen?', 'En stjerne', 'En planet', 'En måne'],
+    ['Hvor mange ben har en edderkop?', 'Otte', 'Seks', 'Ti'],
+    ['Hvor mange ben har et insekt?', 'Seks', 'Fire', 'Otte'],
+    ['Hvilket dyr siger normalt mjav?', 'En kat', 'En ko', 'En and'],
+    ['Hvilket dyr giver os uld til fåreuldsgarn?', 'Fåret', 'Hesten', 'Grisen'],
+    ['Hvilket af disse dyr er et pattedyr?', 'Delfinen', 'Hajen', 'Torsken'],
+    ['Hvilken fugl er kendt for ikke at kunne flyve?', 'Strudsen', 'Svalen', 'Ørnen'],
+    ['Hvad laver bier af blomsternektar?', 'Honning', 'Smør', 'Mel'],
+    ['Hvilken farve får man ved at blande blå og gul maling?', 'Grøn', 'Lilla', 'Orange'],
+    ['Hvilket instrument har sorte og hvide tangenter?', 'Et klaver', 'En trompet', 'En violin'],
+    ['Hvad måler et termometer?', 'Temperatur', 'Afstand', 'Vægt'],
+    ['Hvilken retning peger et almindeligt kompas mod med nordenden?', 'Nord', 'Syd', 'Vest'],
+    ['Hvilken årstid kommer efter vinter?', 'Forår', 'Sommer', 'Efterår'],
+    ['Hvilken årstid kommer efter sommer?', 'Efterår', 'Vinter', 'Forår'],
+    ['Hvilket af disse tal er et lige tal?', '12', '9', '15'],
+    ['Hvad er 100 minus 25?', '75', '65', '85'],
+    ['Hvilken frugt tørrer man for at lave rosiner?', 'Vindruer', 'Æbler', 'Pærer'],
+    ['Hvilken grøntsag er normalt orange?', 'Gulerod', 'Agurk', 'Broccoli'],
+    ['Hvad hedder en hunds unge?', 'En hvalp', 'Et føl', 'En kalv'],
+    ['Hvad hedder en hests unge?', 'Et føl', 'Et lam', 'En killing']
+  ];
+  const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a; };
+  const oldRender=renderGame, oldPublic=publicStateFor, oldHandle=handleRealtimeAction;
+  const oldInit=initState;
+  let selectedGame='quiz';
+  window.chooseChristmasGame=function(type){
+    if(!['quiz','dice'].includes(type))return;
+    selectedGame=type;show('host');
+    document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Slå en 6’er og vælg en gave':'Julequiz · Tre svarmuligheder og én gave fra bunken';
+  };
+  initState=function(){const s=oldInit();s.gameType=selectedGame;if(selectedGame==='dice')s.settings={...s.settings,chaos:false,duels:false,santa:false};return s;};
+  const oldLobby=broadcastLobby, oldPlayerData=handlePlayerData;
+  let sending=false;
+  const turnKey=()=>String(state.turns)+':'+String(state.turnIndex);
+  function prepare(){
+    if(mode!=='host'||!state||!state.started||state.finished||state.awaitNext)return;
+    if(state.quiz && state.quiz.turn===turnKey())return;
+    if(state.gameType==='dice'){
+      state.quiz={turn:turnKey(),playerId:currentPlayer().id,status:'roll',recipient:null,options:[],die:null};
+      state.event=currentPlayer().name+' skal slå med terningen.';return;
+    }
+    if(!Array.isArray(state.quizDeck)||!state.quizDeck.length)state.quizDeck=shuffle(bank.map((_,i)=>i));
+    const row=bank[state.quizDeck.pop()];
+    const answers=shuffle(row.slice(1).map((text,i)=>({text,right:i===0})));
+    state.quiz={turn:turnKey(),playerId:currentPlayer().id,question:row[0],options:answers.map(a=>a.text),answerIndex:answers.findIndex(a=>a.right),status:'question',recipient:null,selected:null};
+    state.event=currentPlayer().name+' skal svare på et spørgsmål.';
+  }
+  function active(pid,turn){return state&&state.started&&!state.finished&&!state.awaitNext&&state.quiz&&state.quiz.turn===turn&&state.quiz.playerId===pid&&currentPlayer().id===pid;}
+  function giftTarget(){return state&&state.players.length&&state.giftCount%state.players.length===0?state.giftCount/state.players.length:Number.MAX_SAFE_INTEGER}
+  function fairRecipient(preferred,exclude){
+    const target=giftTarget(),preferredPlayer=state.players.find(p=>p.id===preferred);
+    if(preferredPlayer&&preferredPlayer.id!==exclude&&(state.owners[preferredPlayer.id]||[]).length<target)return preferredPlayer;
+    return state.players.filter(p=>p.id!==exclude&&(state.owners[p.id]||[]).length<target).sort((a,b)=>(state.owners[a.id]||[]).length-(state.owners[b.id]||[]).length)[0]||preferredPlayer;
+  }
+  function hostQuizAction(pid,d){
+    if(mode!=='host'||!active(pid,d.turn))return false;
+    const q=state.quiz;
+    if(d.type==='diceRoll'){
+      if(state.gameType!=='dice'||q.status!=='roll')return false;
+      q.die=Math.floor(Math.random()*6)+1;q.correct=q.die===6;
+      const fair=q.correct?fairRecipient(pid):null;
+      q.status=q.correct?'gift':'done';q.recipient=fair?fair.id:null;q.fairOverride=!!(fair&&fair.id!==pid);
+      state.event=currentPlayer().name+' slog '+q.die+(q.correct?(q.fairOverride?' og vælger en gave til '+fair.name+', som mangler en gave!':' og må vælge en gave!'):'. Ingen gave på denne tur.');
+      addLog(state.event);
+      if(!q.correct){state.awaitNext=true;state.turns++;if(state.turns%state.players.length===0)state.round++;}
+      broadcastGame();return true;
+    }
+    if(d.type==='quizAnswer'){
+      if(state.gameType==='dice')return false;
+      if(q.status!=='question'||!Number.isInteger(d.answer)||d.answer<0||d.answer>2)return false;
+      q.selected=d.answer;q.correct=d.answer===q.answerIndex;
+      if(q.correct){const fair=fairRecipient(pid);q.recipient=fair.id;q.fairOverride=fair.id!==pid;q.status='gift';}
+      else {const other=fairRecipient(null,pid);q.recipient=other?null:pid;q.fairOverride=!other;q.status=other?'recipient':'gift';}
+      state.event=currentPlayer().name+(q.correct?(q.fairOverride?' svarede rigtigt – gaven går til '+state.players.find(p=>p.id===q.recipient).name+', som mangler en gave!':' svarede rigtigt!'):(q.fairOverride?' svarede forkert, men er den eneste, der mangler en gave.':' svarede forkert og giver en gave fra bunken til en anden.'));
+      addLog(state.event);broadcastGame();return true;
+    }
+    if(d.type==='quizRecipient'){
+      if(q.status!=='recipient'||d.recipient===pid||!state.players.some(p=>p.id===d.recipient&&(state.owners[p.id]||[]).length<giftTarget()))return false;
+      q.recipient=d.recipient;q.status='gift';broadcastGame();return true;
+    }
+    if(d.type==='takeGift')return takeGiftHost(pid,d.gift,d.turn);
+    return false;
+  }
+  publicStateFor=function(pid){
+    prepare();const s=oldPublic(pid);delete s.quizDeck;
+    if(s.quiz&&s.quiz.status==='question')delete s.quiz.answerIndex;
+    return s;
+  };
+  // Presence/rejoin updates must not send a running player back to the lobby.
+  broadcastLobby=function(){if(state&&state.started){broadcastGame();return}oldLobby();};
+  handlePlayerData=function(d){
+    if(d&&d.type==='lobby'&&d.state&&d.state.started)d={...d,type:'state'};
+    if(d&&['state','welcome','lobby'].includes(d.type))sending=false;
+    oldPlayerData(d);
+  };
+  handleRealtimeAction=function(d){
+    if(!d||!['diceRoll','quizAnswer','quizRecipient','takeGift','stealRoll','stealGift'].includes(d.type)){oldHandle(d);return}
+    if(mode!=='host'||!state||d.roomCode!==roomCode)return;
+    const p=state.players.find(p=>p.id!=='host'&&p.id===d.playerId&&p.sessionKey&&p.sessionKey===d.sessionKey&&p.device===d.device);
+    if(!p)return;
+    if(d.type==='stealRoll'){stealRollHost(p.id,d.turn);return}
+    if(d.type==='stealGift'){stealGiftHost(p.id,+d.gift,d.turn);return}
+    hostQuizAction(p.id,d);
+    // Send authoritative state even when an action was stale or duplicated.
+    rtSend('host-message',{target:p.device,type:'state',state:publicStateFor(p.id)});
+  };
+  async function sendAction(type,extra={}){
+    if(sending||!state||!state.quiz||!active(myId,state.quiz.turn))return;
+    const d={roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type,turn:state.quiz.turn,actionId:nextActionId(),...extra};
+    if(mode==='host'){hostQuizAction(myId,d);return}
+    sending=true;renderGame();
+    const ok=await rtSend('player-action',d);
+    setTimeout(()=>{sending=false;if(state&&state.started&&!state.finished){renderGame();if(!ok){const b=document.getElementById('quizFeedback');if(b)b.textContent='Svaret blev ikke sendt. Kontrollér forbindelsen og prøv igen.'}}},ok?1800:0);
+  }
+  requestGift=function(n){return sendAction('takeGift',{gift:n});};
+  takeGiftHost=function(pid,n,turn){
+    if(mode!=='host'||!active(pid,turn)||state.quiz.status!=='gift'||!Number.isInteger(n)||n<1||n>state.giftCount||state.taken.includes(n))return false;
+    const q=state.quiz,to=state.players.find(p=>p.id===q.recipient);
+    if(!to||(q.correct?(!q.fairOverride&&to.id!==pid):(!q.fairOverride&&to.id===pid))||(state.owners[to.id]||[]).length>=giftTarget())return false;
+    q.status='done';q.gift=n;state.awaitNext=true;
+    state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);validateGameState();state.turns++;
+    state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til '+(to.id===pid?'sig selv':to.name)+'.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
+    if(state.taken.length>=state.giftCount){finishGame();return true}
+    if(state.turns%state.players.length===0)state.round++;
+    if(state.round>=2&&state.gameType!=='dice')state.phase='Julekaos';
+    const cfg=state.settings||DEFAULT_SETTINGS;
+    state.autoChaosPending=state.gameType!=='dice'&&state.round>=2&&cfg.chaos&&Math.random()<cfg.chaosChance/100;
+    broadcastGame();
+    if(state.autoChaosPending){clearTimeout(autoChaosTimer);autoChaosTimer=setTimeout(()=>{autoChaosTimer=null;if(mode==='host'&&state&&state.autoChaosPending)hostChaos(true)},700)}
+    return true;
+  };
+  // Bonus games are still available between quiz turns, not during a question.
+  for(const [name,fn] of [['hostChaos',hostChaos],['hostDuel',hostDuel],['hostSanta',hostSanta],['useBonusHost',useBonusHost]]){
+    window[name]=function(...args){if(!state||state.finished||!state.awaitNext||state.gameType==='dice')return;return fn(...args)};
+  }
+  renderGame=function(){
+    prepare();oldRender();if(!state||!state.started)return;
+    const q=state.quiz, mine=q&&q.playerId===myId, can=mine&&!sending&&!state.finished&&!state.awaitNext;
+    if(q&&q.status==='gift'&&window.innerWidth<=700)document.getElementById('game').classList.add('giftTrayOpen');
+    let panel=document.getElementById('quizPanel');
+    if(!panel){panel=document.createElement('section');panel.id='quizPanel';panel.className='quizPanel';document.getElementById('gifts').before(panel)}
+    panel.replaceChildren();
+    panel.className='quizPanel '+(state.gameType==='dice'?'christmasDice':'christmasQuiz');
+    const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
+    add('div','JULECENTRALENS SPILLESTUE','christmasEyebrow');
+    add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':'JULEQUIZZEN');
+    const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','⚖️ RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
+    if(!q){add('p','Venter på spørgsmålet fra værten …');return}
+    if(state.gameType==='dice'){
+      document.getElementById('phase').textContent='Slå en 6’er';
+      const face=add('div','','diceFace');
+      face.setAttribute('role','img');
+      const pips={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+      if(q.die){pips[q.die].forEach(position=>{const pip=document.createElement('span');pip.className='diePip';pip.style.gridArea=Math.ceil(position/3)+' / '+((position-1)%3+1);pip.setAttribute('aria-hidden','true');face.appendChild(pip)});}
+      else {face.textContent='✦';face.classList.add('unrolled');}
+      face.setAttribute('aria-label',q.die?'Terningen viser '+q.die:'Terningen er ikke slået');
+      const diceTo=q.recipient&&state.players.find(p=>p.id===q.recipient);
+      const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?'Du slog en 6’er! Vælg en gave fra bunken til '+(diceTo&&diceTo.id!==q.playerId?diceTo.name:'dig selv')+'.':currentPlayer().name+' slog en 6’er og vælger en gave.') : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
+      const feedback=add('p',sending?'Sender dit kast …':label,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
+      if(q.status==='roll'){const b=add('button','SLÅ MED TERNINGEN','btn green');b.type='button';b.disabled=!can;b.addEventListener('click',()=>sendAction('diceRoll'));}
+      document.getElementById('instruction').textContent=label;
+      document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(can&&q.status==='gift'&&!b.classList.contains('taken'));});
+      document.getElementById('secretCard').style.display='none';document.getElementById('hostBar').style.display='none';
+      return;
+    }
+    add('p',q.question,'quizQuestion');
+    const list=document.createElement('div');list.className='quizAnswers';panel.appendChild(list);
+    q.options.forEach((text,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='btn ghost quizAnswer';b.textContent=String.fromCharCode(65+i)+' · '+text;
+      b.disabled=!can||q.status!=='question';
+      if(q.status!=='question'&&i===q.answerIndex)b.classList.add('quizRight');
+      if(q.status!=='question'&&i===q.selected&&q.correct===false)b.classList.add('quizWrong');
+      b.addEventListener('click',()=>sendAction('quizAnswer',{answer:i}));list.appendChild(b);
+    });
+    let text='';
+    if(q.status==='question')text=mine?'Vælg ét svar. Rigtigt: en gave til dig. Forkert: en gave fra bunken til en anden.':'Vent, mens '+currentPlayer().name+' svarer.';
+    else if(q.status==='recipient')text='Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. '+(mine?'Vælg, hvem der skal have en gave fra bunken.':'Spilleren vælger en modtager.');
+    else if(q.status==='gift'){const to=state.players.find(p=>p.id===q.recipient);text=(q.correct?'Rigtigt svar! ':'Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. ')+(mine?'Vælg en gave fra bunken til '+(to.id===q.playerId?'dig selv':to.name)+'.':'Venter på gavevalget.');}
+    else text='Gaven er fordelt. Værten fortsætter til næste spiller.';
+    const feedback=add('p',sending?'Sender dit valg …':text,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
+    document.getElementById('instruction').textContent=text;
+    if(q.status==='recipient'){
+      const recipients=add('div','','quizAnswers');
+      state.players.filter(p=>p.id!==q.playerId&&(state.owners[p.id]||[]).length<giftTarget()).forEach(p=>{const b=document.createElement('button');b.type='button';b.className='btn green';b.textContent=p.name+' · '+(state.owners[p.id]||[]).length+'/'+giftTarget()+' gaver';b.disabled=!can;b.addEventListener('click',()=>sendAction('quizRecipient',{recipient:p.id}));recipients.appendChild(b)});
+    }
+    document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(can&&q.status==='gift'&&!b.classList.contains('taken'));});
+    document.querySelectorAll('#hostBar .btn').forEach(b=>{b.disabled=!state.awaitNext||state.finished});
+    const bonus=document.getElementById('bonusBtn');if(bonus)bonus.disabled=bonus.disabled||!state.awaitNext||state.finished;
+  };
+})();
+
+/* Retfærdig gavefinale og frivillig tyverirunde. */
+(function(){
+  const oldStart=hostStartGame,oldFinish=finishGame,oldRenderFinish=renderFinish;
+  let stealSending=false;
+
+  hostStartGame=function(){
+    if(mode==='host'&&state&&state.players.length&&state.giftCount%state.players.length!==0){
+      const rest=state.giftCount%state.players.length;
+      alert('For at alle kan få præcis lige mange gaver, skal det samlede antal kunne deles med '+state.players.length+' spillere. Lige nu er der '+state.giftCount+' gaver – tilføj eller fjern '+Math.min(rest,state.players.length-rest)+' gave(r).');
+      return;
+    }
+    return oldStart();
+  };
+
+  function equalizeGifts(){
+    if(!state||!state.players.length||state.giftCount%state.players.length!==0)return false;
+    const target=state.giftCount/state.players.length;
+    const receivers=[];
+    for(const p of state.players){const missing=target-(state.owners[p.id]||[]).length;for(let i=0;i<missing;i++)receivers.push(p)}
+    for(const to of receivers){
+      const from=state.players.find(p=>(state.owners[p.id]||[]).length>target);
+      if(!from)break;
+      const gift=state.owners[from.id].pop();
+      state.owners[to.id].push(gift);
+      addLog('⚖️ Julecentralen flyttede gave #'+gift+' fra '+from.name+' til '+to.name+'.');
+    }
+    validateGameState();
+    return state.players.every(p=>(state.owners[p.id]||[]).length===target);
+  }
+
+  finishGame=function(){
+    if(state&&state.taken.length>=state.giftCount){
+      equalizeGifts();
+      state.stealRound={active:false,completed:false,turnIndex:0,turns:0,maxTurns:state.players.length*3,status:'idle',die:null,history:[]};
+    }
+    return oldFinish();
+  };
+
+  function sendFinishState(special){
+    renderFinish();cloudSaveState();
+    if(mode==='host'&&realtimeChannel){
+      for(const p of state.players.filter(x=>x.id!=='host'))rtSend('host-message',{target:p.device,type:'state',state:publicStateFor(p.id),special:special||null});
+    }
+    if(special)showSpecial(special);
+  }
+
+  startStealRound=function(){
+    if(mode!=='host'||!state||!state.finished)return;
+    const equal=state.players.map(p=>(state.owners[p.id]||[]).length);
+    if(!equal.length||!equal.every(n=>n===equal[0])||equal[0]<1){alert('Tyverirunden kan først starte, når alle har lige mange gaver.');return}
+    state.stealRound={active:true,completed:false,turnIndex:Math.floor(Math.random()*state.players.length),turns:0,maxTurns:state.players.length*3,status:'roll',die:null,history:[]};
+    const player=state.players[state.stealRound.turnIndex];
+    addLog('🎁 Tyverirunden begyndte. '+player.name+' starter.');
+    sendFinishState({kind:'steal',emoji:'🎲🔔🎁',title:'TYVERIRUNDEN STARTER!',text:player.name+' skal slå en 1’er for at få lov til at bytte en gave.'});
+  };
+
+  endStealRound=function(){
+    if(mode!=='host'||!state||!state.stealRound||!state.stealRound.active)return;
+    state.stealRound.active=false;state.stealRound.completed=true;
+    addLog('🔔 Værten afsluttede tyverirunden.');
+    sendFinishState({kind:'finish',emoji:'🔔🎁🔔',title:'GAVERNE MÅ ÅBNES!',text:'Alle har lige mange gaver – nu må pakkerne åbnes!'});
+  };
+
+  stealRollHost=function(pid,turn){
+    const sr=state&&state.stealRound;
+    if(mode!=='host'||!state||!state.finished||!sr||!sr.active||sr.status!=='roll'||turn!==sr.turns)return false;
+    const player=state.players[sr.turnIndex];
+    if(!player||player.id!==pid)return false;
+    sr.die=Math.floor(Math.random()*6)+1;
+    sr.status=sr.die===1?'gift':'done';
+    addLog('🎲 '+player.name+' slog '+sr.die+(sr.die===1?' og må bytte en gave!':'. Ingen gavebytte denne gang.'));
+    sendFinishState({kind:'steal',emoji:sr.die===1?'🎲🎁✨':'🎲❄️🎲',title:sr.die===1?'DU SLOG EN 1’ER!':'TERNINGEN VISTE '+sr.die,text:sr.die===1?'Vælg nu en lukket pakke fra en anden spiller.':'Ingen gavebytte på denne tur.'});
+    return true;
+  };
+
+  stealGiftHost=function(pid,gift,turn){
+    const sr=state&&state.stealRound;
+    if(mode!=='host'||!state||!state.finished||!sr||!sr.active||sr.status!=='gift'||sr.die!==1||turn!==sr.turns)return false;
+    const thief=state.players[sr.turnIndex];
+    if(!thief||thief.id!==pid||!Number.isInteger(gift))return false;
+    const victim=state.players.find(p=>p.id!==pid&&(state.owners[p.id]||[]).includes(gift));
+    const mine=(state.owners[pid]||[]).slice();
+    if(!victim||!mine.length)return false;
+    const returned=mine[Math.floor(Math.random()*mine.length)];
+    state.owners[victim.id]=state.owners[victim.id].filter(g=>g!==gift);
+    state.owners[pid]=state.owners[pid].filter(g=>g!==returned);
+    state.owners[pid].push(gift);state.owners[victim.id].push(returned);
+    sr.history.push({thief:pid,victim:victim.id,gift,returned});
+    addLog('🎁 '+thief.name+' stjal gave #'+gift+' fra '+victim.name+'. En hemmelig pakke blev sendt tilbage.');
+    sr.status='done';
+    sendFinishState({kind:'steal',emoji:'🎁✨🎁',title:'PAKKEN ER BYTTET!',text:thief.name+' og '+victim.name+' har byttet en hemmelig pakke.'});
+    return true;
+  };
+
+  hostNextStealTurn=function(){
+    const sr=state&&state.stealRound;
+    if(mode!=='host'||!sr||!sr.active||sr.status!=='done')return false;
+    sr.turns++;
+    if(sr.turns>=sr.maxTurns){
+      sr.active=false;sr.completed=true;
+      sendFinishState({kind:'finish',emoji:'🔔🎁🔔',title:'TYVERIRUNDEN ER SLUT!',text:'Alle har stadig lige mange gaver. Nu må pakkerne åbnes!'});
+    }else{
+      sr.turnIndex=(sr.turnIndex+1)%state.players.length;
+      sr.status='roll';sr.die=null;
+      const next=state.players[sr.turnIndex];
+      sendFinishState({kind:'steal',emoji:'🎲🎄🎲',title:'NÆSTE TERNINGEKAST!',text:next.name+' skal nu forsøge at slå en 1’er.'});
+    }
+    return true;
+  };
+
+  requestStealRoll=async function(){
+    const sr=state&&state.stealRound;
+    if(stealSending||!sr||!sr.active||sr.status!=='roll'||state.players[sr.turnIndex].id!==myId)return;
+    if(mode==='host'){stealRollHost(myId,sr.turns);return}
+    stealSending=true;renderFinish();
+    const ok=await rtSend('player-action',{roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type:'stealRoll',turn:sr.turns,actionId:nextActionId()});
+    setTimeout(()=>{stealSending=false;if(state&&state.finished)renderFinish()},ok?1200:0);
+  };
+
+  requestSteal=async function(gift){
+    const sr=state&&state.stealRound;
+    if(stealSending||!sr||!sr.active||sr.status!=='gift'||sr.die!==1||state.players[sr.turnIndex].id!==myId)return;
+    if(mode==='host'){stealGiftHost(myId,gift,sr.turns);return}
+    stealSending=true;renderFinish();
+    const ok=await rtSend('player-action',{roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type:'stealGift',gift,turn:sr.turns,actionId:nextActionId()});
+    setTimeout(()=>{stealSending=false;if(state&&state.finished)renderFinish()},ok?1200:0);
+  };
+
+  renderFinish=function(){
+    oldRenderFinish();
+    const sr=state.stealRound||{active:false,completed:false};
+    const intro=document.getElementById('finishIntro'),panel=document.getElementById('stealPanel');
+    const start=document.getElementById('stealStartBtn'),end=document.getElementById('stealEndBtn'),fresh=document.getElementById('finishNewGameBtn');
+    start.style.display=mode==='host'&&!sr.active&&!sr.completed?'block':'none';
+    end.style.display=mode==='host'&&sr.active?'block':'none';
+    fresh.style.display=sr.active?'none':'block';
+    panel.style.display=sr.active?'block':'none';
+    intro.style.display=sr.active?'none':'block';
+    if(!sr.active){
+      document.getElementById('finishTitle').textContent=sr.completed?'GAVERNE MÅ ÅBNES!':'GAVERNE ER FORDELT!';
+      if(sr.completed)intro.innerHTML='<div class="big">🎁🔔🎁</div><h2>TYVERIRUNDEN ER SLUT!</h2><p>Alle har stadig lige mange gaver. Nu må de hemmelige pakker åbnes!</p>';
+      return;
+    }
+    document.getElementById('finishTitle').textContent='AT STJÆLE PAKKER';
+    const current=state.players[sr.turnIndex],mine=current.id===myId;
+    document.getElementById('scores').innerHTML='';
+    const round=Math.floor(sr.turns/state.players.length)+1;
+    let html='<div class="stealRibbon">RUNDE '+round+' AF 3 · TUR '+(sr.turns+1)+' AF '+sr.maxTurns+'</div><h2>'+(mine?'DET ER DIN TUR, ':'NU SPILLER ')+escapeHtml(current.name).toUpperCase()+'</h2>';
+    if(sr.status==='roll'){
+      html+='<p>Slå en <b>1’er</b> for at få lov til at bytte én gave.</p><div class="stealDie unrolled">🎲</div>'+(mine&&!stealSending?'<button class="btn stealRollBtn" onclick="requestStealRoll()">SLÅ MED TERNINGEN</button>':'<div class="stealWaiting">Venter på terningekastet…</div>');
+      panel.innerHTML=html;return;
+    }
+    html+='<div class="stealDie"> '+['','⚀','⚁','⚂','⚃','⚄','⚅'][sr.die]+'</div>';
+    if(sr.status==='done'){
+      html+='<p>'+(sr.die===1?'Gaven er byttet.':'Terningen viste '+sr.die+'. Der bliver ikke byttet en gave på denne tur.')+'</p>'+(mode==='host'?'<button class="btn gold stealNextBtn" onclick="hostNextStealTurn()">NÆSTE TUR ➜</button>':'<div class="stealWaiting">Værten fortsætter til næste spiller…</div>');
+      panel.innerHTML=html;return;
+    }
+    html+='<p>'+(mine?'Du slog en 1’er! Vælg én lukket gave fra en anden spiller. Julecentralen sender automatisk én af dine pakker tilbage.':escapeHtml(current.name)+' slog en 1’er og vælger nu en pakke.')+'</p><div class="stealOwners">';
+    for(const owner of state.players.filter(p=>p.id!==current.id)){
+      html+='<div class="stealOwner"><b class="stealOwnerName">'+avatarMarkup(owner.avatar,'stealAvatar')+' '+escapeHtml(owner.name)+'</b><div class="stealGifts">';
+      for(const gift of (state.owners[owner.id]||[]))html+='<button class="stealGift" '+(mine&&!stealSending?'':'disabled')+' onclick="requestSteal('+gift+')"><span>🎁</span><small>PAKKE #'+gift+'</small></button>';
+      html+='</div></div>';
+    }
+    panel.innerHTML=html+'</div>';
+  };
+})();
