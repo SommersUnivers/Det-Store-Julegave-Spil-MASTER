@@ -823,8 +823,164 @@ h1 {
   .versionPlaque { margin-inline: 4px; font-size: 11px; }
 }
 
+/* =========================================================
+   JULECENTRALENS SPILLESTUE — quiz & terning premium edition
+   ========================================================= */
+.quizPanel.christmasQuiz,
+.quizPanel.christmasDice {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 34px 30px 30px;
+  border: 1px solid #ffe79a;
+  border-radius: 25px;
+  color: #fff8dd;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255,220,116,.16) 0 2px, transparent 3px),
+    radial-gradient(circle at 86% 18%, rgba(255,255,255,.11) 0 2px, transparent 3px),
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(255,213,110,.035) 28px),
+    linear-gradient(145deg, #6e2b17 0%, #321006 56%, #1f0903 100%);
+  box-shadow:
+    0 0 0 4px #572207,
+    0 0 0 7px #bd7c13,
+    0 0 0 10px #f3c553,
+    0 20px 38px rgba(22,5,0,.54),
+    inset 0 0 0 3px rgba(255,229,145,.22),
+    inset 0 18px 35px rgba(255,255,255,.05);
+}
+.quizPanel.christmasQuiz::before,
+.quizPanel.christmasDice::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 12px;
+  background: linear-gradient(90deg,#073e2b,#14945f 25%,#e8c055 50%,#14945f 75%,#073e2b);
+  box-shadow: 0 3px 0 #3c1606, 0 6px 12px #0008;
+}
+.christmasEyebrow {
+  margin: 2px auto 10px;
+  color: #ffde79;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-align: center;
+}
+.quizPanel.christmasQuiz h2,
+.quizPanel.christmasDice h2 {
+  margin: 0 auto 22px;
+  color: #fff3b8;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(27px, 5vw, 40px);
+  letter-spacing: .04em;
+  text-align: center;
+  text-shadow: 0 2px 0 #7c071e, 0 5px 8px #000;
+}
+.quizPanel.christmasQuiz h2::before,
+.quizPanel.christmasQuiz h2::after,
+.quizPanel.christmasDice h2::before,
+.quizPanel.christmasDice h2::after { content: "✦"; color: #e7b52d; margin: 0 12px; font-size: .65em; }
+
+.quizPanel .quizQuestion {
+  margin: 0;
+  padding: 25px 22px;
+  border: 1px solid #ffe497;
+  border-radius: 17px;
+  color: #42160a;
+  background:
+    radial-gradient(circle at 50% 0, #fffef9 0, transparent 65%),
+    linear-gradient(#fff8dc,#ecd18d);
+  box-shadow: 0 0 0 3px #8a4e0e, 0 9px 0 #240902, 0 16px 24px #0006, inset 0 1px 0 #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 3.2vw, 27px);
+  text-align: center;
+}
+.quizPanel .quizAnswers { gap: 15px; margin: 25px 3px 18px; }
+.quizPanel .quizAnswer.btn {
+  position: relative;
+  min-height: 66px;
+  padding: 16px 19px;
+  border: 1px solid #ffe795;
+  border-radius: 14px;
+  color: #fff8dc;
+  background: linear-gradient(145deg,#a10b2c,#670019 62%,#3c000c);
+  box-shadow: 0 0 0 3px #7f480e, 0 7px 0 #250803, 0 12px 19px #0007, inset 0 2px 0 rgba(255,255,255,.18);
+  text-shadow: 0 2px 3px #000;
+}
+.quizPanel .quizAnswer.btn:nth-child(even) { background: linear-gradient(145deg,#138f5d,#075b3b 62%,#023521); }
+.quizPanel .quizAnswer.btn:not(:disabled):active { transform: translateY(5px); box-shadow: 0 0 0 3px #7f480e, 0 2px 0 #250803, 0 7px 12px #0007; }
+.quizPanel .quizAnswer.btn.quizRight { color:#effff4; background:linear-gradient(#20ae70,#05613d); box-shadow:0 0 0 3px #e2ba41,0 7px 0 #173b1c,0 0 24px #58ff9f88; }
+.quizPanel .quizAnswer.btn.quizWrong { color:#fff0f0; background:linear-gradient(#d62d42,#790519); box-shadow:0 0 0 3px #e2ba41,0 7px 0 #4d0711,0 0 22px #ff496888; }
+.quizPanel .quizFeedback {
+  margin: 24px 0 0;
+  padding: 15px 17px;
+  border: 1px solid #dca92a;
+  border-radius: 13px;
+  color: #45200d;
+  background: linear-gradient(#fff8db,#eaca7a);
+  box-shadow: inset 0 1px 0 #fff, 0 7px 15px #0005;
+  font-weight: 750;
+  text-align: center;
+}
+
+.quizPanel.christmasDice {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255,222,116,.13), transparent 34%),
+    repeating-linear-gradient(135deg, transparent 0 12px, rgba(255,255,255,.015) 13px 14px),
+    linear-gradient(145deg,#0b6643,#053b29 58%,#021e16);
+}
+.christmasDice .diceFace {
+  display: grid;
+  grid-template: repeat(3,1fr) / repeat(3,1fr);
+  align-items: center;
+  justify-items: center;
+  width: 174px;
+  aspect-ratio: 1;
+  margin: 18px auto 28px;
+  padding: 26px;
+  border: 2px solid #fff4b7;
+  border-radius: 32px;
+  color: #a20628;
+  background:
+    radial-gradient(circle at 28% 18%, #fff 0 3%, transparent 4%),
+    linear-gradient(145deg,#fffef7,#f5dfa2 68%,#d7a837);
+  box-shadow: 0 0 0 4px #a3630e, 0 14px 0 #5e2e08, 0 25px 34px #00160fcf, inset -12px -14px 25px #a56c1838, inset 8px 8px 16px #fff;
+  transform: rotate(-2deg);
+}
+.christmasDice .diceFace.unrolled { display:flex; align-items:center; justify-content:center; font-size:82px; text-shadow:0 3px 0 #fff; }
+.diePip {
+  width: 25px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%,#ee5a70 0 10%,#9a0628 35%,#4c0010 76%);
+  box-shadow: inset 2px 3px 4px #360009aa, 0 2px 0 #fff9;
+}
+.christmasDice > .btn.green { max-width: 520px; margin: 12px auto 4px; display:block; animation: christmas-roll-glow 2s ease-in-out infinite; }
+@keyframes christmas-roll-glow { 50% { filter:brightness(1.12); box-shadow:0 0 0 3px #8a4e0e,0 8px 0 #19360e,0 15px 25px #0008,0 0 28px #ffe07788; } }
+
+.christmasQuiz ~ .gifts,
+.christmasDice ~ .gifts {
+  margin-top: 29px;
+  padding: 18px;
+  border: 1px solid #ffe59a;
+  border-radius: 17px;
+  background: linear-gradient(145deg,rgba(65,20,7,.9),rgba(25,6,2,.92));
+  box-shadow: 0 0 0 3px #9e6513, 0 11px 24px #0006, inset 0 1px 0 #fff3;
+}
+
+@media (max-width:700px) {
+  .quizPanel.christmasQuiz,.quizPanel.christmasDice { padding:30px 16px 22px; margin:24px 3px; border-radius:19px; }
+  .quizPanel.christmasQuiz h2,.quizPanel.christmasDice h2 { font-size:27px; }
+  .quizPanel.christmasQuiz h2::before,.quizPanel.christmasQuiz h2::after,.quizPanel.christmasDice h2::before,.quizPanel.christmasDice h2::after { margin:0 6px; }
+  .quizPanel .quizQuestion { padding:21px 15px; font-size:20px; }
+  .quizPanel .quizAnswer.btn { min-height:62px; padding:14px 15px; }
+  .christmasDice .diceFace { width:146px; padding:23px; border-radius:27px; }
+  .diePip { width:22px; }
+  .christmasQuiz ~ .gifts,.christmasDice ~ .gifts { padding:13px; }
+}
+
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • SPILMENU V7 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • PREMIUM SPILLESTUE V8 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
 
 <section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card"><p id="selectedGameLabel" class="summaryBox">Julequiz</p><button class="btn ghost" style="margin-bottom:20px" onclick="show('gameMenu')">Skift spil</button><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="" required autocomplete="off"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="" required autocomplete="off"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="" required autocomplete="off"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="" required autocomplete="off"><div class="hostMenu"><button class="btn blue" onclick="openGiftAdmin()">🎁 HEMMELIG GAVELISTE</button><button class="btn green" onclick="openSettings()">⚙️ SPILINDSTILLINGER</button></div><button class="btn gold" style="width:100%;margin-bottom:12px" onclick="openCloudSetup()">☁️ SUPABASE CLOUD-OPSÆTNING</button><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div><div class="tiny center" style="margin-bottom:12px">Gaver og priser er hemmelige. I indstillingerne bestemmer du selv kaos, dueller, Julemanden og finalen.</div><button class="btn gold" style="width:100%" onclick="createLiveGame()">✨ OPRET LIVE-SPILLET</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="goHome()">← Tilbage</button></div></section>
 
@@ -1373,12 +1529,18 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     let panel=document.getElementById('quizPanel');
     if(!panel){panel=document.createElement('section');panel.id='quizPanel';panel.className='quizPanel';document.getElementById('gifts').before(panel)}
     panel.replaceChildren();
+    panel.className='quizPanel '+(state.gameType==='dice'?'christmasDice':'christmasQuiz');
     const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
+    add('div','JULECENTRALENS SPILLESTUE','christmasEyebrow');
     add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':'JULEQUIZZEN');
     if(!q){add('p','Venter på spørgsmålet fra værten …');return}
     if(state.gameType==='dice'){
       document.getElementById('phase').textContent='Slå en 6’er';
-      const face=add('div',q.die?['⚀','⚁','⚂','⚃','⚄','⚅'][q.die-1]:'–','diceFace');
+      const face=add('div','','diceFace');
+      face.setAttribute('role','img');
+      const pips={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+      if(q.die){pips[q.die].forEach(position=>{const pip=document.createElement('span');pip.className='diePip';pip.style.gridArea=Math.ceil(position/3)+' / '+((position-1)%3+1);pip.setAttribute('aria-hidden','true');face.appendChild(pip)});}
+      else {face.textContent='✦';face.classList.add('unrolled');}
       face.setAttribute('aria-label',q.die?'Terningen viser '+q.die:'Terningen er ikke slået');
       const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?'Du slog en 6’er! Vælg en gave fra bunken.':currentPlayer().name+' slog en 6’er og vælger en gave.') : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
       const feedback=add('p',sending?'Sender dit kast …':label,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
