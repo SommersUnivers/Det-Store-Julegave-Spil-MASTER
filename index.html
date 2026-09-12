@@ -1132,6 +1132,113 @@ h1 {
 .createGameBtn::after { content:" ✦"; }
 .backSetupBtn { width:100%; margin-top:-3px; }
 
+.hostQuickMenu {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+  margin-top:24px;
+  padding-top:20px;
+  border-top:1px solid rgba(151,91,12,.32);
+}
+.hostQuickMenu .btn {
+  display:grid;
+  grid-template-columns:auto 1fr;
+  grid-template-rows:auto auto;
+  column-gap:10px;
+  align-items:center;
+  min-height:76px;
+  padding:13px 16px;
+  text-align:left;
+}
+.hostQuickMenu .btn > span { grid-row:1 / 3; font-size:27px; }
+.hostQuickMenu .btn > b { align-self:end; font-size:14px; letter-spacing:.02em; }
+.hostQuickMenu .btn > small { align-self:start; color:#ffe8ad; font-size:11px; font-weight:750; }
+
+.prepareBrand h1 { font-size:clamp(34px,7vw,61px); }
+.prepareGameCard {
+  display:grid;
+  gap:20px;
+  padding:30px;
+  color:#fff2c0;
+  background:
+    radial-gradient(ellipse at 50% 0,rgba(255,224,125,.16),transparent 44%),
+    repeating-linear-gradient(0deg,rgba(255,221,125,.025) 0 1px,transparent 1px 12px),
+    linear-gradient(145deg,#4d1710,#240804 68%,#110302);
+}
+.prepareIntro {
+  display:grid;
+  grid-template-columns:54px 1fr;
+  gap:15px;
+  align-items:center;
+  padding:18px;
+  border:1px solid #d5a332;
+  border-radius:17px;
+  color:#4e1d0b;
+  background:linear-gradient(145deg,#fffdf0,#eacb76);
+  box-shadow:0 6px 0 #70400d,0 12px 22px #0005,inset 0 1px 0 #fff;
+}
+.prepareIntro > span {
+  display:grid;
+  width:52px;
+  height:52px;
+  place-items:center;
+  border-radius:50%;
+  color:#ffe98f;
+  background:linear-gradient(145deg,#b30d31,#610016);
+  box-shadow:0 0 0 3px #a56a15,0 4px 0 #481306;
+  font-size:24px;
+}
+.prepareIntro b { font-family:Georgia,"Times New Roman",serif; font-size:19px; letter-spacing:.05em; }
+.prepareIntro p { margin:5px 0 0; font-size:13px; font-weight:700; line-height:1.45; }
+.prepareTiles { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+.prepareTile {
+  display:grid;
+  grid-template-columns:52px 1fr 20px;
+  gap:13px;
+  align-items:center;
+  min-height:112px;
+  padding:18px;
+  border:1px solid #ffdf74;
+  border-radius:18px;
+  color:#fff7d5;
+  box-shadow:0 0 0 3px #8a510e,0 8px 0 #351004,0 14px 23px #0007,inset 0 1px 0 #fff4;
+  text-align:left;
+}
+.prepareTile.rules { background:radial-gradient(circle at 10% 0,#1da86d66,transparent 40%),linear-gradient(145deg,#08724a,#023523); }
+.prepareTile.cloud { background:radial-gradient(circle at 10% 0,#39aee666,transparent 40%),linear-gradient(145deg,#116f9d,#06334f); }
+.prepareTile > span:nth-child(2) { display:grid; gap:7px; }
+.prepareTile b { font-size:17px; letter-spacing:.035em; }
+.prepareTile small { color:#ffe9ad; font-size:12px; font-weight:700; line-height:1.35; }
+.prepareTile i { color:#ffe780; font:700 35px/1 Georgia,serif; font-style:normal; }
+.prepareIcon {
+  display:grid;
+  width:49px;
+  height:49px;
+  place-items:center;
+  border:1px solid #ffedaa;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 28%,#fffbd9,#d6a52d 62%,#70400a);
+  box-shadow:0 4px 0 #482006,0 7px 12px #0006;
+  font-size:25px;
+}
+.connectionCabinet {
+  padding:19px;
+  border:1px solid #bc7920;
+  border-radius:17px;
+  background:linear-gradient(145deg,rgba(255,246,205,.11),rgba(0,0,0,.18));
+  box-shadow:inset 0 1px 0 #fff3,0 8px 18px #0005;
+}
+.cabinetTitle {
+  margin:0 0 13px;
+  color:#ffe18a;
+  font-size:12px;
+  font-weight:950;
+  letter-spacing:.12em;
+  text-align:center;
+}
+.connectionCabinet .status { margin:0 0 13px; }
+.prepareBackBtn { width:100%; color:#421407; background:linear-gradient(#fffbea,#e8ca75); }
+
 @media (max-width:700px) {
   .hostSetupCard { gap:18px; padding:17px; }
   .setupGroup { padding:18px 15px; }
@@ -1142,6 +1249,14 @@ h1 {
   .selectedGameCard p { margin-top:15px; font-size:19px; }
   .setupHeading { gap:11px; margin-bottom:17px; }
   .setupHeading > span { flex-basis:38px; width:38px; height:38px; font-size:18px; }
+  .hostQuickMenu { grid-template-columns:1fr; }
+  .prepareGameCard { gap:17px; padding:17px; }
+  .prepareIntro { grid-template-columns:43px 1fr; gap:12px; padding:15px; }
+  .prepareIntro > span { width:41px; height:41px; font-size:19px; }
+  .prepareIntro b { font-size:16px; }
+  .prepareTiles { grid-template-columns:1fr; gap:14px; }
+  .prepareTile { min-height:98px; padding:15px; }
+  .connectionCabinet { padding:15px; }
   .setupHeading b { font-size:17px; }
   .setupHeading small { font-size:12px; }
   .setupGroup .label { margin-top:15px; }
@@ -1538,20 +1653,21 @@ h1 {
 }
 
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand homeBrand"><div class="carvedCorners" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid homeMenuCard"><div class="menuKicker">JULECENTRALENS HOVEDMENU</div><button class="btn gold homeAction" onclick="show('gameMenu')"><span class="actionCrest">✦</span><span class="actionCopy"><b>VÆLG JULESPIL</b><small>Opret en ny juleaften</small></span><span class="actionArrow">›</span></button><button class="btn green homeAction" onclick="show('join')"><span class="actionCrest">◆</span><span class="actionCopy"><b>DELTAG I SPIL</b><small>Brug QR-kode eller spillekode</small></span><span class="actionArrow">›</span></button><div class="luxuryFeatures"><button type="button" onclick="showFeatureInfo('gifts')" aria-label="Læs om gaver"><i>◆</i><b>GAVER</b><small>Sådan fordeles de</small></button><button type="button" onclick="showFeatureInfo('games')" aria-label="Læs om spillene"><i>✦</i><b>SPÆNDING</b><small>Se alle spil</small></button><button type="button" onclick="showFeatureInfo('chaos')" aria-label="Læs om julekaos"><i>❖</i><b>JULEKAOS</b><small>Bonus og events</small></button><button type="button" onclick="showFeatureInfo('friends')" aria-label="Læs om multiplayer"><i>♛</i><b>VENNER</b><small>Spil sammen</small></button></div><div class="tiny center versionPlaque">GRAND NOËL • APP-IKON V15 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand homeBrand"><div class="carvedCorners" aria-hidden="true"><i>✦</i><i>✦</i><i>✦</i><i>✦</i></div><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid homeMenuCard"><div class="menuKicker">JULECENTRALENS HOVEDMENU</div><button class="btn gold homeAction" onclick="show('gameMenu')"><span class="actionCrest">✦</span><span class="actionCopy"><b>VÆLG JULESPIL</b><small>Opret en ny juleaften</small></span><span class="actionArrow">›</span></button><button class="btn green homeAction" onclick="show('join')"><span class="actionCrest">◆</span><span class="actionCopy"><b>DELTAG I SPIL</b><small>Brug QR-kode eller spillekode</small></span><span class="actionArrow">›</span></button><div class="luxuryFeatures"><button type="button" onclick="showFeatureInfo('gifts')" aria-label="Læs om gaver"><i>◆</i><b>GAVER</b><small>Sådan fordeles de</small></button><button type="button" onclick="showFeatureInfo('games')" aria-label="Læs om spillene"><i>✦</i><b>SPÆNDING</b><small>Se alle spil</small></button><button type="button" onclick="showFeatureInfo('chaos')" aria-label="Læs om julekaos"><i>❖</i><b>JULEKAOS</b><small>Bonus og events</small></button><button type="button" onclick="showFeatureInfo('friends')" aria-label="Læs om multiplayer"><i>♛</i><b>VENNER</b><small>Spil sammen</small></button></div><div class="tiny center versionPlaque">GRAND NOËL • OPDELT OPSÆTNING V16 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
 
 <section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card hostSetupCard">
 <div class="selectedGameCard"><div class="selectedGameTop"><span class="setupKicker">DIT VALGTE JULESPIL</span><button class="changeGameBtn" onclick="show('gameMenu')">SKIFT SPIL</button></div><p id="selectedGameLabel">Julequiz · Tre svarmuligheder og én gave fra bunken</p></div>
-<div class="setupGroup"><div class="setupHeading"><span>1</span><div><b>SPILOPLYSNINGER</b><small>Udfyld felterne til jeres juleaften</small></div></div><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="" required autocomplete="off"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="" required autocomplete="off"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="" required autocomplete="off"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="" required autocomplete="off"></div>
-<div class="setupGroup"><div class="setupHeading"><span>2</span><div><b>FORBERED SPILLET</b><small>Gaver, spilleregler og forbindelse</small></div></div><div class="hostMenu"><button class="btn blue" onclick="openGiftAdmin()">🎁 HEMMELIG GAVELISTE</button><button class="btn green" onclick="openSettings()">⚙️ SPILINDSTILLINGER</button></div><button class="btn gold" style="width:100%;margin-bottom:12px" onclick="openCloudSetup()">☁️ CLOUD-OPSÆTNING</button><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div></div>
-<div class="setupGroup startGroup"><div class="setupHeading"><span>3</span><div><b>KLAR TIL JULEAFTEN</b><small>Opret spillet, og invitér de andre</small></div></div><div class="setupTip">Gaver og priser forbliver hemmelige under spillet.</div><button class="btn gold createGameBtn" onclick="createLiveGame()">OPRET LIVE-SPILLET</button></div>
+<div class="setupGroup"><div class="setupHeading"><span>1</span><div><b>SPILOPLYSNINGER</b><small>Udfyld felterne til jeres juleaften</small></div></div><label class="label">Navn på juleaften</label><input id="gameName" class="field" value="" required autocomplete="off"><div class="two grid"><div><label class="label">Maks. spillere</label><input id="maxPlayers" class="field" type="number" min="2" max="12" value="" required autocomplete="off"></div><div><label class="label">Dine gaver (værten)</label><input id="giftCount" class="field" type="number" min="0" max="100" value="" required autocomplete="off"><div class="tiny">De andre registrerer selv deres gaver, når de deltager.</div></div></div><label class="label">Dit navn (værten)</label><input id="hostName" class="field" value="" required autocomplete="off"><div class="hostQuickMenu"><button class="btn blue" onclick="openGiftAdmin()"><span>🎁</span><b>HEMMELIG GAVELISTE</b><small>Navne og priser</small></button><button class="btn green" onclick="show('prepareGame')"><span>⚙️</span><b>FORBERED SPILLET</b><small>Regler, cloud og gendannelse</small></button></div></div>
+<div class="setupGroup startGroup"><div class="setupHeading"><span>2</span><div><b>KLAR TIL JULEAFTEN</b><small>Opret spillet, og invitér de andre</small></div></div><div class="setupTip">Gaver og priser forbliver hemmelige under spillet.</div><button class="btn gold createGameBtn" onclick="createLiveGame()">OPRET LIVE-SPILLET</button></div>
 <button class="btn ghost backSetupBtn" onclick="goHome()">← TILBAGE</button></div></section>
+
+<section id="prepareGame" class="screen"><div class="brand prepareBrand"><div class="emoji">⚙️🎄☁️</div><h1>FORBERED SPILLET</h1><div class="tag">REGLER • FORBINDELSE • GENDANNELSE</div></div><div class="card prepareGameCard"><div class="prepareIntro"><span>✦</span><div><b>JULECENTRALENS VÆRKSTED</b><p>Her gør værten regler og forbindelse klar. Dine spiloplysninger og den hemmelige gaveliste ligger trygt på den forrige side.</p></div></div><div class="prepareTiles"><button class="prepareTile rules" onclick="openSettings()"><span class="prepareIcon">⚙️</span><span><b>SPILINDSTILLINGER</b><small>Vælg julekaos, dueller, Julemanden og finalen</small></span><i>›</i></button><button class="prepareTile cloud" onclick="openCloudSetup()"><span class="prepareIcon">☁️</span><span><b>CLOUD-OPSÆTNING</b><small>Kontrollér forbindelsen til jeres live-spil</small></span><i>›</i></button></div><div class="connectionCabinet"><div class="cabinetTitle">LIVE-FORBINDELSE &amp; GEMTE SPIL</div><div id="cloudBadge" class="status warn">☁️ Cloud: ikke forbundet endnu</div><button id="cloudRestoreBtn" class="btn green" style="width:100%;margin-bottom:12px;display:none" onclick="restoreFromCloud()">☁️ GENDAN SENESTE CLOUD-SPIL</button><button id="restoreBtn" class="btn blue" style="width:100%;margin-bottom:12px;display:none" onclick="restoreLastGame()">🔄 GENDAN SIDSTE JULESPIL</button><div id="restoreHint" class="tiny center" style="display:none;margin:-4px 0 12px">Et gemt spil findes på denne iPad.</div></div><button class="btn ghost prepareBackBtn" onclick="show('host')">← TILBAGE TIL SPILOPLYSNINGER</button></div></section>
 
 <section id="giftAdmin" class="screen"><div class="brand"><div class="emoji">🎁🔐🎁</div><h1>HEMMELIG GAVEADMIN</h1></div><div class="card"><div class="lockNote">🔐 Kun værten kan se denne liste. Spillerne ser kun gave-numrene.</div><div class="adminActions"><button class="btn gold" onclick="loadSommerGiftList()">🎄 INDLÆS 24-GAVERS JULELISTE</button><button class="btn ghost" onclick="prefillGiftNames()">✨ EKSEMPLER</button><button class="btn ghost" onclick="clearGiftNames()">🧹 RYD LISTEN</button></div><div class="tiny center">Den indlæste juleliste kan rettes frit bagefter.</div><div id="giftAdminList" class="adminList"></div><div id="giftTotal" class="summaryBox">🎁 Registreret total: 0 kr.</div><button class="btn gold" style="width:100%" onclick="saveGiftAdmin()">💾 GEM GAVELISTEN</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="show('host')">← TILBAGE TIL JULECENTRALEN</button></div></section>
 
-<section id="settings" class="screen"><div class="brand"><div class="emoji">⚙️🎄🎅🏻</div><h1>SPILINDSTILLINGER</h1></div><div class="card"><div class="lockNote">🎅🏻 Kun Julecentralen styrer disse regler. Du kan ændre dem før hvert spil.</div><div class="settingsGrid"><div class="settingRow"><div><b>😈 Julekaos</b><span class="tiny">Tillad tyveri, gavebytte, frys og bonusgaver.</span></div><label class="switch"><input id="setChaos" type="checkbox"><span class="slider"></span></label></div><div class="settingRow"><div><b>🎮 Juledueller</b><span class="tiny">Aktivér slotmaskine, juleklokke, hukommelse og sneboldkamp.</span></div><label class="switch"><input id="setDuels" type="checkbox"><span class="slider"></span></label></div><div class="settingRow"><div><b>🎅🏻 Julemanden</b><span class="tiny">Tillad den store tilfældige Julemand-event.</span></div><label class="switch"><input id="setSanta" type="checkbox"><span class="slider"></span></label></div><div class="settingRow"><div><b>🔔 Stor gaveåbningsfinale</b><span class="tiny">Vis afsløringen af de hemmelige gavenavne og priser til sidst.</span></div><label class="switch"><input id="setReveal" type="checkbox"><span class="slider"></span></label></div><div class="rangeRow"><b>🔥 Automatisk kaos-niveau: <span id="chaosValue">32%</span></b><div class="tiny">Chance for en automatisk kaoshændelse efter en tur fra runde 2.</div><input id="setChaosChance" type="range" min="0" max="80" step="5" value="32" oninput="document.getElementById('chaosValue').textContent=this.value+'%';"></div></div><button class="btn gold" style="width:100%" onclick="saveSettings()">💾 GEM SPILINDSTILLINGER</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="show('host')">← TILBAGE TIL JULECENTRALEN</button></div></section>
+<section id="settings" class="screen"><div class="brand"><div class="emoji">⚙️🎄🎅🏻</div><h1>SPILINDSTILLINGER</h1></div><div class="card"><div class="lockNote">🎅🏻 Kun Julecentralen styrer disse regler. Du kan ændre dem før hvert spil.</div><div class="settingsGrid"><div class="settingRow"><div><b>😈 Julekaos</b><span class="tiny">Tillad tyveri, gavebytte, frys og bonusgaver.</span></div><label class="switch"><input id="setChaos" type="checkbox"><span class="slider"></span></label></div><div class="settingRow"><div><b>🎮 Juledueller</b><span class="tiny">Aktivér slotmaskine, juleklokke, hukommelse og sneboldkamp.</span></div><label class="switch"><input id="setDuels" type="checkbox"><span class="slider"></span></label></div><div class="settingRow"><div><b>🎅🏻 Julemanden</b><span class="tiny">Tillad den store tilfældige Julemand-event.</span></div><label class="switch"><input id="setSanta" type="checkbox"><span class="slider"></span></label></div><div class="settingRow"><div><b>🔔 Stor gaveåbningsfinale</b><span class="tiny">Vis afsløringen af de hemmelige gavenavne og priser til sidst.</span></div><label class="switch"><input id="setReveal" type="checkbox"><span class="slider"></span></label></div><div class="rangeRow"><b>🔥 Automatisk kaos-niveau: <span id="chaosValue">32%</span></b><div class="tiny">Chance for en automatisk kaoshændelse efter en tur fra runde 2.</div><input id="setChaosChance" type="range" min="0" max="80" step="5" value="32" oninput="document.getElementById('chaosValue').textContent=this.value+'%';"></div></div><button class="btn gold" style="width:100%" onclick="saveSettings()">💾 GEM SPILINDSTILLINGER</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="show('prepareGame')">← TILBAGE TIL FORBEREDELSER</button></div></section>
 
-<section id="cloudSetup" class="screen"><div class="brand"><div class="emoji">☁️🎄☁️</div><h1>SUPABASE CLOUD</h1></div><div class="card"><div class="lockNote">🔐 Nøglen gemmes kun lokalt på din enhed. Brug Supabase Publishable/Anon key – aldrig service_role-nøglen.</div><label class="label">Supabase Project URL</label><input id="cloudUrl" class="field" value="https://wudctmmnqaifjhxdhlwd.supabase.co"><label class="label">Publishable / anon key</label><input id="cloudKey" class="field" type="password" placeholder="Indsæt din publishable/anon key"><div id="cloudStatusBox" class="status warn">Ikke testet endnu.</div><button class="btn green" style="width:100%" onclick="saveCloudConfig()">✅ GEM & TEST FORBINDELSEN</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="show('host')">← TILBAGE TIL JULECENTRALEN</button></div></section>
+<section id="cloudSetup" class="screen"><div class="brand"><div class="emoji">☁️🎄☁️</div><h1>SUPABASE CLOUD</h1></div><div class="card"><div class="lockNote">🔐 Nøglen gemmes kun lokalt på din enhed. Brug Supabase Publishable/Anon key – aldrig service_role-nøglen.</div><label class="label">Supabase Project URL</label><input id="cloudUrl" class="field" value="https://wudctmmnqaifjhxdhlwd.supabase.co"><label class="label">Publishable / anon key</label><input id="cloudKey" class="field" type="password" placeholder="Indsæt din publishable/anon key"><div id="cloudStatusBox" class="status warn">Ikke testet endnu.</div><button class="btn green" style="width:100%" onclick="saveCloudConfig()">✅ GEM & TEST FORBINDELSEN</button><button class="btn ghost" style="width:100%;margin-top:12px" onclick="show('prepareGame')">← TILBAGE TIL FORBEREDELSER</button></div></section>
 
 <section id="join" class="screen"><div class="brand"><div class="emoji">📱🎁</div><h1>DELTAG</h1></div><div class="card"><div id="qrDetected" class="qrDetected" style="display:none">✅ QR-invitation fundet – spillekoden er udfyldt automatisk!</div><label class="label">Spillekode</label><input id="joinCode" class="field" inputmode="numeric" maxlength="4" placeholder="fx 2412"><label class="label">Dit navn</label><input id="joinName" class="field" placeholder="Skriv dit navn"><label class="label">🎁 Hvor mange gaver har du med?</label><div class="giftCounter"><button class="counterBtn" type="button" onclick="changeJoinGifts(-1)">−</button><input id="joinGiftCount" class="field counterInput" type="number" min="0" max="100" value="0" inputmode="numeric"><button class="counterBtn" type="button" onclick="changeJoinGifts(1)">+</button></div><div class="tiny center" style="margin-bottom:14px">Du behøver ikke fortælle, hvad der er i dem. Julecentralen nummererer dem automatisk.</div><button id="joinBtn" class="btn green" style="width:100%" onclick="joinLiveGame()">🎄 GÅ IND I LOBBYEN</button><div id="joinStatus"></div><button class="btn ghost" style="width:100%;margin-top:12px" onclick="goHome()">← Tilbage</button></div></section>
 
@@ -1588,7 +1704,7 @@ const DEFAULT_SETTINGS={chaos:true,duels:true,santa:true,reveal:true,chaosChance
 function settingsKey(){return 'julegave-v7-settings'}
 function getSettings(){try{return {...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem(settingsKey())||'{}')}}catch(e){return {...DEFAULT_SETTINGS}}}
 function openSettings(){let s=getSettings();document.getElementById('setChaos').checked=s.chaos;document.getElementById('setDuels').checked=s.duels;document.getElementById('setSanta').checked=s.santa;document.getElementById('setReveal').checked=s.reveal;document.getElementById('setChaosChance').value=s.chaosChance;document.getElementById('chaosValue').textContent=s.chaosChance+'%';show('settings')}
-function saveSettings(){let s={chaos:document.getElementById('setChaos').checked,duels:document.getElementById('setDuels').checked,santa:document.getElementById('setSanta').checked,reveal:document.getElementById('setReveal').checked,chaosChance:+document.getElementById('setChaosChance').value};localStorage.setItem(settingsKey(),JSON.stringify(s));alert('⚙️ Spilindstillingerne er gemt!');show('host')}
+function saveSettings(){let s={chaos:document.getElementById('setChaos').checked,duels:document.getElementById('setDuels').checked,santa:document.getElementById('setSanta').checked,reveal:document.getElementById('setReveal').checked,chaosChance:+document.getElementById('setChaosChance').value};localStorage.setItem(settingsKey(),JSON.stringify(s));alert('⚙️ Spilindstillingerne er gemt!');show('prepareGame')}
 
 let mode=null,roomCode='',myName='',myId='',state=null,miniTimer=null,reconnectTimer=null,reconnectAttempts=0,mySessionKey='';
 let realtimeChannel=null,realtimeReady=false,joinRetryTimer=null;
