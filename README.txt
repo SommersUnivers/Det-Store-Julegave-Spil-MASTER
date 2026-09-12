@@ -1,4 +1,4 @@
-Det Store Julegave-Spil — MAGISK MOBIL-SPILLEBORD V25
+Det Store Julegave-Spil — MOBIL- OG IPAD-RETTELSE V26
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -23,7 +23,12 @@ på én skærm uden sidescroll. Terning eller spørgsmål står i centrum, mens
 Gaver og Logbog har egne juleknapper og åbner som flotte juleskuffer oven
 på spillet. Når en gave skal vælges, åbner gavebunken automatisk.
 
+V26 retter den sorte fastfrosne mobilskærm, så gave- og logskufferne altid
+ligger synligt øverst og har en tydelig lukkeknap. iPad-layoutet bruger nu
+mere af skærmens højde og har større tekst, spillerfigur, spørgsmål,
+terning, svarmuligheder, gaver og værtsknapper.
+
 Supabase multiplayer, cloud-gemning, quiz, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V25-mappe til GitHub main.
+Upload alle filerne fra den færdige V26-mappe til GitHub main.
