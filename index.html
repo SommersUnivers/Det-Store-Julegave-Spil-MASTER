@@ -240,7 +240,7 @@ h2 { color: #7d1222; }
   gap: 10px;
 }
 
-.luxuryFeatures span,
+.luxuryFeatures button,
 .versionPlaque {
   color: #ffedb0;
   border: 2px solid #c98e25;
@@ -248,7 +248,7 @@ h2 { color: #7d1222; }
   box-shadow: 0 5px 0 #291006, 0 9px 15px rgba(0,0,0,.32), inset 0 0 0 1px rgba(255,255,255,.08);
 }
 
-.luxuryFeatures span {
+.luxuryFeatures button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -298,7 +298,7 @@ h2 { color: #7d1222; }
 }
 
 #home .btn { min-height: 82px; font-size: clamp(20px, 3.2vw, 28px); }
-#home .luxuryFeatures span { background: linear-gradient(#6b3018, #351509); }
+#home .luxuryFeatures button { background: linear-gradient(#6b3018, #351509); }
 #home .versionPlaque { background: linear-gradient(#6b3018, #351509); }
 
 .code {
@@ -704,7 +704,7 @@ h1 {
 .label { color: #481b0a; font-size: 15px; letter-spacing: .02em; }
 
 .luxuryFeatures { gap: 14px; margin-top: 10px; }
-.luxuryFeatures span,
+.luxuryFeatures button,
 .versionPlaque {
   border: 1px solid #ffdf78;
   background:
@@ -712,7 +712,7 @@ h1 {
     linear-gradient(#6e2f17, #321207);
   box-shadow: 0 0 0 3px #7d470e, 0 0 0 5px #dba72e, 0 7px 0 #210a03, 0 13px 20px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.17);
 }
-.luxuryFeatures span { min-height: 82px; justify-content: center; border-radius: 12px; }
+.luxuryFeatures button { min-height: 82px; justify-content: center; border-radius: 12px; }
 .luxuryFeatures b { color: #fff1b9; font-size: 13px; }
 .versionPlaque { margin: 11px 8px 2px; padding: 11px 15px; color: #ffe9a1; letter-spacing: .045em; }
 
@@ -819,7 +819,7 @@ h1 {
   #home .card { padding: 34px 17px 22px; }
   #home .btn { min-height: 78px; margin-inline: 4px; }
   .luxuryFeatures { gap: 9px; }
-  .luxuryFeatures span { min-height: 72px; }
+  .luxuryFeatures button { min-height: 72px; }
   .versionPlaque { margin-inline: 4px; font-size: 11px; }
 }
 
@@ -1270,8 +1270,85 @@ h1 {
   .stealDie.unrolled { font-size:62px; }
 }
 
+/* Klikbare informationskort på forsiden */
+.luxuryFeatures button {
+  appearance:none;
+  cursor:pointer;
+  font-family:inherit;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;
+}
+.luxuryFeatures button i {
+  color:#ffe184;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:25px;
+  font-style:normal;
+  line-height:1;
+  text-shadow:0 2px 4px #000;
+}
+.luxuryFeatures button small {
+  color:#e7cf91;
+  font-size:10px;
+  font-weight:750;
+  letter-spacing:.02em;
+}
+.luxuryFeatures button:hover { filter:brightness(1.13); transform:translateY(-3px); }
+.luxuryFeatures button:active { transform:translateY(4px); box-shadow:0 0 0 3px #7d470e,0 0 0 5px #dba72e,0 2px 0 #210a03,0 7px 12px rgba(0,0,0,.4); }
+.luxuryFeatures button:focus-visible { outline:3px solid #fff4ae; outline-offset:5px; }
+
+.featureInfo {
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+  text-align:left;
+}
+.featureInfoRow {
+  display:grid;
+  grid-template-columns:42px 1fr;
+  align-items:center;
+  gap:13px;
+  padding:14px;
+  border:1px solid #d7a52b;
+  border-radius:14px;
+  color:#43180a;
+  background:linear-gradient(145deg,#fffdf5,#eed18a);
+  box-shadow:0 0 0 2px #7e470c,0 6px 12px #0005,inset 0 1px 0 #fff;
+}
+.featureInfoRow > span {
+  display:grid;
+  width:40px;
+  height:40px;
+  place-items:center;
+  border:1px solid #ffeca0;
+  border-radius:50%;
+  color:#fff7d5;
+  background:linear-gradient(145deg,#ae0c31,#670018);
+  box-shadow:0 3px 0 #5b1a08;
+  font-size:18px;
+  font-weight:1000;
+}
+.featureInfoRow b {
+  display:block;
+  margin-bottom:3px;
+  color:#751027;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:17px;
+}
+.featureInfoRow p { margin:0; font-size:14px; line-height:1.4; }
+
+@media (max-width:700px) {
+  .luxuryFeatures button { padding:10px 4px; }
+  .luxuryFeatures button i { font-size:22px; }
+  .luxuryFeatures button b { font-size:11px; }
+  .luxuryFeatures button small { font-size:9px; }
+  .featureInfo { gap:10px; }
+  .featureInfoRow { grid-template-columns:36px 1fr; gap:10px; padding:12px 10px; }
+  .featureInfoRow > span { width:34px; height:34px; font-size:16px; }
+  .featureInfoRow b { font-size:16px; }
+  .featureInfoRow p { font-size:13px; }
+}
+
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • LIGELIG FORDELING V12 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><button type="button" onclick="showFeatureInfo('gifts')" aria-label="Læs om gaver"><i>◆</i><b>GAVER</b><small>Sådan fordeles de</small></button><button type="button" onclick="showFeatureInfo('games')" aria-label="Læs om spillene"><i>✦</i><b>SPÆNDING</b><small>Se alle spil</small></button><button type="button" onclick="showFeatureInfo('chaos')" aria-label="Læs om julekaos"><i>❖</i><b>JULEKAOS</b><small>Bonus og events</small></button><button type="button" onclick="showFeatureInfo('friends')" aria-label="Læs om multiplayer"><i>♛</i><b>VENNER</b><small>Spil sammen</small></button></div><div class="tiny center versionPlaque">GRAND NOËL • INFOMENU V13 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
 
 <section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card hostSetupCard">
 <div class="selectedGameCard"><div class="selectedGameTop"><span class="setupKicker">DIT VALGTE JULESPIL</span><button class="changeGameBtn" onclick="show('gameMenu')">SKIFT SPIL</button></div><p id="selectedGameLabel">Julequiz · Tre svarmuligheder og én gave fra bunken</p></div>
@@ -1647,7 +1724,13 @@ function hostSanta(){if(mode!=='host'||!state.started||!(state.settings||DEFAULT
 function finishGame(){validateGameState();if(state.taken.length<state.giftCount){state.event='🎁 Der mangler stadig '+(state.giftCount-state.taken.length)+' gave(r).';broadcastGame();return}state.finished=true;addLog('🔔 Alle gaver er fordelt!');broadcastGame({kind:'finish',emoji:'🔔🎁🔔',title:'GAVERNE MÅ ÅBNES!',text:'Juleslaget er slut – pak gaverne op! 🎉'});renderFinish();show('finish');confetti()}
 function addLog(t){state.log=state.log||[];state.log.push(t);if(state.log.length>100)state.log.shift()}
 function renderFinish(){if(!state)return;validateGameState();document.getElementById('scores').innerHTML=state.players.map(p=>{let gs=(state.owners[p.id]||[]).slice().sort((a,b)=>a-b);let reveal=(state.settings||DEFAULT_SETTINGS).reveal;let details=gs.map(n=>{let d=(state.giftSecrets||{})[n]||{};let origin=(state.giftOrigins||{})[n]||{};let title=reveal?(d.name?escapeHtml(d.name):(origin.playerName?'Medbragt af '+escapeHtml(origin.playerName):'Hemmelig gave')):'Gave #'+n;let price=reveal&&d.price?` · ${escapeHtml(d.price)} kr.`:'';return `<div class="revealGift"><b>🎁 #${n}</b> – ${title}${price}</div>`}).join('');let jp=(state.julePoints&&state.julePoints[p.id])||0;return `<div class="score"><span>${p.avatar} ${escapeHtml(p.name)}${jp?` · ⭐ ${jp} julepoint`:''}</span><span>${gs.length} gaver 🎁</span></div>${details}`}).join('');setTimeout(confetti,250)}
-function showSpecial(sp){if(!sp)return;document.getElementById('modalEmoji').textContent=sp.emoji||'🎄';document.getElementById('modalTitle').textContent=sp.title||'JULEKAOS';document.getElementById('modalText').textContent=sp.text||'';document.getElementById('miniArea').innerHTML='';document.getElementById('modalBtn').style.display='block';document.getElementById('overlay').classList.add('show');if(sp.kind==='santa')document.getElementById('modal').classList.add('santaFlash');else document.getElementById('modal').classList.remove('santaFlash');if(sp.kind==='duel')startMini(sp.duel,sp.players||[]);if(sp.kind==='finish')confetti()}
+function showSpecial(sp){if(!sp)return;document.getElementById('modalEmoji').textContent=sp.emoji||'🎄';document.getElementById('modalTitle').textContent=sp.title||'JULEKAOS';document.getElementById('modalText').textContent=sp.text||'';document.getElementById('miniArea').innerHTML='';document.getElementById('modalBtn').textContent='FORTSÆT 🎄';document.getElementById('modalBtn').style.display='block';document.getElementById('overlay').classList.add('show');if(sp.kind==='santa')document.getElementById('modal').classList.add('santaFlash');else document.getElementById('modal').classList.remove('santaFlash');if(sp.kind==='duel')startMini(sp.duel,sp.players||[]);if(sp.kind==='finish')confetti()}
+function showFeatureInfo(type){const info={
+gifts:{emoji:'🎁',title:'GAVER',lead:'Julecentralen sørger for en retfærdig gavefest.',items:[['Lige fordeling','Spillet beregner automatisk, hvor mange gaver hver spiller skal have.'],['Hemmelig gavebunke','Pakkerne vises kun med numre, indtil de må åbnes.'],['Tyverirunden','Efter fordelingen får alle tre forsøg på at slå en 1’er og bytte en pakke.']]},
+games:{emoji:'✦',title:'SPÆNDING',lead:'Vælg det julespil, der passer bedst til selskabet.',items:[['Julequiz','Svar på ét spørgsmål med tre svarmuligheder.'],['Klassisk terningespil','Slå en 6’er for at få lov til at vælge en gave.'],['At stjæle pakker','Slå en 1’er i den frivillige finale for at bytte en hemmelig gave.']]},
+chaos:{emoji:'❖',title:'JULEKAOS',lead:'Værten bestemmer selv, hvor vild juleaften skal være.',items:[['Bonusoplevelser','Hemmeligheder og overraskelser kan dukke op mellem turene.'],['Juledueller','Små festlige udfordringer kan afgøre en ekstra gevinst.'],['Julemanden','Julecentralen kan sætte særlige hændelser i gang.']]},
+friends:{emoji:'♛',title:'VENNER',lead:'Alle spiller med fra deres egen mobil eller tablet.',items:[['Nem invitation','Scan QR-koden eller indtast den firecifrede spillekode.'],['Live multiplayer','Alle kan følge turen og vælge direkte på deres egen skærm.'],['Én Julecentral','Værten opretter spillet og styrer næste tur samt finalen.']]}
+}[type];if(!info)return;document.getElementById('modalEmoji').textContent=info.emoji;document.getElementById('modalTitle').textContent=info.title;document.getElementById('modalText').textContent=info.lead;document.getElementById('miniArea').innerHTML='<div class="featureInfo">'+info.items.map((x,i)=>'<div class="featureInfoRow"><span>'+String(i+1)+'</span><div><b>'+x[0]+'</b><p>'+x[1]+'</p></div></div>').join('')+'</div>';document.getElementById('modalBtn').textContent='LUK VINDUET';document.getElementById('modalBtn').style.display='block';document.getElementById('modal').classList.remove('santaFlash');document.getElementById('overlay').classList.add('show')}
 function closeOverlay(){document.getElementById('overlay').classList.remove('show');clearInterval(miniTimer);miniTimer=null}
 function startMini(type,players){let a=document.getElementById('miniArea'),btn=document.getElementById('modalBtn');btn.style.display='none';let names=(players||[]).map(p=>typeof p==='string'?p:p.name);document.getElementById('modalText').textContent=(names.length===2?names[0]+' mod '+names[1]+' – ':'')+document.getElementById('modalText').textContent;if(type==='slot'){a.innerHTML='<div class="duelbox"><div>Tryk og se hvem julemaskinen vælger!</div><div id="slot" class="slot">🎁 🎄 🔔</div><button class="btn gold" onclick="spinSlot()">🎰 SPIN!</button></div>'}
 if(type==='clock'){a.innerHTML='<div class="duelbox"><div>Stop klokken så tæt på <b>5,00 sek.</b> som muligt!</div><div id="clock" class="slot">0.00</div><button id="clockBtn" class="btn green" onclick="toggleClock()">🔔 START</button></div>'}
