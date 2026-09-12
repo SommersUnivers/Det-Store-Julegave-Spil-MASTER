@@ -3185,3 +3185,91 @@ body:has(#game.active) .wrap {
   #game.logTrayOpen .gameLogBook summary { display:flex; padding:8px 10px; }
   #game.logTrayOpen .gameLogBook .log { flex:1; min-height:0; max-height:none; overflow:auto; }
 }
+
+/* V29 — iPad: hele Julebingo samles uden afskåret plade eller tomme søjler */
+@media (min-width:701px) and (max-width:1180px) {
+  body:has(#game.active) { overflow:auto; }
+  #game.active {
+    height:auto;
+    min-height:0;
+  }
+  #game.active .gameCockpitHeader {
+    min-height:102px;
+    padding:24px 20px 15px 28px;
+  }
+  #game.active .gameTableCard {
+    grid-template-columns:minmax(255px,.68fr) minmax(0,1.32fr);
+    grid-template-rows:auto auto auto;
+    align-items:start;
+    height:auto;
+    min-height:0;
+    max-height:none;
+    padding:14px;
+  }
+  #game.active .gameStatusColumn {
+    align-self:start;
+    height:auto;
+    padding:12px;
+  }
+  #game.active .gamePlayColumn {
+    align-self:start;
+    height:auto;
+    min-height:0;
+    padding:11px;
+  }
+  #game.active .quizPanel.christmasBingo {
+    grid-template-columns:minmax(125px,.63fr) minmax(0,1.37fr);
+    gap:7px 9px;
+    width:100%;
+    padding:15px 13px 13px;
+    overflow:hidden;
+  }
+  #game.active .christmasBingo .christmasEyebrow { padding-right:105px; }
+  #game.active .quizPanel.christmasBingo h2 { font-size:clamp(25px,3.2vw,33px); }
+  #game.active .christmasBingo .fairShareBadge { margin-bottom:0; padding:5px 10px; font-size:9px; }
+  #game.active .bingoCaller {
+    gap:7px;
+    min-height:78px;
+    padding:7px;
+  }
+  #game.active .bingoCaller > span {
+    width:52px;
+    height:52px;
+    flex-basis:52px;
+    font-size:31px;
+  }
+  #game.active .bingoCaller small { font-size:7px; letter-spacing:.8px; }
+  #game.active .bingoCaller b { font-size:clamp(15px,2vw,20px); }
+  #game.active .bingoBoard {
+    grid-template-columns:repeat(3,minmax(0,76px));
+    gap:6px;
+    width:min(100%,258px);
+    padding:8px;
+  }
+  #game.active .bingoCell > span { font-size:30px; }
+  #game.active .bingoCell small { font-size:7px; }
+  #game.active .bingoActions .btn { min-height:38px; padding:6px 7px; font-size:10px; }
+  #game.active .bingoProgress { padding:5px 7px; font-size:8px; }
+  #game.active .gamePlayColumn > .gifts {
+    flex:0 0 auto;
+    grid-template-columns:repeat(8,minmax(48px,1fr));
+    align-content:center;
+    min-height:94px;
+    max-height:128px;
+    padding:9px!important;
+  }
+  #game.active .gamePlayColumn > .gifts .gift {
+    min-height:62px;
+    max-height:72px;
+  }
+  #game.active .gameControlsRow { align-self:start; }
+  #game.active .gameLogBook { align-self:start; width:100%; }
+}
+
+@media (min-width:701px) and (max-width:850px) {
+  #game.active .gameTableCard { grid-template-columns:minmax(225px,.64fr) minmax(0,1.36fr); }
+  #game.active .quizPanel.christmasBingo { grid-template-columns:112px minmax(0,1fr); padding-inline:9px; }
+  #game.active .bingoBoard { grid-template-columns:repeat(3,minmax(0,67px)); width:min(100%,231px); }
+  #game.active .bingoCell > span { font-size:26px; }
+  #game.active .bingoCaller > span { width:44px; height:44px; flex-basis:44px; font-size:27px; }
+}

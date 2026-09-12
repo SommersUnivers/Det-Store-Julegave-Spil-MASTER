@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – JULEBINGO V28
+Det Store Julegave-Spil – JULEBINGO V29
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -38,7 +38,11 @@ markeres automatisk, og den første gyldige række giver ret til at vælge en
 gave. En ny kompakt juleplade holder bingo, seneste motiv og knapper samlet
 på mobil og iPad. Ligelig gavefordeling og de tre tyverirunder fortsætter.
 
+V29 retter iPad-visningen. Alle ni bingofelter bliver nu inden for rammen,
+spillerstatus og gavebunke bruger kun den nødvendige højde, og de store tomme
+felter er fjernet. Mobilens sikre visning og spillets regler er uændrede.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V28-mappe til GitHub main.
+Upload alle filerne fra den færdige V29-mappe til GitHub main.
