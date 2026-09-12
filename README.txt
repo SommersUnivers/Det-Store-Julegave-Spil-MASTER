@@ -1,12 +1,11 @@
-Det Store Julegave-Spil — JULEBY EDITION
+Det Store Julegave-Spil — KONGELIG JULECENTRAL V17
 
-Bygget direkte oven på den testede V16 MASTER.
-Grafikken er samlet og opgraderet til et ægte julebytema. Supabase multiplayer,
-cloud-gemning og gameplay-funktionerne er bevaret.
+Julecentralens værtsside er opgraderet med et nyt luksuslayout,
+Julemanden, julekonen og et rensdyr. Forberedelserne ligger fortsat
+på deres egen side, mens Hemmelig gaveliste og Klar til juleaften
+bliver sammen med spiloplysningerne.
 
-Upload disse filer og mapper samlet til GitHub MASTER:
-- index.html
-- style.css
-- assets/christmas-village.png
-- README.txt
-- vercel.json
+Supabase multiplayer, cloud-gemning, quiz, terningespil,
+ligelig gavefordeling og tyverirunden er bevaret og testet.
+
+Upload alle filerne fra den færdige V17-mappe til GitHub main.
