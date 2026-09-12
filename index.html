@@ -880,6 +880,20 @@ h1 {
 .quizPanel.christmasQuiz h2::after,
 .quizPanel.christmasDice h2::before,
 .quizPanel.christmasDice h2::after { content: "✦"; color: #e7b52d; margin: 0 12px; font-size: .65em; }
+.fairShareBadge {
+  width: fit-content;
+  margin: -9px auto 24px;
+  padding: 8px 14px;
+  border: 1px solid #ffe99d;
+  border-radius: 999px;
+  color: #4b1908;
+  background: linear-gradient(#fff8d7,#ddb443);
+  box-shadow: 0 4px 0 #78410b,0 8px 14px #0005;
+  font-size: 12px;
+  font-weight: 1000;
+  letter-spacing: .055em;
+  text-align: center;
+}
 
 .quizPanel .quizQuestion {
   margin: 0;
@@ -973,6 +987,7 @@ h1 {
   .quizPanel.christmasQuiz h2,.quizPanel.christmasDice h2 { font-size:27px; }
   .quizPanel.christmasQuiz h2::before,.quizPanel.christmasQuiz h2::after,.quizPanel.christmasDice h2::before,.quizPanel.christmasDice h2::after { margin:0 6px; }
   .quizPanel .quizQuestion { padding:21px 15px; font-size:20px; }
+  .fairShareBadge { width:auto; margin-top:-7px; padding:8px 10px; font-size:11px; }
   .quizPanel .quizAnswer.btn { min-height:62px; padding:14px 15px; }
   .christmasDice .diceFace { width:146px; padding:23px; border-radius:27px; }
   .diePip { width:22px; }
@@ -1256,7 +1271,7 @@ h1 {
 }
 
 </style></head><body><div id="netBadge" class="onlineBadge">🌐 Tjekker forbindelse…</div><div class="snow"></div><main class="wrap">
-<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • TYVERIRUNDEN V11 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
+<section id="home" class="screen active"><div class="brand"><div class="emoji">🔔🎄🎁🎅🏻🎁🎄🔔</div><h1>DET STORE<br>JULEGAVE-SPIL</h1><div class="tag">LIVE MULTIPLAYER • GAVEJAGT • JULEKAOS</div></div><div class="card grid"><button class="btn gold" onclick="show('gameMenu')">VÆLG JULESPIL</button><button class="btn green" onclick="show('join')">DELTAG I SPIL</button><div class="luxuryFeatures"><span>◆<b>GAVER</b></span><span>✦<b>SPÆNDING</b></span><span>❖<b>JULEKAOS</b></span><span>♛<b>VENNER</b></span></div><div class="tiny center versionPlaque">GRAND NOËL • LIGELIG FORDELING V12 • LIVE • QR • CLOUD • AUTO-GEM</div></div></section>
 
 <section id="host" class="screen"><div class="brand"><div class="emoji">🎄🎅🏻🎄</div><h1>JULECENTRALEN</h1></div><div class="card hostSetupCard">
 <div class="selectedGameCard"><div class="selectedGameTop"><span class="setupKicker">DIT VALGTE JULESPIL</span><button class="changeGameBtn" onclick="show('gameMenu')">SKIFT SPIL</button></div><p id="selectedGameLabel">Julequiz · Tre svarmuligheder og én gave fra bunken</p></div>
@@ -1727,14 +1742,21 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     state.event=currentPlayer().name+' skal svare på et spørgsmål.';
   }
   function active(pid,turn){return state&&state.started&&!state.finished&&!state.awaitNext&&state.quiz&&state.quiz.turn===turn&&state.quiz.playerId===pid&&currentPlayer().id===pid;}
+  function giftTarget(){return state&&state.players.length&&state.giftCount%state.players.length===0?state.giftCount/state.players.length:Number.MAX_SAFE_INTEGER}
+  function fairRecipient(preferred,exclude){
+    const target=giftTarget(),preferredPlayer=state.players.find(p=>p.id===preferred);
+    if(preferredPlayer&&preferredPlayer.id!==exclude&&(state.owners[preferredPlayer.id]||[]).length<target)return preferredPlayer;
+    return state.players.filter(p=>p.id!==exclude&&(state.owners[p.id]||[]).length<target).sort((a,b)=>(state.owners[a.id]||[]).length-(state.owners[b.id]||[]).length)[0]||preferredPlayer;
+  }
   function hostQuizAction(pid,d){
     if(mode!=='host'||!active(pid,d.turn))return false;
     const q=state.quiz;
     if(d.type==='diceRoll'){
       if(state.gameType!=='dice'||q.status!=='roll')return false;
       q.die=Math.floor(Math.random()*6)+1;q.correct=q.die===6;
-      q.status=q.correct?'gift':'done';q.recipient=q.correct?pid:null;
-      state.event=currentPlayer().name+' slog '+q.die+(q.correct?' og må vælge en gave!':'. Ingen gave på denne tur.');
+      const fair=q.correct?fairRecipient(pid):null;
+      q.status=q.correct?'gift':'done';q.recipient=fair?fair.id:null;q.fairOverride=!!(fair&&fair.id!==pid);
+      state.event=currentPlayer().name+' slog '+q.die+(q.correct?(q.fairOverride?' og vælger en gave til '+fair.name+', som mangler en gave!':' og må vælge en gave!'):'. Ingen gave på denne tur.');
       addLog(state.event);
       if(!q.correct){state.awaitNext=true;state.turns++;if(state.turns%state.players.length===0)state.round++;}
       broadcastGame();return true;
@@ -1743,12 +1765,13 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
       if(state.gameType==='dice')return false;
       if(q.status!=='question'||!Number.isInteger(d.answer)||d.answer<0||d.answer>2)return false;
       q.selected=d.answer;q.correct=d.answer===q.answerIndex;
-      q.status=q.correct?'gift':'recipient';q.recipient=q.correct?pid:null;
-      state.event=currentPlayer().name+(q.correct?' svarede rigtigt!':' svarede forkert og giver en gave fra bunken til en anden.');
+      if(q.correct){const fair=fairRecipient(pid);q.recipient=fair.id;q.fairOverride=fair.id!==pid;q.status='gift';}
+      else {const other=fairRecipient(null,pid);q.recipient=other?null:pid;q.fairOverride=!other;q.status=other?'recipient':'gift';}
+      state.event=currentPlayer().name+(q.correct?(q.fairOverride?' svarede rigtigt – gaven går til '+state.players.find(p=>p.id===q.recipient).name+', som mangler en gave!':' svarede rigtigt!'):(q.fairOverride?' svarede forkert, men er den eneste, der mangler en gave.':' svarede forkert og giver en gave fra bunken til en anden.'));
       addLog(state.event);broadcastGame();return true;
     }
     if(d.type==='quizRecipient'){
-      if(q.status!=='recipient'||d.recipient===pid||!state.players.some(p=>p.id===d.recipient))return false;
+      if(q.status!=='recipient'||d.recipient===pid||!state.players.some(p=>p.id===d.recipient&&(state.owners[p.id]||[]).length<giftTarget()))return false;
       q.recipient=d.recipient;q.status='gift';broadcastGame();return true;
     }
     if(d.type==='takeGift')return takeGiftHost(pid,d.gift,d.turn);
@@ -1789,10 +1812,10 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
   takeGiftHost=function(pid,n,turn){
     if(mode!=='host'||!active(pid,turn)||state.quiz.status!=='gift'||!Number.isInteger(n)||n<1||n>state.giftCount||state.taken.includes(n))return false;
     const q=state.quiz,to=state.players.find(p=>p.id===q.recipient);
-    if(!to||(q.correct?to.id!==pid:to.id===pid))return false;
+    if(!to||(q.correct?(!q.fairOverride&&to.id!==pid):(!q.fairOverride&&to.id===pid))||(state.owners[to.id]||[]).length>=giftTarget())return false;
     q.status='done';q.gift=n;state.awaitNext=true;
     state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);validateGameState();state.turns++;
-    state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til sig selv.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
+    state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til '+(to.id===pid?'sig selv':to.name)+'.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
     if(state.taken.length>=state.giftCount){finishGame();return true}
     if(state.turns%state.players.length===0)state.round++;
     if(state.round>=2&&state.gameType!=='dice')state.phase='Julekaos';
@@ -1816,6 +1839,7 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
     add('div','JULECENTRALENS SPILLESTUE','christmasEyebrow');
     add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':'JULEQUIZZEN');
+    const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','⚖️ RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
     if(!q){add('p','Venter på spørgsmålet fra værten …');return}
     if(state.gameType==='dice'){
       document.getElementById('phase').textContent='Slå en 6’er';
@@ -1825,7 +1849,8 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
       if(q.die){pips[q.die].forEach(position=>{const pip=document.createElement('span');pip.className='diePip';pip.style.gridArea=Math.ceil(position/3)+' / '+((position-1)%3+1);pip.setAttribute('aria-hidden','true');face.appendChild(pip)});}
       else {face.textContent='✦';face.classList.add('unrolled');}
       face.setAttribute('aria-label',q.die?'Terningen viser '+q.die:'Terningen er ikke slået');
-      const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?'Du slog en 6’er! Vælg en gave fra bunken.':currentPlayer().name+' slog en 6’er og vælger en gave.') : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
+      const diceTo=q.recipient&&state.players.find(p=>p.id===q.recipient);
+      const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?'Du slog en 6’er! Vælg en gave fra bunken til '+(diceTo&&diceTo.id!==q.playerId?diceTo.name:'dig selv')+'.':currentPlayer().name+' slog en 6’er og vælger en gave.') : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
       const feedback=add('p',sending?'Sender dit kast …':label,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
       if(q.status==='roll'){const b=add('button','SLÅ MED TERNINGEN','btn green');b.type='button';b.disabled=!can;b.addEventListener('click',()=>sendAction('diceRoll'));}
       document.getElementById('instruction').textContent=label;
@@ -1845,13 +1870,13 @@ window.addEventListener('load',()=>{updateNetBadge();updateCloudBadge();updateRe
     let text='';
     if(q.status==='question')text=mine?'Vælg ét svar. Rigtigt: en gave til dig. Forkert: en gave fra bunken til en anden.':'Vent, mens '+currentPlayer().name+' svarer.';
     else if(q.status==='recipient')text='Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. '+(mine?'Vælg, hvem der skal have en gave fra bunken.':'Spilleren vælger en modtager.');
-    else if(q.status==='gift'){const to=state.players.find(p=>p.id===q.recipient);text=(q.correct?'Rigtigt svar! ':'Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. ')+(mine?'Vælg en gave fra bunken til '+(q.correct?'dig selv':to.name)+'.':'Venter på gavevalget.');}
+    else if(q.status==='gift'){const to=state.players.find(p=>p.id===q.recipient);text=(q.correct?'Rigtigt svar! ':'Forkert svar. Det rigtige svar er '+q.options[q.answerIndex]+'. ')+(mine?'Vælg en gave fra bunken til '+(to.id===q.playerId?'dig selv':to.name)+'.':'Venter på gavevalget.');}
     else text='Gaven er fordelt. Værten fortsætter til næste spiller.';
     const feedback=add('p',sending?'Sender dit valg …':text,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
     document.getElementById('instruction').textContent=text;
     if(q.status==='recipient'){
       const recipients=add('div','','quizAnswers');
-      state.players.filter(p=>p.id!==q.playerId).forEach(p=>{const b=document.createElement('button');b.type='button';b.className='btn green';b.textContent=p.name;b.disabled=!can;b.addEventListener('click',()=>sendAction('quizRecipient',{recipient:p.id}));recipients.appendChild(b)});
+      state.players.filter(p=>p.id!==q.playerId&&(state.owners[p.id]||[]).length<giftTarget()).forEach(p=>{const b=document.createElement('button');b.type='button';b.className='btn green';b.textContent=p.name+' · '+(state.owners[p.id]||[]).length+'/'+giftTarget()+' gaver';b.disabled=!can;b.addEventListener('click',()=>sendAction('quizRecipient',{recipient:p.id}));recipients.appendChild(b)});
     }
     document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(can&&q.status==='gift'&&!b.classList.contains('taken'));});
     document.querySelectorAll('#hostBar .btn').forEach(b=>{b.disabled=!state.awaitNext||state.finished});
