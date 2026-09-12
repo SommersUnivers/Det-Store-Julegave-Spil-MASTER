@@ -1,4 +1,4 @@
-/* Quiz turns use the existing host-authoritative transport and snapshot. */
+/* Julebingo og terningespil bruger den eksisterende værtsstyrede live-forbindelse. */
 (() => {
   const bank = [
     ['Hvilken måned fejrer vi juleaften i Danmark?', 'December', 'November', 'Januar'],
@@ -53,28 +53,40 @@
   const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a; };
   const oldRender=renderGame, oldPublic=publicStateFor, oldHandle=handleRealtimeAction;
   const oldInit=initState;
-  let selectedGame='quiz';
+  const bingoSymbols=[
+    {id:'santa',icon:'🎅🏻',name:'Julemand'},{id:'gift',icon:'🎁',name:'Gave'},{id:'tree',icon:'🎄',name:'Juletræ'},
+    {id:'deer',icon:'🦌',name:'Rensdyr'},{id:'snowman',icon:'⛄',name:'Snemand'},{id:'bell',icon:'🔔',name:'Klokke'},
+    {id:'star',icon:'⭐',name:'Stjerne'},{id:'cookie',icon:'🍪',name:'Småkage'},{id:'candle',icon:'🕯️',name:'Julelys'},
+    {id:'elf',icon:'🧑🏻‍🎄',name:'Nisse'},{id:'heart',icon:'❤️',name:'Julehjerte'},{id:'snow',icon:'❄️',name:'Snefnug'},
+    {id:'sock',icon:'🧦',name:'Julesok'},{id:'candy',icon:'🍬',name:'Juleslik'},{id:'sled',icon:'🛷',name:'Kælk'},
+    {id:'drum',icon:'🥁',name:'Tromme'},{id:'angel',icon:'👼',name:'Engel'},{id:'porridge',icon:'🥣',name:'Risengrød'}
+  ];
+  let selectedGame='bingo';
   window.chooseChristmasGame=function(type){
-    if(!['quiz','dice'].includes(type))return;
+    if(!['bingo','dice'].includes(type))return;
     selectedGame=type;show('host');
-    document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Slå en 6’er og vælg en gave':'Julequiz · Tre svarmuligheder og én gave fra bunken';
+    document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Slå en 6’er og vælg en gave':'Julebingo · Få tre julemotiver på række og vælg en gave';
   };
-  initState=function(){const s=oldInit();s.gameType=selectedGame;if(selectedGame==='dice')s.settings={...s.settings,chaos:false,duels:false,santa:false};return s;};
+  initState=function(){const s=oldInit();s.gameType=selectedGame;if(['dice','bingo'].includes(selectedGame))s.settings={...s.settings,chaos:false,duels:false,santa:false};return s;};
   const oldLobby=broadcastLobby, oldPlayerData=handlePlayerData;
   let sending=false;
   const turnKey=()=>String(state.turns)+':'+String(state.turnIndex);
+  const bingoLines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  function makeBingoBoard(){return shuffle(bingoSymbols.map(x=>x.id).slice()).slice(0,9)}
+  function ensureBingoBoards(){state.bingoBoards=state.bingoBoards||{};for(const p of state.players)if(!Array.isArray(state.bingoBoards[p.id])||state.bingoBoards[p.id].length!==9)state.bingoBoards[p.id]=makeBingoBoard()}
+  function hasBingo(pid){const board=(state.bingoBoards||{})[pid]||[],drawn=(state.quiz&&state.quiz.drawn)||[];return bingoLines.some(line=>line.every(i=>drawn.includes(board[i])))}
   function prepare(){
     if(mode!=='host'||!state||!state.started||state.finished||state.awaitNext)return;
+    /* Gemte quizspil fra ældre versioner åbnes sikkert som Julebingo. */
+    if(state.gameType==='quiz'){state.gameType='bingo';state.quiz=null;state.bingoBoards={}}
     if(state.quiz && state.quiz.turn===turnKey())return;
     if(state.gameType==='dice'){
       state.quiz={turn:turnKey(),playerId:currentPlayer().id,status:'roll',recipient:null,options:[],die:null};
       state.event=currentPlayer().name+' skal slå med terningen.';return;
     }
-    if(!Array.isArray(state.quizDeck)||!state.quizDeck.length)state.quizDeck=shuffle(bank.map((_,i)=>i));
-    const row=bank[state.quizDeck.pop()];
-    const answers=shuffle(row.slice(1).map((text,i)=>({text,right:i===0})));
-    state.quiz={turn:turnKey(),playerId:currentPlayer().id,question:row[0],options:answers.map(a=>a.text),answerIndex:answers.findIndex(a=>a.right),status:'question',recipient:null,selected:null};
-    state.event=currentPlayer().name+' skal svare på et spørgsmål.';
+    ensureBingoBoards();
+    state.quiz={turn:turnKey(),playerId:null,status:'draw',drawPool:shuffle(bingoSymbols.map(x=>x.id).slice()),drawn:[],last:null,recipient:null};
+    state.phase='Julebingo';state.event='🎅🏻 Julemanden er klar til at trække det første julemotiv.';
   }
   function active(pid,turn){return state&&state.started&&!state.finished&&!state.awaitNext&&state.quiz&&state.quiz.turn===turn&&state.quiz.playerId===pid&&currentPlayer().id===pid;}
   function giftTarget(){return state&&state.players.length&&state.giftCount%state.players.length===0?state.giftCount/state.players.length:Number.MAX_SAFE_INTEGER}
@@ -84,8 +96,26 @@
     return state.players.filter(p=>p.id!==exclude&&(state.owners[p.id]||[]).length<target).sort((a,b)=>(state.owners[a.id]||[]).length-(state.owners[b.id]||[]).length)[0]||preferredPlayer;
   }
   function hostQuizAction(pid,d){
-    if(mode!=='host'||!active(pid,d.turn))return false;
+    if(mode!=='host'||!state||!state.started||state.finished||state.awaitNext||!state.quiz||state.quiz.turn!==d.turn)return false;
     const q=state.quiz;
+    if(state.gameType==='bingo'){
+      if(d.type==='bingoDraw'){
+        if(pid!=='host'||q.status!=='draw'||!q.drawPool.length)return false;
+        q.last=q.drawPool.shift();q.drawn.push(q.last);
+        const symbol=bingoSymbols.find(x=>x.id===q.last);
+        state.event='🔔 Julemanden trak '+symbol.icon+' '+symbol.name+'!';addLog(state.event);broadcastGame();return true;
+      }
+      if(d.type==='bingoClaim'){
+        const player=state.players.find(p=>p.id===pid);
+        if(q.status!=='draw'||!player||!hasBingo(pid)||(state.owners[pid]||[]).length>=giftTarget())return false;
+        q.status='gift';q.playerId=pid;q.recipient=pid;q.correct=true;q.fairOverride=false;
+        state.turnIndex=state.players.findIndex(p=>p.id===pid);
+        state.event='🎉 JULEBINGO! '+player.name+' har tre på række og må vælge en gave.';addLog(state.event);broadcastGame({kind:'bingo',emoji:'🔔🎄🎁',title:'JULEBINGO!',text:player.name+' har fået tre julemotiver på række!'});return true;
+      }
+      if(d.type==='takeGift')return takeGiftHost(pid,d.gift,d.turn);
+      return false;
+    }
+    if(!active(pid,d.turn))return false;
     if(d.type==='diceRoll'){
       if(state.gameType!=='dice'||q.status!=='roll')return false;
       q.die=Math.floor(Math.random()*6)+1;q.correct=q.die===6;
@@ -114,6 +144,8 @@
   }
   publicStateFor=function(pid){
     prepare();const s=oldPublic(pid);delete s.quizDeck;
+    if(s.quiz)delete s.quiz.drawPool;
+    if(s.gameType==='bingo'&&s.bingoBoards)s.bingoBoards={[pid]:(s.bingoBoards[pid]||[])};
     if(s.quiz&&s.quiz.status==='question')delete s.quiz.answerIndex;
     return s;
   };
@@ -125,7 +157,7 @@
     oldPlayerData(d);
   };
   handleRealtimeAction=function(d){
-    if(!d||!['diceRoll','quizAnswer','quizRecipient','takeGift','stealRoll','stealGift'].includes(d.type)){oldHandle(d);return}
+    if(!d||!['diceRoll','quizAnswer','quizRecipient','bingoClaim','takeGift','stealRoll','stealGift'].includes(d.type)){oldHandle(d);return}
     if(mode!=='host'||!state||d.roomCode!==roomCode)return;
     const p=state.players.find(p=>p.id!=='host'&&p.id===d.playerId&&p.sessionKey&&p.sessionKey===d.sessionKey&&p.device===d.device);
     if(!p)return;
@@ -143,40 +175,71 @@
     const ok=await rtSend('player-action',d);
     setTimeout(()=>{sending=false;if(state&&state.started&&!state.finished){renderGame();if(!ok){const b=document.getElementById('quizFeedback');if(b)b.textContent='Svaret blev ikke sendt. Kontrollér forbindelsen og prøv igen.'}}},ok?1800:0);
   }
+  window.hostBingoDraw=function(){if(mode==='host'&&state&&state.quiz)hostQuizAction('host',{type:'bingoDraw',turn:state.quiz.turn})};
+  window.requestBingo=async function(){
+    if(sending||!state||state.gameType!=='bingo'||!state.quiz||state.quiz.status!=='draw'||!hasBingo(myId))return;
+    const d={roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type:'bingoClaim',turn:state.quiz.turn,actionId:nextActionId()};
+    if(mode==='host'){hostQuizAction(myId,d);return}
+    sending=true;renderGame();const ok=await rtSend('player-action',d);setTimeout(()=>{sending=false;if(state&&state.started)renderGame()},ok?900:0);
+  };
   requestGift=function(n){return sendAction('takeGift',{gift:n});};
   takeGiftHost=function(pid,n,turn){
     if(mode!=='host'||!active(pid,turn)||state.quiz.status!=='gift'||!Number.isInteger(n)||n<1||n>state.giftCount||state.taken.includes(n))return false;
     const q=state.quiz,to=state.players.find(p=>p.id===q.recipient);
     if(!to||(q.correct?(!q.fairOverride&&to.id!==pid):(!q.fairOverride&&to.id===pid))||(state.owners[to.id]||[]).length>=giftTarget())return false;
     q.status='done';q.gift=n;state.awaitNext=true;
-    state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);validateGameState();state.turns++;
+    state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);if(state.gameType==='bingo')state.bingoBoards[to.id]=makeBingoBoard();validateGameState();state.turns++;
     state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til '+(to.id===pid?'sig selv':to.name)+'.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
     if(state.taken.length>=state.giftCount){finishGame();return true}
     if(state.turns%state.players.length===0)state.round++;
-    if(state.round>=2&&state.gameType!=='dice')state.phase='Julekaos';
+    if(state.round>=2&&state.gameType==='quiz')state.phase='Julekaos';
     const cfg=state.settings||DEFAULT_SETTINGS;
-    state.autoChaosPending=state.gameType!=='dice'&&state.round>=2&&cfg.chaos&&Math.random()<cfg.chaosChance/100;
+    state.autoChaosPending=state.gameType==='quiz'&&state.round>=2&&cfg.chaos&&Math.random()<cfg.chaosChance/100;
     broadcastGame();
     if(state.autoChaosPending){clearTimeout(autoChaosTimer);autoChaosTimer=setTimeout(()=>{autoChaosTimer=null;if(mode==='host'&&state&&state.autoChaosPending)hostChaos(true)},700)}
     return true;
   };
   // Bonus games are still available between quiz turns, not during a question.
   for(const [name,fn] of [['hostChaos',hostChaos],['hostDuel',hostDuel],['hostSanta',hostSanta],['useBonusHost',useBonusHost]]){
-    window[name]=function(...args){if(!state||state.finished||!state.awaitNext||state.gameType==='dice')return;return fn(...args)};
+    window[name]=function(...args){if(!state||state.finished||!state.awaitNext||state.gameType!=='quiz')return;return fn(...args)};
   }
   renderGame=function(){
     prepare();oldRender();if(!state||!state.started)return;
     const q=state.quiz, mine=q&&q.playerId===myId, can=mine&&!sending&&!state.finished&&!state.awaitNext;
-    if(q&&q.status==='gift'&&window.innerWidth<=700)document.getElementById('game').classList.add('giftTrayOpen');
+    if(window.innerWidth<=700)document.getElementById('game').classList.toggle('giftTrayOpen',!!(q&&q.status==='gift'));
     let panel=document.getElementById('quizPanel');
     if(!panel){panel=document.createElement('section');panel.id='quizPanel';panel.className='quizPanel';document.getElementById('gifts').before(panel)}
     panel.replaceChildren();
-    panel.className='quizPanel '+(state.gameType==='dice'?'christmasDice':'christmasQuiz');
+    panel.className='quizPanel '+(state.gameType==='dice'?'christmasDice':state.gameType==='bingo'?'christmasBingo':'christmasQuiz');
     const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
     add('div','JULECENTRALENS SPILLESTUE','christmasEyebrow');
-    add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':'JULEQUIZZEN');
+    add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':state.gameType==='bingo'?'JULEBINGO':'JULEQUIZZEN');
     const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','⚖️ RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
-    if(!q){add('p','Venter på spørgsmålet fra værten …');return}
+    if(!q){add('p','Venter på at Julecentralen starter …');return}
+    if(state.gameType==='bingo'){
+      document.getElementById('phase').textContent='🔔 Julebingo';
+      const me=state.players.find(p=>p.id===myId),board=(state.bingoBoards||{})[myId]||[],drawn=q.drawn||[],won=hasBingo(myId),winner=q.playerId&&state.players.find(p=>p.id===q.playerId);
+      document.getElementById('turnLead').textContent=q.status==='gift'?'🎉 VI HAR JULEBINGO':'🎅🏻 ALLE SPILLER MED';
+      document.getElementById('turnName').textContent=q.status==='gift'?(winner?winner.name:'JULEBINGO'):(me?me.name:'DIN BINGOPLADE');
+      const call=add('div','','bingoCaller');
+      const last=bingoSymbols.find(x=>x.id===q.last);
+      call.innerHTML=last?'<span>'+last.icon+'</span><div><small>JULEMANDEN TRAK</small><b>'+last.name+'</b></div>':'<span>🎅🏻</span><div><small>JULEMANDEN ER KLAR</small><b>Første motiv venter</b></div>';
+      const boardEl=add('div','','bingoBoard');
+      board.forEach((id,i)=>{const symbol=bingoSymbols.find(x=>x.id===id),cell=document.createElement('div');cell.className='bingoCell '+(drawn.includes(id)?'marked':'');cell.innerHTML='<span>'+symbol.icon+'</span><small>'+symbol.name+'</small>';cell.setAttribute('aria-label',symbol.name+(drawn.includes(id)?' markeret':''));boardEl.appendChild(cell)});
+      const progress=add('div',(drawn.length||0)+' af '+bingoSymbols.length+' motiver trukket','bingoProgress');
+      if(q.status==='draw'){
+        const action=add('div','','bingoActions');
+        if(mode==='host'){const draw=document.createElement('button');draw.type='button';draw.className='btn gold';draw.textContent='🔔 TRÆK NÆSTE MOTIV';draw.disabled=!q.drawPool||!q.drawPool.length;draw.onclick=hostBingoDraw;action.appendChild(draw)}
+        const claim=document.createElement('button');claim.type='button';claim.className='btn green bingoClaim';claim.textContent=won?'🎉 JULEBINGO!':'⭐ MANGLER EN RÆKKE';claim.disabled=!won||sending||(state.owners[myId]||[]).length>=giftTarget();claim.onclick=requestBingo;action.appendChild(claim);
+        document.getElementById('instruction').textContent=won?'Du har tre på række – tryk JULEBINGO!':'Følg Julemandens motiver på din egen plade.';
+      }else{
+        add('p',winner&&winner.id===myId?'Du har julebingo! Vælg nu en gave fra bunken.':winner.name+' har julebingo og vælger en gave.','quizFeedback');
+        document.getElementById('instruction').textContent=winner&&winner.id===myId?'Vælg en gave fra bunken!':'Vent på gavevalget.';
+      }
+      document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(q.status==='gift'&&q.playerId===myId&&!b.classList.contains('taken'));});
+      document.getElementById('secretCard').style.display='none';document.getElementById('hostBar').style.display='none';
+      return;
+    }
     if(state.gameType==='dice'){
       document.getElementById('phase').textContent='Slå en 6’er';
       const face=add('div','','diceFace');
