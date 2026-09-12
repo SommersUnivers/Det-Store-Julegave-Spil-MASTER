@@ -1,11 +1,11 @@
-Det Store Julegave-Spil — JULENS MAGISKE RUM V19
+Det Store Julegave-Spil — MAGISK VINTERFORSIDE V20
 
-Julecentralens kompakte luksuskontrolpanel er bevaret. Alle øvrige
-hovedsider har fået samme eksklusive formsprog, men hvert sit rum:
-spilleværksted, gavekammer, regelkammer, cloudstation, deltagerportal,
-venteværelse, julebalsal, spillesal og gavefinale.
+Forsiden er opgraderet til en magisk vinterscene med en original
+Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
+Scenen er integreret i det eksisterende kompakte layout, så forsiden
+ikke bliver længere. Alle V19-rum og Julecentralens kontrolpanel er bevaret.
 
 Supabase multiplayer, cloud-gemning, quiz, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V19-mappe til GitHub main.
+Upload alle filerne fra den færdige V20-mappe til GitHub main.
