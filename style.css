@@ -3273,3 +3273,29 @@ body:has(#game.active) .wrap {
   #game.active .bingoCell > span { font-size:26px; }
   #game.active .bingoCaller > span { width:44px; height:44px; flex-basis:44px; font-size:27px; }
 }
+
+/* V30 — stabil Safari-visning: intet GPU-sløringslag på mobil */
+@media (max-width:700px) {
+  .overlay,.overlay.show {
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    background:radial-gradient(circle at 50% 25%,rgba(38,94,92,.96),rgba(5,8,23,.985) 72%)!important;
+  }
+  .overlay.show { display:flex!important; }
+  .overlay .modal {
+    position:relative;
+    z-index:1;
+    max-height:calc(100dvh - 32px);
+    overflow:auto;
+    visibility:visible!important;
+    opacity:1!important;
+    transform:none!important;
+    animation:none!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .stealSkipBtn { width:100%; margin:10px 0 2px; padding:9px 12px; font-size:11px; }
+}
+
+@media (max-width:700px) and (prefers-reduced-motion:reduce) {
+  .gift:not(.taken),.confettiPiece { animation:none!important; }
+}
