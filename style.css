@@ -3399,3 +3399,133 @@ body:has(#game.active) .wrap {
     white-space:nowrap;
   }
 }
+
+/* V33 — Julecentralens levende spillesal */
+body:has(#gameMenu.active) .wrap { width:min(1040px,100%); padding-top:18px; }
+#gameMenu .gameMenuBrand {
+  overflow:visible;
+  background:
+    radial-gradient(circle at 20% 25%,#d82a4b35,transparent 25%),
+    radial-gradient(circle at 80% 25%,#07906b31,transparent 27%),
+    linear-gradient(128deg,#7e0b2b,#3c071c 56%,#073b35)!important;
+}
+#gameMenu .gameMenuBrand::before { filter:drop-shadow(0 7px 7px #0008) saturate(1.12); }
+#gameMenu .premiumGameMenu {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  gap:15px;
+  padding:37px 31px 25px;
+  background:
+    radial-gradient(circle at 12% 10%,#d51d4635,transparent 22%),
+    radial-gradient(circle at 88% 10%,#19a97b30,transparent 23%),
+    radial-gradient(circle at 50% 115%,#1f7b8030,transparent 45%),
+    repeating-linear-gradient(135deg,#fff0 0 17px,#edcf6c0b 18px 19px),
+    linear-gradient(145deg,#350917,#160611 57%,#041f26);
+}
+#gameMenu .premiumGameMenu::before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:10px;
+  border:1px solid #e5c35a60;
+  border-radius:18px;
+  box-shadow:inset 0 0 35px #0007;
+  pointer-events:none;
+}
+.gameMenuDecor {
+  position:absolute;
+  z-index:-1;
+  inset:6px 20px auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:#fff;
+  font-size:34px;
+  opacity:.34;
+  filter:drop-shadow(0 4px 4px #000);
+  pointer-events:none;
+}
+.gameMenuDecor span:nth-child(2) { font-size:27px; }
+.gameMenuDecor span { margin:0; line-height:1; }
+#gameMenu .premiumGameMenu .menuKicker {
+  position:relative;
+  z-index:1;
+  margin:-13px auto 0;
+  color:#fff2b2;
+  background:linear-gradient(90deg,#6d061e,#ad1435,#6d061e);
+  box-shadow:0 0 0 2px #734309,0 5px 0 #250507,0 9px 17px #0008,inset 0 1px 0 #fff5;
+}
+.gameMenuWelcome { display:grid; gap:2px; text-align:center; color:#fff0ba; }
+.gameMenuWelcome b { font:700 19px/1.2 Georgia,"Times New Roman",serif; }
+.gameMenuWelcome small { color:#d9f7ed; font-size:12px; font-weight:700; }
+#gameMenu .premiumGameMenu .gameChoice {
+  position:relative;
+  overflow:hidden;
+  min-height:108px;
+  border-radius:19px;
+}
+#gameMenu .premiumGameMenu .gameChoice::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(112deg,#fff5,transparent 19% 72%,#fff2);
+  pointer-events:none;
+}
+#gameMenu .premiumGameMenu .gameChoice em {
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:0 0 2px;
+  color:#fff1a1;
+  font-size:9px;
+  font-style:normal;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+#gameMenu .premiumGameMenu .choiceSeal {
+  font-family:system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+  font-size:31px;
+  text-shadow:none;
+}
+#gameMenu .premiumGameMenu .diceChoice .choiceSeal {
+  background:radial-gradient(circle at 35% 25%,#f4ffff,#8adcc9 55%,#17745a);
+}
+#gameMenu .gameMenuNote {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  padding:9px;
+  color:#fff3bd;
+  background:linear-gradient(90deg,#55101f,#0a5c49,#102e54);
+  box-shadow:0 0 0 2px #7a480c,0 5px 0 #21080a,0 9px 15px #0006,inset 0 1px 0 #fff4;
+}
+#gameMenu .gameMenuNote span {
+  display:block;
+  margin:0;
+  padding:4px 5px;
+  border-right:1px solid #ffe28b55;
+  font-size:11px;
+  line-height:1.25;
+}
+#gameMenu .gameMenuNote span:last-child { border-right:0; }
+#gameMenu .gameMenuBack { min-height:58px; color:#fff2bc; background:linear-gradient(#153b54,#071d30); }
+
+@media (max-width:700px) {
+  body:has(#gameMenu.active) .wrap { padding:9px 7px 25px; }
+  #gameMenu > .gameMenuBrand { min-height:96px; margin-top:31px; padding:27px 8px 13px; }
+  #gameMenu .premiumGameMenu { gap:10px; padding:30px 12px 15px; }
+  .gameMenuDecor { inset:5px 12px auto; font-size:24px; }
+  .gameMenuDecor span:nth-child(2) { font-size:20px; }
+  #gameMenu .premiumGameMenu .menuKicker { font-size:8px; }
+  .gameMenuWelcome b { font-size:16px; }
+  .gameMenuWelcome small { font-size:10px; }
+  #gameMenu .premiumGameMenu .gameChoice { min-height:88px; padding:10px 11px; }
+  #gameMenu .premiumGameMenu .choiceSeal { width:47px; height:47px; font-size:23px; }
+  #gameMenu .premiumGameMenu .gameChoice em { font-size:7px; }
+  #gameMenu .premiumGameMenu .gameChoice b { font-size:17px; }
+  #gameMenu .premiumGameMenu .gameChoice small { font-size:10px; }
+  #gameMenu .gameMenuNote { gap:2px; padding:6px 4px; }
+  #gameMenu .gameMenuNote span { padding:3px 2px; font-size:8px; }
+  #gameMenu .gameMenuBack { min-height:48px; font-size:12px; }
+}

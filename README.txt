@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – JULEMEDALJER V32
+Det Store Julegave-Spil – JULESPILLESAL V33
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -66,7 +66,13 @@ V32 giver de fire informationsbokse på forsiden deres egne julemedaljer:
 gave, juleklokke, terning og julenisse. Boksene, teksterne og deres funktioner
 er bevaret, mens de tidligere geometriske tegn er fjernet.
 
+V33 opgraderer siden “Vælg julespil” til en lysere og mere levende
+jule-spillesal. Bingo og terningespil har fået tydelige julemotiver,
+spilmærker og kortere forklaringer. Reglerne nederst er samlet i tre små
+felter, og hele siden er holdt kompakt på mobil og iPad. Begge spilvalg og
+tilbageknappen er kontrolleret efter ændringen.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V32-mappe til GitHub main.
+Upload alle filerne fra den færdige V33-mappe til GitHub main.
