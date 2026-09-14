@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – JULESPILLESAL V33
+Det Store Julegave-Spil – JULEVÆRTER V34
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -72,7 +72,12 @@ spilmærker og kortere forklaringer. Reglerne nederst er samlet i tre små
 felter, og hele siden er holdt kompakt på mobil og iPad. Begge spilvalg og
 tilbageknappen er kontrolleret efter ændringen.
 
+V34 retter guirlanden på toppen af spilvælgeren, så hele dekorationen vises
+i en harmonisk størrelse. Den lange regelbjælke er fjernet. Julekonen og
+rensdyret fra Julecentralens originale værtsgrafik står nu på hver sin side
+af overskriften, mens spilknapperne og det kompakte layout er bevaret.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V33-mappe til GitHub main.
+Upload alle filerne fra den færdige V34-mappe til GitHub main.

@@ -3529,3 +3529,67 @@ body:has(#gameMenu.active) .wrap { width:min(1040px,100%); padding-top:18px; }
   #gameMenu .gameMenuNote span { padding:3px 2px; font-size:8px; }
   #gameMenu .gameMenuBack { min-height:48px; font-size:12px; }
 }
+
+/* V34 — hel guirlande samt Julekone og rensdyr */
+#gameMenu .gameMenuBrand {
+  isolation:isolate;
+  min-height:180px;
+  padding-inline:22%;
+  overflow:visible;
+}
+#gameMenu .gameMenuBrand::before {
+  top:-116px;
+  left:14%;
+  right:14%;
+  height:210px;
+  background-position:center top;
+  background-size:contain;
+  filter:drop-shadow(0 9px 8px #000b) saturate(1.12);
+}
+#gameMenu .gameMenuBrand h1 { position:relative; z-index:4; white-space:nowrap; }
+.gameMenuCharacter {
+  position:absolute;
+  z-index:2;
+  bottom:0;
+  width:28%;
+  height:122%;
+  overflow:hidden;
+  border-radius:0 0 20px 20px;
+  filter:drop-shadow(0 9px 7px #000a);
+  pointer-events:none;
+}
+.gameMenuCharacter::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("julecentralen-vaerter-v17.png");
+  background-repeat:no-repeat;
+  background-size:auto 118%;
+}
+.gameMenuReindeer { left:0; }
+.gameMenuReindeer::before { background-position:3% bottom; }
+.gameMenuMrsClaus { right:0; }
+.gameMenuMrsClaus::before { background-position:97% bottom; }
+#gameMenu .premiumGameMenu { gap:16px; padding-bottom:24px; }
+
+@media (max-width:700px) {
+  #gameMenu > .gameMenuBrand {
+    min-height:112px;
+    padding:31px 19% 13px;
+  }
+  #gameMenu .gameMenuBrand::before {
+    top:-68px;
+    left:4%;
+    right:4%;
+    height:120px;
+  }
+  #gameMenu .gameMenuBrand h1 {
+    font-size:clamp(23px,7vw,34px);
+    white-space:nowrap;
+  }
+  #gameMenu .gameMenuBrand h1::before { display:none; }
+  #gameMenu .gameMenuBrand h1::after { margin-top:6px; font-size:6px; }
+  .gameMenuCharacter { width:25%; height:112%; }
+  .gameMenuCharacter::before { background-size:auto 115%; }
+  #gameMenu .premiumGameMenu { gap:11px; padding-bottom:15px; }
+}
