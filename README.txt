@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – STABILITETSOPDATERING V30
+Det Store Julegave-Spil – TRYGHEDS- OG BALANCEOPDATERING V31
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -49,7 +49,20 @@ sløringslag fjernet fra beskedvinduerne for at undgå den sorte fastfrosne
 skærm. Værten kan desuden springe en frakoblet spiller over i tyverirunden,
 så alle tre runder kan fortsætte.
 
+V31 gør hele juleaftenen mere robust. Hvis en gæst mister forbindelsen under
+et almindeligt terningekast eller et gavevalg, får værten en diskret
+nødknap og kan føre turen sikkert videre. I Julebingo får alle spillere en
+helt ny plade efter hver gevinst, så samme række ikke kan vinde igen. I
+terningespillet giver Julemanden automatisk en gave efter seks forgæves kast,
+så spillet ikke går i stå ved uheldige terninger.
+
+Den hemmelige gaveliste indgår nu i cloud-backuppen i krypteret form. Værten
+får en privat gendannelsesnøgle, som skal gemmes sikkert og bruges på en ny
+enhed. Nøglen og gavelisten sendes aldrig ud til de andre spillere. Siden med
+spilindstillinger viser nu kun de regler, der faktisk bruges: stor finale,
+ligelig gavefordeling og den valgfrie tyverirunde.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V30-mappe til GitHub main.
+Upload alle filerne fra den færdige V31-mappe til GitHub main.
