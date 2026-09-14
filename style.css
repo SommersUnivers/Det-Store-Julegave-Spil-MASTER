@@ -2463,6 +2463,28 @@ body:has(#home.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 }
 #home .luxuryFeatures button:nth-child(even) { background:radial-gradient(circle at 50% 0,#53d7a644,transparent 42%),linear-gradient(145deg,#086249,#032f29)!important; }
 #home .luxuryFeatures button i { color:#dffaff; text-shadow:0 0 9px #6edcff; }
+#home .luxuryFeatures button .festiveFeatureIcon {
+  display:grid;
+  width:44px;
+  height:44px;
+  margin:0 auto 3px;
+  place-items:center;
+  border:1px solid #fff4b3;
+  border-radius:50%;
+  color:initial;
+  background:radial-gradient(circle at 34% 25%,#fff8d9 0 8%,#d71a40 39%,#760019 72%);
+  box-shadow:0 0 0 3px #8b570f,0 4px 0 #2b0b08,0 7px 12px #0008,inset 0 1px 0 #fff9,0 0 14px #ffdc6a55;
+  font-family:system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+  font-size:24px;
+  line-height:1;
+  text-shadow:none;
+  filter:drop-shadow(0 2px 1px #42100066);
+}
+#home .luxuryFeatures button:nth-child(even) .festiveFeatureIcon {
+  background:radial-gradient(circle at 34% 25%,#efffff 0 8%,#159770 39%,#034a39 72%);
+}
+#home .luxuryFeatures .excitementIcon { transform:rotate(-7deg); }
+#home .luxuryFeatures .stealIcon { transform:rotate(5deg); }
 #home .versionPlaque { color:#dff8ff; border-color:#77c9dc; background:linear-gradient(90deg,#062c48,#0b5b69,#062c48); }
 
 @media (max-width:700px) {
@@ -2473,6 +2495,7 @@ body:has(#home.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   .homeTitleKicker { max-width:64%; margin-bottom:8px; padding:5px 9px; font-size:6px; }
   #home .homeBrand h1 { max-width:62%; font-size:clamp(30px,9.3vw,44px); -webkit-text-stroke-width:1px; }
   #home .homeBrand .tag { max-width:72%; padding:7px 10px; font-size:8px; }
+  #home .luxuryFeatures button .festiveFeatureIcon { width:37px; height:37px; font-size:20px; }
   .homeSnowflakes i:nth-child(1),.homeSnowflakes i:nth-child(3){left:25%}
   .homeSnowflakes i:nth-child(2),.homeSnowflakes i:nth-child(4){right:25%}
   #home .homeMenuCard { padding:36px 13px 20px; }

@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – TRYGHEDS- OG BALANCEOPDATERING V31
+Det Store Julegave-Spil – JULEMEDALJER V32
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -62,7 +62,11 @@ enhed. Nøglen og gavelisten sendes aldrig ud til de andre spillere. Siden med
 spilindstillinger viser nu kun de regler, der faktisk bruges: stor finale,
 ligelig gavefordeling og den valgfrie tyverirunde.
 
+V32 giver de fire informationsbokse på forsiden deres egne julemedaljer:
+gave, juleklokke, terning og julenisse. Boksene, teksterne og deres funktioner
+er bevaret, mens de tidligere geometriske tegn er fjernet.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V31-mappe til GitHub main.
+Upload alle filerne fra den færdige V32-mappe til GitHub main.
