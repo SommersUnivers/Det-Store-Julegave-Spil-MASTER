@@ -3593,3 +3593,42 @@ body:has(#gameMenu.active) .wrap { width:min(1040px,100%); padding-top:18px; }
   .gameMenuCharacter::before { background-size:auto 115%; }
   #gameMenu .premiumGameMenu { gap:11px; padding-bottom:15px; }
 }
+
+/* V35 — særskilt, ren figurkunst uden dubletter */
+#gameMenu .gameMenuBrand {
+  min-height:180px;
+  padding-inline:23%;
+  overflow:visible;
+}
+#gameMenu .gameMenuBrand::before {
+  z-index:3;
+  top:-105px;
+  left:4%;
+  right:4%;
+  height:180px;
+  background-size:100% 100%;
+  background-position:center;
+}
+.gameMenuHostsArt {
+  position:absolute;
+  z-index:2;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 20%;
+  filter:drop-shadow(0 8px 7px #000b);
+  pointer-events:none;
+}
+#gameMenu .gameMenuBrand h1 { z-index:4; }
+
+@media (max-width:700px) {
+  #gameMenu > .gameMenuBrand { min-height:112px; padding-inline:21%; }
+  #gameMenu .gameMenuBrand::before {
+    top:-58px;
+    left:3%;
+    right:3%;
+    height:100px;
+  }
+  .gameMenuHostsArt { object-fit:cover; object-position:center 18%; }
+}

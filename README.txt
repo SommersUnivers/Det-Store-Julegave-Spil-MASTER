@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – JULEVÆRTER V34
+Det Store Julegave-Spil – REN JULETOP V35
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -77,7 +77,12 @@ i en harmonisk størrelse. Den lange regelbjælke er fjernet. Julekonen og
 rensdyret fra Julecentralens originale værtsgrafik står nu på hver sin side
 af overskriften, mens spilknapperne og det kompakte layout er bevaret.
 
+V35 erstatter den fejlbeskårne fællesgrafik med en ny gennemsigtig topgrafik,
+som er lavet særligt til denne side. Kun rensdyret står til venstre og kun
+julekonen til højre; Julemanden er fjernet, ingen hoveder beskæres, og midten
+er fri til overskriften. Guirlanden vises nu i hele toppens bredde.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V34-mappe til GitHub main.
+Upload alle filerne fra den færdige V35-mappe til GitHub main.
