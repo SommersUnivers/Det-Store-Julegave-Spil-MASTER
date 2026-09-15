@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – FAST IPAD-BREDDE V49
+Det Store Julegave-Spil – FRIE VÆRTSFIGURER V50
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -146,4 +146,8 @@ V49 låser Julecentralen til skærmens faktiske bredde og centrerer både
 topbjælken og kontrolpanelet. Brede indre rækker kan ikke længere presse
 siden ud mod højre. Guirlanden og snevejret er bevaret.
 
-Upload alle filerne fra den færdige V49-mappe til GitHub main.
+V50 placerer rensdyret, julemanden og julekonen samlet og roligt i højre
+side af Julecentralens bjælke. Gruppen er gjort mindre og sænket, så den
+ikke længere dækker overskriften eller bliver klemt af guirlanden.
+
+Upload alle filerne fra den færdige V50-mappe til GitHub main.

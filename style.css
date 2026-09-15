@@ -4192,3 +4192,40 @@ body:has(#host.active) .wrap {
   }
   #host .hostBrand::before { left:-2%; right:-2%; }
 }
+
+/* V50 — værtsfigurerne har deres egen frie plads i højre side */
+#host .hostBrand {
+  padding-right:350px;
+}
+#host .hostBrand h1 {
+  max-width:100%;
+  font-size:clamp(38px,5vw,52px);
+  letter-spacing:-.025em;
+}
+#host .hostTitleCharacters {
+  right:6px;
+  bottom:0;
+  width:330px;
+  height:178px;
+  object-position:right bottom;
+}
+#host .hostBrand::before {
+  top:-88px;
+  height:151px;
+}
+@media (max-width:700px) {
+  #host .hostBrand { padding-right:142px; }
+  #host .hostBrand h1 { font-size:clamp(24px,7.3vw,34px); letter-spacing:-.02em; }
+  #host .hostTitleCharacters {
+    right:2px;
+    bottom:0;
+    width:138px;
+    height:98px;
+  }
+  #host .hostBrand::before { top:-61px; height:108px; }
+}
+@media (max-height:800px) and (max-width:700px) {
+  #host .hostBrand { padding-right:127px; }
+  #host .hostTitleCharacters { width:124px; height:87px; }
+  #host .hostBrand::before { top:-53px; height:94px; }
+}
