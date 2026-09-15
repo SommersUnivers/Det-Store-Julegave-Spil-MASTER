@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – NY DELTAG-SIDE V57
+Det Store Julegave-Spil – NY DELTAG-SIDE V58
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -180,4 +180,8 @@ guirlande, snemand og elf i én fast komposition med fri titelplads.
 Formularen er samtidig blevet symmetrisk, mere kompakt og responsiv på
 både iPad og mobil uden at ændre spillets funktioner.
 
-Upload alle filerne fra den færdige V57-mappe til GitHub main.
+V58 fjerner en ældre beskæringsregel, som stadig skjulte den del af den
+nye guirlande, der skulle hænge over bjælken. Spillekode og navn er nu
+også låst til samme vandrette række på iPad.
+
+Upload alle filerne fra den færdige V58-mappe til GitHub main.
