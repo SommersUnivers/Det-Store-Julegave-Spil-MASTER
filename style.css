@@ -4445,6 +4445,79 @@ body:has(#join.active) .joinSnowOverlay {
   }
 }
 
+/* V56 skal ligge sidst, så den gamle V55-baggrund ikke kan overtage */
+#join > .joinBrand {
+  min-height:315px;
+  padding:90px 225px 38px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(255,218,112,.2),transparent 39%),
+    radial-gradient(circle at 12% 30%,rgba(49,190,189,.2),transparent 35%),
+    linear-gradient(125deg,#075f61,#064b44 55%,#073047)!important;
+}
+@media (max-width:700px) {
+  #join > .joinBrand {
+    min-height:205px;
+    padding:50px 76px 22px;
+  }
+}
+
+/* V56 — tre ægte, uafhængige lag: guirlande, figurer og titel */
+#join > .joinBrand {
+  display:grid;
+  min-height:315px;
+  margin-top:155px;
+  padding:90px 225px 38px;
+  place-items:center;
+  isolation:isolate;
+  overflow:visible;
+  background:
+    radial-gradient(circle at 50% 0,rgba(255,218,112,.2),transparent 39%),
+    radial-gradient(circle at 12% 30%,rgba(49,190,189,.2),transparent 35%),
+    linear-gradient(125deg,#075f61,#064b44 55%,#073047)!important;
+}
+#join > .joinBrand::before {
+  z-index:8;
+  top:-215px;
+  left:-4%;
+  right:-4%;
+  height:275px;
+  background-size:82% auto;
+  background-position:center top;
+}
+.joinTitleCharacters {
+  position:absolute;
+  z-index:4;
+  left:10%;
+  bottom:0;
+  width:80%;
+  height:auto;
+  pointer-events:none;
+}
+#join > .joinBrand h1,
+#join > .joinBrand h1::before,
+#join > .joinBrand h1::after {
+  position:relative;
+  z-index:9;
+}
+@media (max-width:700px) {
+  #join > .joinBrand {
+    min-height:205px;
+    margin-top:120px;
+    padding:50px 76px 22px;
+  }
+  #join > .joinBrand::before {
+    top:-151px;
+    left:-5%;
+    right:-5%;
+    height:188px;
+    background-size:88% auto;
+  }
+  .joinTitleCharacters {
+    left:7%;
+    width:86%;
+  }
+}
+
 /* V55 — Deltag-port med samme frie opbygning som Julecentralen */
 #join > .brand {
   isolation:isolate;
@@ -4479,5 +4552,21 @@ body:has(#join.active) .joinSnowOverlay {
     right:-5%;
     height:188px;
     background-size:88% auto;
+  }
+}
+
+/* V56 endelig prioritet — figurernes billedlag er uafhængigt */
+#join > .joinBrand {
+  min-height:315px;
+  padding:90px 225px 38px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(255,218,112,.2),transparent 39%),
+    radial-gradient(circle at 12% 30%,rgba(49,190,189,.2),transparent 35%),
+    linear-gradient(125deg,#075f61,#064b44 55%,#073047)!important;
+}
+@media (max-width:700px) {
+  #join > .joinBrand {
+    min-height:205px;
+    padding:50px 76px 22px;
   }
 }
