@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – FRI DELTAG-PORT V54
+Det Store Julegave-Spil – DELTAG-PORT SOM JULECENTRALEN V55
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -166,4 +166,8 @@ V54 løfter guirlanden fri af DELTAG-teksten og gør snemanden og elfen
 mindre, så de står hele og roligt i hver sin side. Midten er fri, og det
 tydelige snevejr fortsætter over hele siden.
 
-Upload alle filerne fra den færdige V54-mappe til GitHub main.
+V55 giver Deltag-porten samme frie opbygning som Julecentralen. Bjælken
+er gjort højere, guirlanden hænger frit over overkanten, og snemanden og
+elfen står hele i hver sin side uden at blive skåret af.
+
+Upload alle filerne fra den færdige V55-mappe til GitHub main.

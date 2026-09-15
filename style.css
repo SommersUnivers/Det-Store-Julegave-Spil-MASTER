@@ -4444,3 +4444,40 @@ body:has(#join.active) .joinSnowOverlay {
     background-size:88% auto;
   }
 }
+
+/* V55 — Deltag-port med samme frie opbygning som Julecentralen */
+#join > .brand {
+  isolation:isolate;
+  min-height:315px;
+  margin-top:155px;
+  padding:126px 225px 42px;
+  background-size:86% auto,auto,auto,auto!important;
+  background-position:center bottom,center,center,center!important;
+}
+#join > .brand::before {
+  z-index:8;
+  top:-215px;
+  left:-4%;
+  right:-4%;
+  height:275px;
+  background-size:82% auto;
+  background-position:center top;
+}
+#join > .brand h1,
+#join > .brand h1::before,
+#join > .brand h1::after { position:relative; z-index:9; }
+@media (max-width:700px) {
+  #join > .brand {
+    min-height:210px;
+    margin-top:120px;
+    padding:78px 78px 25px;
+    background-size:84% auto,auto,auto,auto!important;
+  }
+  #join > .brand::before {
+    top:-151px;
+    left:-5%;
+    right:-5%;
+    height:188px;
+    background-size:88% auto;
+  }
+}
