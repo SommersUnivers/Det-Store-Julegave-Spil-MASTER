@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – REN GAVESCENE V45
+Det Store Julegave-Spil – TYDELIGT SNEVEJR V46
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -131,4 +131,7 @@ hver sin side. Den grønne gave beholder sin frie placering under titlen.
 V45 fjerner den gyldne, buede bane og dens glimt mellem den røde og blå
 pakke. Alle tre pakker og resten af julepynten er bevaret.
 
-Upload alle filerne fra den færdige V45-mappe til GitHub main.
+V46 gør snefnuggene på Vælg julespil-siden store og tydelige og lader
+dem falde roligt gennem scenen. Mobiludgaven bruger lettere effekter.
+
+Upload alle filerne fra den færdige V46-mappe til GitHub main.

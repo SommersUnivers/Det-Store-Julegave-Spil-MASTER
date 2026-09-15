@@ -3998,3 +3998,43 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 /* V44 — sidepakkerne er større og står længere ude i scenen */
 
 /* V45 — den gyldne bue mellem sidepakkerne er fjernet */
+
+/* V46 — tydelige, faldende snefnug i Vælg julespil-scenen */
+.gameMenuSnowflakes i {
+  top:-12%;
+  right:auto;
+  bottom:auto;
+  opacity:0;
+  color:#f4fdff;
+  font-size:0!important;
+  will-change:transform,opacity;
+  animation:game-menu-snow-fall var(--menu-snow-time) linear infinite;
+  animation-delay:var(--menu-snow-delay);
+}
+.gameMenuSnowflakes i::before { content:"❄"; font-size:var(--menu-flake-size); }
+.gameMenuSnowflakes i:nth-child(1){left:5%;top:-12%;right:auto;bottom:auto;--menu-flake-size:28px;--menu-snow-time:8.8s;--menu-snow-delay:-2s}
+.gameMenuSnowflakes i:nth-child(2){left:17%;top:-12%;right:auto;bottom:auto;--menu-flake-size:19px;--menu-snow-time:11s;--menu-snow-delay:-7s}
+.gameMenuSnowflakes i:nth-child(3){left:30%;top:-12%;right:auto;bottom:auto;--menu-flake-size:31px;color:#f4fdff;--menu-snow-time:9.6s;--menu-snow-delay:-5s}
+.gameMenuSnowflakes i:nth-child(4){left:43%;top:-12%;right:auto;bottom:auto;--menu-flake-size:21px;--menu-snow-time:12s;--menu-snow-delay:-10s}
+.gameMenuSnowflakes i:nth-child(5){left:56%;top:-12%;right:auto;bottom:auto;--menu-flake-size:28px;--menu-snow-time:8.3s;--menu-snow-delay:-4s}
+.gameMenuSnowflakes i:nth-child(6){left:69%;top:-12%;right:auto;bottom:auto;--menu-flake-size:18px;color:#f4fdff;--menu-snow-time:10.5s;--menu-snow-delay:-8s}
+.gameMenuSnowflakes i:nth-child(7){left:82%;top:-12%;right:auto;bottom:auto;--menu-flake-size:30px;--menu-snow-time:9s;--menu-snow-delay:-1s}
+.gameMenuSnowflakes i:nth-child(8){left:94%;top:-12%;right:auto;bottom:auto;--menu-flake-size:20px;--menu-snow-time:11.7s;--menu-snow-delay:-6s}
+@keyframes game-menu-snow-fall {
+  0% { opacity:0; transform:translate3d(-8px,-25px,0) rotate(0deg); }
+  10% { opacity:.96; }
+  86% { opacity:.9; }
+  100% { opacity:0; transform:translate3d(28px,520px,0) rotate(320deg); }
+}
+@media (max-width:700px) {
+  .gameMenuSnowflakes i { text-shadow:0 0 6px #8de7ff,0 1px 2px #00162d; }
+  .gameMenuSnowflakes i:nth-child(1),.gameMenuSnowflakes i:nth-child(3),.gameMenuSnowflakes i:nth-child(5),.gameMenuSnowflakes i:nth-child(7){--menu-flake-size:20px}
+  .gameMenuSnowflakes i:nth-child(2),.gameMenuSnowflakes i:nth-child(4),.gameMenuSnowflakes i:nth-child(6),.gameMenuSnowflakes i:nth-child(8){--menu-flake-size:13px}
+}
+@media (prefers-reduced-motion:reduce) {
+  .gameMenuSnowflakes i { animation:none; opacity:.72; transform:none; }
+  .gameMenuSnowflakes i:nth-child(1),.gameMenuSnowflakes i:nth-child(5){top:18%}
+  .gameMenuSnowflakes i:nth-child(2),.gameMenuSnowflakes i:nth-child(6){top:38%}
+  .gameMenuSnowflakes i:nth-child(3),.gameMenuSnowflakes i:nth-child(7){top:58%}
+  .gameMenuSnowflakes i:nth-child(4),.gameMenuSnowflakes i:nth-child(8){top:78%}
+}
