@@ -3992,10 +3992,11 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   width:103px;
 }
 .elegantGiftArc .presentGreenOne {
-  left:calc(50% - 48px);
+  left:calc(50% - 43px);
   right:auto;
-  top:3%;
-  width:96px;
+  top:auto;
+  bottom:2%;
+  width:86px;
 }
 .elegantGiftArc .presentBlue {
   left:auto;
@@ -4008,6 +4009,8 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   .elegantGiftArc::before { left:24%; top:11%; width:52%; height:77px; }
   .elegantGiftArc::after { top:13%; width:47%; font-size:9px; letter-spacing:.12em; }
   .elegantGiftArc .presentRedOne { left:24%; top:21%; width:61px; }
-  .elegantGiftArc .presentGreenOne { left:calc(50% - 29px); top:4%; width:58px; }
+  .elegantGiftArc .presentGreenOne { left:calc(50% - 26px); top:auto; bottom:2%; width:52px; }
   .elegantGiftArc .presentBlue { right:24%; top:20%; width:51px; }
 }
+
+/* V43 — den grønne gave står fri af guirlandens klokker */

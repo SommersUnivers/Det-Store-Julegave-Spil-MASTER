@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – ELEGANT GAVEBANE V42
+Det Store Julegave-Spil – FRI KLOKKEGUIRLANDE V43
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -122,4 +122,7 @@ over overskriften: rød til venstre, grøn højt i midten og mørkeblå til
 højre. Et diskret spor af guldglimt og snefnug binder dem sammen.
 De to nederste pakker er fjernet, så figurer, tekst og knapper står frit.
 
-Upload alle filerne fra den færdige V42-mappe til GitHub main.
+V43 flytter den grønne gave væk fra klokkerne og ned under titelbjælken,
+så sløjfen og klokkeguirlanden står helt rent.
+
+Upload alle filerne fra den færdige V43-mappe til GitHub main.
