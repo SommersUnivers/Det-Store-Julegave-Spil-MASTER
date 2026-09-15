@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – MAGISKE ENKELTPAKKER V41
+Det Store Julegave-Spil – ELEGANT GAVEBANE V42
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -117,4 +117,9 @@ med guldstjerner svæver nu roligt i den blå julescene bag overskriften.
 Alle pakker vises hele, knapperne holdes fri, og tre små billedfiler
 erstatter den tidligere store gavegrafik.
 
-Upload alle filerne fra den færdige V41-mappe til GitHub main.
+V42 forenkler gavepynten til tre større luksuspakker i en elegant bue
+over overskriften: rød til venstre, grøn højt i midten og mørkeblå til
+højre. Et diskret spor af guldglimt og snefnug binder dem sammen.
+De to nederste pakker er fjernet, så figurer, tekst og knapper står frit.
+
+Upload alle filerne fra den færdige V42-mappe til GitHub main.
