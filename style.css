@@ -4564,6 +4564,187 @@ body:has(#join.active) .joinSnowOverlay {
     radial-gradient(circle at 12% 30%,rgba(49,190,189,.2),transparent 35%),
     linear-gradient(125deg,#075f61,#064b44 55%,#073047)!important;
 }
+
+/* V57 — Deltag-siden bygget helt om som én harmonisk juleportal */
+body:has(#join.active) .wrap {
+  width:min(1040px,100%);
+  padding:24px 10px 46px;
+}
+#join.active {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:20px;
+}
+#join > .joinBrand {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:calc(100% - 22px);
+  max-width:980px;
+  min-height:330px;
+  margin:120px auto 0;
+  padding:110px 220px 48px;
+  overflow:visible;
+  isolation:isolate;
+  border-radius:38px 38px 20px 20px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(255,224,133,.2),transparent 38%),
+    radial-gradient(circle at 12% 52%,rgba(46,190,183,.2),transparent 31%),
+    linear-gradient(125deg,#075c61,#064a43 55%,#082f46)!important;
+}
+#join > .joinBrand::before { content:none!important; }
+.joinPortalArt {
+  position:absolute;
+  z-index:4;
+  top:-110px;
+  left:-4%;
+  width:108%;
+  max-width:none;
+  height:auto;
+  pointer-events:none;
+  filter:drop-shadow(0 14px 10px rgba(0,0,0,.38));
+}
+.joinPortalKicker {
+  position:relative;
+  z-index:9;
+  align-self:center;
+  margin:0 0 13px;
+  padding:9px 20px;
+  border:2px solid #d9a83e;
+  border-radius:999px;
+  color:#fff0b0;
+  background:linear-gradient(90deg,#084e52,#0b7770,#084e52);
+  box-shadow:0 0 0 3px #3b1708,0 8px 18px #0008,inset 0 1px 0 #fff5;
+  font:900 12px/1 system-ui,sans-serif;
+  letter-spacing:.16em;
+  white-space:nowrap;
+}
+#join > .joinBrand h1 {
+  position:relative;
+  z-index:9;
+  margin:0;
+  white-space:nowrap;
+}
+#join > .joinBrand h1::after {
+  margin-top:13px;
+  padding:7px 15px;
+  border:1px solid #f0c55d;
+  border-radius:999px;
+  background:linear-gradient(90deg,#7b0c2b,#aa1738,#7b0c2b);
+  box-shadow:0 4px 12px #0008,inset 0 1px 0 #fff5;
+}
+#join > .card {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:10px 20px;
+  width:calc(100% - 22px);
+  max-width:980px;
+  margin:0 auto;
+  padding:28px 30px 30px;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(74,219,177,.13),transparent 34%),
+    linear-gradient(145deg,#07533f,#062f34 58%,#071d32)!important;
+  box-shadow:0 0 0 4px #210710,0 0 0 7px #aa6c18,0 24px 54px #000c,inset 0 0 50px #00152488;
+}
+#join > .card > #qrDetected,
+#join > .card > .joinProfileChoice,
+#join > .card > .label:nth-of-type(3),
+#join > .card > .giftCounter,
+#join > .card > .tiny,
+#join > .card > #joinBtn,
+#join > .card > #joinStatus,
+#join > .card > .btn.ghost { grid-column:1 / -1; }
+#join > .card > .label:nth-of-type(1),
+#join > .card > .label:nth-of-type(2) {
+  align-self:end;
+  margin:0 0 -2px 3px;
+}
+#join > .card > .label:nth-of-type(1),
+#joinCode { grid-column:1; }
+#join > .card > .label:nth-of-type(2),
+#joinName { grid-column:2; }
+#joinCode,
+#joinName {
+  min-width:0;
+  min-height:58px;
+  height:58px;
+  font-size:18px;
+}
+#join .joinProfileChoice {
+  margin:15px 0 5px;
+  padding:14px 16px 16px;
+  border-color:#d6a843;
+  border-radius:18px;
+  background:linear-gradient(100deg,#073f46,#10213b 65%,#27102e);
+  box-shadow:inset 0 0 24px #00101e88;
+}
+#join .joinProfileChoice .profileOptions { gap:10px; }
+#join .joinProfileChoice .profileOption { min-height:112px; border-radius:15px; }
+#join > .card > .label:nth-of-type(3) {
+  margin:4px 0 -4px 3px;
+  font-size:18px;
+}
+#join .giftCounter { gap:12px; }
+#join .giftCounter .field { height:58px; min-height:58px; }
+#join .counterBtn { width:72px; min-height:58px; border-radius:16px; }
+#join > .card > #joinBtn {
+  min-height:66px;
+  margin-top:4px;
+  font-size:21px;
+}
+#join > .card > .btn.ghost {
+  min-height:58px;
+  margin-top:2px!important;
+  font-size:18px;
+}
+@media (max-width:700px) {
+  body:has(#join.active) .wrap { padding:15px 6px 34px; }
+  #join.active { gap:13px; }
+  #join > .joinBrand {
+    width:calc(100% - 8px);
+    min-height:205px;
+    margin-top:72px;
+    padding:62px 62px 26px;
+    border-radius:24px 24px 14px 14px;
+  }
+  .joinPortalArt {
+    top:-55px;
+    left:-6%;
+    width:112%;
+  }
+  .joinPortalKicker {
+    margin-bottom:9px;
+    padding:6px 10px;
+    font-size:7px;
+    letter-spacing:.11em;
+  }
+  #join > .joinBrand h1 { font-size:clamp(28px,9vw,42px); }
+  #join > .joinBrand h1::before { width:38px; height:38px; font-size:19px; }
+  #join > .joinBrand h1::after { margin-top:8px; padding:5px 8px; font-size:7px; }
+  #join > .card {
+    grid-template-columns:minmax(0,1fr);
+    gap:8px;
+    width:calc(100% - 8px);
+    padding:18px 14px 20px;
+    border-radius:18px;
+  }
+  #join > .card > *,
+  #joinCode,
+  #joinName { grid-column:1!important; }
+  #join > .card > .label:nth-of-type(2) { margin-top:5px; }
+  #joinCode,
+  #joinName { min-height:52px; height:52px; font-size:16px; }
+  #join .joinProfileChoice { margin-top:11px; padding:12px 9px 13px; }
+  #join .joinProfileChoice .profileOptions { gap:6px; }
+  #join .joinProfileChoice .profileOption { min-height:91px; }
+  #join > .card > .label:nth-of-type(3) { font-size:16px; }
+  #join .giftCounter .field,
+  #join .counterBtn { min-height:52px; height:52px; }
+  #join .counterBtn { width:60px; }
+  #join > .card > #joinBtn { min-height:58px; font-size:17px; }
+  #join > .card > .btn.ghost { min-height:52px; font-size:16px; }
+}
 @media (max-width:700px) {
   #join > .joinBrand {
     min-height:205px;

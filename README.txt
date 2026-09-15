@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – DELTAG-PORT MED FRIE LAG V56
+Det Store Julegave-Spil – NY DELTAG-SIDE V57
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -175,4 +175,9 @@ selvstændigt billedlag under en selvstændig guirlande, mens DELTAG ligger
 øverst i sit eget tekstlag. Derfor kan guirlanden ikke længere skære
 figurernes hoveder eller overskriften af.
 
-Upload alle filerne fra den færdige V56-mappe til GitHub main.
+V57 bygger hele Deltag-siden om. En ny samlet 3:1-juleportal holder
+guirlande, snemand og elf i én fast komposition med fri titelplads.
+Formularen er samtidig blevet symmetrisk, mere kompakt og responsiv på
+både iPad og mobil uden at ændre spillets funktioner.
+
+Upload alle filerne fra den færdige V57-mappe til GitHub main.
