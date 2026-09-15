@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – SVÆVENDE JULEPAKKER V40
+Det Store Julegave-Spil – MAGISKE ENKELTPAKKER V41
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -111,4 +111,10 @@ hver sin side af “Vælg julespil”-menuen uden at dække tekst eller knapper.
 Billedet er komprimeret til mobilbrug, og bevægelsen stopper automatisk,
 hvis enhedens indstilling for reduceret bevægelse er slået til.
 
-Upload alle filerne fra den færdige V40-mappe til GitHub main.
+V41 erstatter de to store, beskårne gavebunker med fem enkelte og
+forskellige luksuspakker. Rød fløjl, grøn med rødt bånd og mørkeblå
+med guldstjerner svæver nu roligt i den blå julescene bag overskriften.
+Alle pakker vises hele, knapperne holdes fri, og tre små billedfiler
+erstatter den tidligere store gavegrafik.
+
+Upload alle filerne fra den færdige V41-mappe til GitHub main.
