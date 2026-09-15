@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – FRIE VÆRTSFIGURER V50
+Det Store Julegave-Spil – DELTAG I SNEVEJR V51
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -150,4 +150,8 @@ V50 placerer rensdyret, julemanden og julekonen samlet og roligt i højre
 side af Julecentralens bjælke. Gruppen er gjort mindre og sænket, så den
 ikke længere dækker overskriften eller bliver klemt af guirlanden.
 
-Upload alle filerne fra den færdige V50-mappe til GitHub main.
+V51 giver Deltag-siden en større guirlande, som hænger ud over bjælken,
+og to lette lag med tydelige snefnug, der glider ned over hele siden.
+Mobiludgaven bruger færre visuelle kræfter for stabil drift.
+
+Upload alle filerne fra den færdige V51-mappe til GitHub main.

@@ -4229,3 +4229,94 @@ body:has(#host.active) .wrap {
   #host .hostTitleCharacters { width:124px; height:87px; }
   #host .hostBrand::before { top:-53px; height:94px; }
 }
+
+/* V51 — Deltag-port med udhængende guirlande og sne over hele siden */
+body:has(#join.active) .wrap {
+  width:min(1040px,100%);
+  padding-top:35px;
+}
+#join {
+  position:relative;
+  isolation:isolate;
+}
+#join > .brand {
+  min-height:178px;
+  margin-top:83px;
+  padding-top:60px;
+  overflow:visible;
+  border-radius:36px 36px 18px 18px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(255,218,112,.2),transparent 39%),
+    radial-gradient(circle at 12% 30%,rgba(49,190,189,.2),transparent 35%),
+    linear-gradient(125deg,#075f61,#064b44 55%,#073047)!important;
+}
+#join > .brand::before {
+  z-index:8;
+  top:-92px;
+  left:-4%;
+  right:-4%;
+  height:168px;
+  opacity:1;
+  background-size:contain;
+  background-position:center top;
+}
+#join > .brand::after { z-index:7; }
+#join > .brand h1,
+#join > .brand h1::before,
+#join > .brand h1::after { position:relative; z-index:9; }
+#join > .card {
+  position:relative;
+  z-index:3;
+  box-shadow:0 0 0 4px #210710,0 0 0 7px #aa6c18,0 20px 48px #000c,inset 0 0 55px #00152488;
+}
+#join::before,
+#join::after {
+  position:fixed;
+  z-index:12;
+  left:0;
+  top:-112vh;
+  width:100vw;
+  height:112vh;
+  overflow:hidden;
+  color:#f5fdff;
+  white-space:pre-wrap;
+  text-align:center;
+  pointer-events:none;
+  will-change:transform,opacity;
+  text-shadow:0 0 8px #8de7ff,0 2px 3px #00162d;
+  animation:join-page-snow 17s linear infinite;
+}
+#join::before {
+  content:"❄　　　　❅　　　　　　❄　　　❆　　　　❄\A　　　❄　　　　❆　　　　　❅　　　　❄\A❅　　　　　　❄　　　❄　　　　　❆　　　❅\A　　　❆　　　　　❄　　　　❅　　　　　❄\A❄　　　　❅　　　　　　❆　　　　❄　　　❅\A　　❄　　　　　❆　　　　❄　　　　　❅";
+  padding-top:3vh;
+  font:normal clamp(18px,2.4vw,30px)/18vh Georgia,serif;
+  opacity:.82;
+}
+#join::after {
+  content:"❅　　　　　❄　　　❆　　　　　❄　　　　❅\A　　❄　　　　　❅　　　　　❄　　　❆\A❆　　　　❄　　　　　❅　　　　　❄　　　❆\A　　　❅　　　❄　　　　　❆　　　　❄\A❄　　　　　❆　　　　❄　　　　　❅　　　❄\A　　❆　　　　　❄　　　❅　　　　　❄";
+  padding-top:10vh;
+  font:normal clamp(12px,1.6vw,20px)/18vh Georgia,serif;
+  opacity:.54;
+  animation-duration:23s;
+  animation-delay:-12s;
+}
+@keyframes join-page-snow {
+  from { transform:translate3d(-8px,0,0) rotate(0.001deg); }
+  to { transform:translate3d(22px,224vh,0) rotate(0.001deg); }
+}
+@media (max-width:700px) {
+  body:has(#join.active) .wrap { padding:18px 7px 35px; }
+  #join > .brand {
+    min-height:126px;
+    margin-top:62px;
+    padding-top:42px;
+    border-radius:24px 24px 13px 13px;
+  }
+  #join > .brand::before { top:-67px; left:-6%; right:-6%; height:124px; }
+  #join::before { font-size:18px; opacity:.72; }
+  #join::after { font-size:12px; opacity:.42; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #join::before,
+  #join::after { top:0; animation:none; opacity:.38; }
+}
