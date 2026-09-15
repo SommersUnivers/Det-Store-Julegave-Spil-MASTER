@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – JULECENTRALENS VINTERBJÆLKE V47
+Det Store Julegave-Spil – TILPASSET JULECENTRAL V48
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -138,4 +138,8 @@ V47 giver Julecentralen en bredere julebjælke på både bingo- og
 terningesiden. Guirlanden hænger ud over kanten, mens halvtydelige
 snefnug falder roligt hen over bjælken.
 
-Upload alle filerne fra den færdige V47-mappe til GitHub main.
+V48 gør Julecentralens topbjælke og indholdspanel smallere, så hele siden
+holder sig inden for både iPad- og mobilskærmen uden vandret forskydning.
+Guirlanden og de halvtydelige snefnug er bevaret.
+
+Upload alle filerne fra den færdige V48-mappe til GitHub main.
