@@ -2188,7 +2188,7 @@ body:has(#host.active) .wrap {
 /* =========================================================
    GRAND NOËL V19 — samme luksusfamilie, hver side sit rum
    ========================================================= */
-.screen:not(#home):not(#host):not(#game) > .brand {
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand {
   display:grid;
   min-height:144px;
   max-width:960px;
@@ -2200,18 +2200,18 @@ body:has(#host.active) .wrap {
   border-radius:26px 26px 16px 16px;
   box-shadow:0 0 0 4px #21070a,0 0 0 7px #a76a17,0 18px 42px #000b,inset 0 1px 0 #fff4,inset 0 -20px 35px #0005;
 }
-.screen:not(#home):not(#host):not(#game) > .brand::before {
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand::before {
   top:-54px;
   left:1%;
   right:1%;
   height:112px;
 }
-.screen:not(#home):not(#host):not(#game) > .brand::after { bottom:-6px; height:12px; }
-.screen:not(#home):not(#host):not(#game) > .brand h1 {
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand::after { bottom:-6px; height:12px; }
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand h1 {
   font-size:clamp(31px,6.3vw,58px);
   line-height:1;
 }
-.screen:not(#home):not(#host):not(#game) > .brand h1::before {
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand h1::before {
   display:inline-grid;
   width:48px;
   height:48px;
@@ -2227,7 +2227,7 @@ body:has(#host.active) .wrap {
   -webkit-text-stroke:0;
   text-shadow:0 2px 3px #000;
 }
-.screen:not(#home):not(#host):not(#game) > .brand h1::after {
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand h1::after {
   display:block;
   margin-top:10px;
   color:#ffe6a0;
@@ -2236,7 +2236,7 @@ body:has(#host.active) .wrap {
   -webkit-text-stroke:0;
   text-shadow:0 2px 4px #000;
 }
-.screen:not(#home):not(#host):not(#game) > .card {
+.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .card {
   max-width:960px;
   margin:0 auto;
   border:1px solid #ffe49a;
@@ -2312,23 +2312,23 @@ body:has(#host.active) .wrap {
 #finish h2 { color:#ffe18a; text-shadow:0 2px 4px #000; }
 
 @media (max-width:700px) {
-  .screen:not(#home):not(#host):not(#game) > .brand {
+  .screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand {
     min-height:108px;
     margin:33px 0 11px;
     padding:32px 10px 16px;
     border-radius:18px 18px 11px 11px;
   }
-  .screen:not(#home):not(#host):not(#game) > .brand::before { top:-37px; height:79px; }
-  .screen:not(#home):not(#host):not(#game) > .brand h1 { font-size:clamp(25px,8.2vw,38px); }
-  .screen:not(#home):not(#host):not(#game) > .brand h1::before {
+  .screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand::before { top:-37px; height:79px; }
+  .screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand h1 { font-size:clamp(25px,8.2vw,38px); }
+  .screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand h1::before {
     width:34px;
     height:34px;
     margin-right:8px;
     vertical-align:5px;
     font-size:17px;
   }
-  .screen:not(#home):not(#host):not(#game) > .brand h1::after { margin-top:7px; font-size:7px; letter-spacing:.12em; }
-  .screen:not(#home):not(#host):not(#game) > .card { padding:15px; border-radius:14px; }
+  .screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand h1::after { margin-top:7px; font-size:7px; letter-spacing:.12em; }
+  .screen:not(#home):not(#host):not(#game):not(#gameMenu) > .card { padding:15px; border-radius:14px; }
   #giftAdmin .adminActions { grid-template-columns:1fr; }
 }
 
@@ -3689,11 +3689,11 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 }
 #gameMenu .gameMenuBrand::before {
   top:-90px;
-  left:-2%;
-  right:-2%;
+  left:-4%;
+  right:-4%;
   height:172px;
   background-size:contain;
-  background-position:center;
+  background-position:center top;
 }
 .gameMenuHostsArt {
   z-index:1;
@@ -3745,6 +3745,7 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   padding:10px 21px;
   background:linear-gradient(90deg,#670014e8,#c20b32f2 20% 80%,#670014e8);
 }
+#gameMenu .premiumGameMenu { max-width:1010px; margin:0 auto; }
 
 @media (max-width:700px) {
   body:has(#gameMenu.active) .wrap { padding:18px 7px 30px; }
@@ -3754,7 +3755,7 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
     padding:69px 10px 27px;
     border-radius:25px 25px 10px 10px;
   }
-  #gameMenu .gameMenuBrand::before { top:-72px; left:-3%; right:-3%; height:137px; }
+  #gameMenu .gameMenuBrand::before { top:-76px; left:-8%; right:-8%; height:145px; }
   .gameMenuHostsArt { width:142%; height:86%; bottom:-3px; }
   .gameMenuTitleKicker { max-width:64%; margin-bottom:8px; padding:5px 9px; font-size:6px; }
   #gameMenu .gameMenuBrand h1 { max-width:62%; font-size:clamp(30px,9.3vw,44px); -webkit-text-stroke-width:1px; }

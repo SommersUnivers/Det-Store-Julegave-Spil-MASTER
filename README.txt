@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – STOR SPILLESCENE V37
+Det Store Julegave-Spil – FRI GUIRLANDE V38
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -96,4 +96,8 @@ så den større top ikke giver unødvendig scrolling.
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V37-mappe til GitHub main.
+V38 frigør guirlanden på “Vælg julespil”, så den hænger ud over den
+store blå scene på samme måde som på forsiden. Spillesalen bruger nu
+også samme fulde bredde som forsidens hovedmenu.
+
+Upload alle filerne fra den færdige V38-mappe til GitHub main.
