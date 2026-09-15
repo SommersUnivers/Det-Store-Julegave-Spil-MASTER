@@ -3960,30 +3960,10 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 
 /* V42 — tre store pakker i en rolig, buet gavebane */
 .elegantGiftArc::before {
-  content:"";
-  position:absolute;
-  z-index:0;
-  left:27%;
-  top:10%;
-  width:46%;
-  height:105px;
-  border-top:2px dotted #ffe178aa;
-  border-radius:50% 50% 0 0;
-  filter:drop-shadow(0 0 6px #ffd45f);
+  content:none;
 }
 .elegantGiftArc::after {
-  content:"✦   ❄   ·   ✧   ·   ❄   ✦";
-  position:absolute;
-  z-index:0;
-  left:50%;
-  top:12%;
-  width:40%;
-  transform:translateX(-50%);
-  color:#fff0a1;
-  font:900 14px/1 Georgia,serif;
-  letter-spacing:.22em;
-  text-align:center;
-  text-shadow:0 0 7px #fff,0 0 14px #ffd04d;
+  content:none;
 }
 .elegantGiftArc .flyingPresent { z-index:1; }
 .elegantGiftArc .presentRedOne {
@@ -4016,3 +3996,5 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 /* V43 — den grønne gave står fri af guirlandens klokker */
 
 /* V44 — sidepakkerne er større og står længere ude i scenen */
+
+/* V45 — den gyldne bue mellem sidepakkerne er fjernet */

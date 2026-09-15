@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – BALANCEREDE SIDEPAKKER V44
+Det Store Julegave-Spil – REN GAVESCENE V45
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -128,4 +128,7 @@ så sløjfen og klokkeguirlanden står helt rent.
 V44 gør den røde og blå gave større og flytter dem længere ud mod
 hver sin side. Den grønne gave beholder sin frie placering under titlen.
 
-Upload alle filerne fra den færdige V44-mappe til GitHub main.
+V45 fjerner den gyldne, buede bane og dens glimt mellem den røde og blå
+pakke. Alle tre pakker og resten af julepynten er bevaret.
+
+Upload alle filerne fra den færdige V45-mappe til GitHub main.
