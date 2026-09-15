@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – FRI GUIRLANDE V38
+Det Store Julegave-Spil – SVÆVENDE JULEPAKKER V40
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -100,4 +100,15 @@ V38 frigør guirlanden på “Vælg julespil”, så den hænger ud over den
 store blå scene på samme måde som på forsiden. Spillesalen bruger nu
 også samme fulde bredde som forsidens hovedmenu.
 
-Upload alle filerne fra den færdige V38-mappe til GitHub main.
+V39 giver spillesalen mere julemagisk pynt uden ekstra sidehøjde:
+lysende snefnug og guldglimt, små julekugler under guirlanden,
+diskrete julelys samt juletræ og gave omkring spilmenuen. Pynten er
+lavet let og uden tunge animationer, så mobil og iPad fortsat kører stabilt.
+
+V40 tilføjer en ny, rigtig julegrafik med luksuspakker i rød, grøn og
+mørkeblå med silkebånd, gran og guld. To grupper svæver roligt langs
+hver sin side af “Vælg julespil”-menuen uden at dække tekst eller knapper.
+Billedet er komprimeret til mobilbrug, og bevægelsen stopper automatisk,
+hvis enhedens indstilling for reduceret bevægelse er slået til.
+
+Upload alle filerne fra den færdige V40-mappe til GitHub main.

@@ -3765,3 +3765,150 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   #gameMenu .premiumGameMenu .gameChoice { min-height:78px; }
   #gameMenu .gameMenuBack { min-height:43px; }
 }
+
+/* V39 — ekstra, let julepynt uden at gøre siden højere */
+.gameMenuGarlandGlow {
+  position:absolute;
+  z-index:4;
+  top:-39px;
+  left:8%;
+  right:8%;
+  display:flex;
+  justify-content:space-around;
+  pointer-events:none;
+}
+.gameMenuGarlandGlow i {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#fff2a0;
+  box-shadow:0 0 5px #fff,0 0 11px #ffd452,0 0 19px #ffc629;
+}
+.gameMenuGarlandGlow i:nth-child(3n+2) {
+  background:#e8fbff;
+  box-shadow:0 0 5px #fff,0 0 11px #79dcff,0 0 19px #36bcec;
+}
+.gameMenuSnowflakes {
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
+}
+.gameMenuSnowflakes i {
+  position:absolute;
+  color:#eafcff;
+  font-style:normal;
+  text-shadow:0 0 8px #8de7ff,0 0 17px #36bce9,0 2px 3px #00162d;
+}
+.gameMenuSnowflakes i:nth-child(1){left:27%;top:23%;font-size:20px}
+.gameMenuSnowflakes i:nth-child(2){right:27%;top:20%;font-size:15px}
+.gameMenuSnowflakes i:nth-child(3){left:32%;bottom:20%;font-size:13px;color:#ffe787}
+.gameMenuSnowflakes i:nth-child(4){right:31%;bottom:21%;font-size:21px}
+.gameMenuSnowflakes i:nth-child(5){left:48%;top:14%;font-size:12px}
+.gameMenuSnowflakes i:nth-child(6){right:45%;bottom:13%;font-size:11px;color:#ffe787}
+.gameMenuSnowflakes i:nth-child(7){left:23%;top:49%;font-size:13px}
+.gameMenuSnowflakes i:nth-child(8){right:22%;top:47%;font-size:16px}
+.gameMenuBaubles {
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+.gameMenuBaubles i {
+  position:absolute;
+  top:8px;
+  width:17px;
+  height:17px;
+  border:1px solid #fff0a0;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 25%,#fff7c9 0 8%,#d51a3c 25%,#7a0018 75%);
+  box-shadow:0 0 0 2px #764307,0 4px 8px #0008,0 0 11px #ffc64988;
+}
+.gameMenuBaubles i::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:100%;
+  width:1px;
+  height:24px;
+  background:#ffe58c;
+}
+.gameMenuBaubles i:nth-child(1){left:13%}.gameMenuBaubles i:nth-child(2){left:20%;top:23px;background:radial-gradient(circle at 34% 25%,#fff 0 8%,#32c997 27%,#07543f 75%)}
+.gameMenuBaubles i:nth-child(3){right:20%;top:23px;background:radial-gradient(circle at 34% 25%,#fff 0 8%,#32c997 27%,#07543f 75%)}.gameMenuBaubles i:nth-child(4){right:13%}
+.gameMenuCornerMagic {
+  position:absolute;
+  z-index:0;
+  top:24px;
+  left:28px;
+  right:28px;
+  display:flex;
+  justify-content:space-between;
+  pointer-events:none;
+}
+.gameMenuCornerMagic i {
+  font:normal 30px/1 system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+  filter:drop-shadow(0 5px 5px #0009) drop-shadow(0 0 8px #ffdf6b77);
+}
+#gameMenu .premiumGameMenu .menuKicker,
+#gameMenu .premiumGameMenu .gameMenuWelcome,
+#gameMenu .premiumGameMenu .gameChoice,
+#gameMenu .premiumGameMenu .gameMenuBack { position:relative; z-index:1; }
+
+@media (max-width:700px) {
+  .gameMenuGarlandGlow { top:-31px; left:4%; right:4%; }
+  .gameMenuGarlandGlow i { width:5px; height:5px; }
+  .gameMenuGarlandGlow i:nth-child(n+10) { display:none; }
+  .gameMenuBaubles i { top:4px; width:12px; height:12px; }
+  .gameMenuBaubles i::before { height:17px; }
+  .gameMenuBaubles i:nth-child(1){left:11%}.gameMenuBaubles i:nth-child(2){left:18%;top:15px}
+  .gameMenuBaubles i:nth-child(3){right:18%;top:15px}.gameMenuBaubles i:nth-child(4){right:11%}
+  .gameMenuSnowflakes i:nth-child(1),.gameMenuSnowflakes i:nth-child(7){left:24%}
+  .gameMenuSnowflakes i:nth-child(2),.gameMenuSnowflakes i:nth-child(8){right:24%}
+  .gameMenuCornerMagic { top:14px; left:13px; right:13px; }
+  .gameMenuCornerMagic i { font-size:21px; }
+}
+
+/* V40 — tydelige luksuspakker, der svæver omkring spilmenuen */
+#gameMenu .premiumGameMenu { overflow:visible; }
+.gameMenuFloatingGifts {
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+.gameMenuFloatingGifts img {
+  position:absolute;
+  width:clamp(150px,18vw,205px);
+  height:auto;
+  opacity:.98;
+  transform-origin:center;
+}
+.floatingGiftsLeft {
+  left:-89px;
+  top:18%;
+  animation:game-menu-gifts-left 5.8s ease-in-out infinite;
+}
+.floatingGiftsRight {
+  right:-91px;
+  top:53%;
+  animation:game-menu-gifts-right 6.4s ease-in-out -2.1s infinite;
+}
+@keyframes game-menu-gifts-left {
+  0%,100% { transform:translateY(0) rotate(-8deg) scale(.94); }
+  50% { transform:translateY(-15px) rotate(-3deg) scale(.98); }
+}
+@keyframes game-menu-gifts-right {
+  0%,100% { transform:translateY(0) rotate(8deg) scale(.9); }
+  50% { transform:translateY(-13px) rotate(3deg) scale(.95); }
+}
+@media (max-width:700px) {
+  .gameMenuFloatingGifts img { width:112px; }
+  .floatingGiftsLeft { left:-42px; top:19%; }
+  .floatingGiftsRight { right:-43px; top:57%; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .gameMenuFloatingGifts img { animation:none; }
+  .floatingGiftsLeft { transform:rotate(-6deg) scale(.95); }
+  .floatingGiftsRight { transform:rotate(6deg) scale(.92); }
+}
