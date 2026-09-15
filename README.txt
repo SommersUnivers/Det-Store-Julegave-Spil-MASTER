@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – NY DELTAG-SIDE V58
+Det Store Julegave-Spil – FIGURER I BALANCE V59
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -184,4 +184,8 @@ V58 fjerner en ældre beskæringsregel, som stadig skjulte den del af den
 nye guirlande, der skulle hænge over bjælken. Spillekode og navn er nu
 også låst til samme vandrette række på iPad.
 
-Upload alle filerne fra den færdige V58-mappe til GitHub main.
+V59 beholder den godkendte guirlande, men adskiller snemanden og elfen
+fra den. De står nu som to større, ligeværdige sidefigurer nederst i
+bjælken med fri afstand til både guirlanden og DELTAG-overskriften.
+
+Upload alle filerne fra den færdige V59-mappe til GitHub main.

@@ -4461,6 +4461,41 @@ body:has(#join.active) .joinSnowOverlay {
   }
 }
 
+/* V59 — snemand og elf i selvstændige, afbalancerede sidefelter */
+.joinSnowmanArt,
+.joinElfArt {
+  position:absolute;
+  z-index:6;
+  bottom:12px;
+  height:280px;
+  background-image:url("deltag-snemand-elf-v53.png");
+  background-repeat:no-repeat;
+  background-size:1050px auto;
+  pointer-events:none;
+  filter:drop-shadow(0 12px 9px rgba(0,0,0,.42));
+}
+.joinSnowmanArt {
+  left:20px;
+  width:245px;
+  background-position:left bottom;
+}
+.joinElfArt {
+  right:18px;
+  width:275px;
+  background-position:right bottom;
+}
+@media (max-width:700px) {
+  .joinSnowmanArt,
+  .joinElfArt {
+    bottom:7px;
+    height:122px;
+    background-size:430px auto;
+    filter:drop-shadow(0 7px 5px rgba(0,0,0,.4));
+  }
+  .joinSnowmanArt { left:3px; width:108px; }
+  .joinElfArt { right:2px; width:118px; }
+}
+
 /* V58 — bryd den gamle beskæring og lås formularens rækker */
 #join.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand.joinBrand {
   display:flex;
