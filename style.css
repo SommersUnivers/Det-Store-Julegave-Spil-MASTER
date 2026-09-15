@@ -4496,6 +4496,40 @@ body:has(#join.active) .joinSnowOverlay {
   .joinElfArt { right:2px; width:118px; }
 }
 
+/* V60 — fritstående gylden julestjerne ved DELTAG */
+#join > .joinBrand h1::before {
+  content:"★";
+  display:inline-block;
+  width:auto;
+  height:auto;
+  margin-right:17px;
+  border:0;
+  border-radius:0;
+  color:#fff1a0;
+  vertical-align:7px;
+  background:none;
+  box-shadow:none;
+  font:900 54px/.8 Georgia,"Times New Roman",serif;
+  -webkit-text-stroke:2px #b66d08;
+  text-shadow:
+    0 1px 0 #fff8c9,
+    0 4px 0 #7d3005,
+    0 8px 13px #000b,
+    0 0 12px #ffd75f,
+    0 0 25px #ffbf2f99;
+  filter:drop-shadow(0 0 5px #fff1a0aa);
+}
+@media (max-width:700px) {
+  #join > .joinBrand h1::before {
+    width:auto;
+    height:auto;
+    margin-right:9px;
+    vertical-align:4px;
+    font-size:34px;
+    -webkit-text-stroke:1px #b66d08;
+  }
+}
+
 /* V58 — bryd den gamle beskæring og lås formularens rækker */
 #join.screen:not(#home):not(#host):not(#game):not(#gameMenu) > .brand.joinBrand {
   display:flex;

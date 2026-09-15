@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – FIGURER I BALANCE V59
+Det Store Julegave-Spil – GYLDEN JULESTJERNE V60
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -188,4 +188,7 @@ V59 beholder den godkendte guirlande, men adskiller snemanden og elfen
 fra den. De står nu som to større, ligeværdige sidefigurer nederst i
 bjælken med fri afstand til både guirlanden og DELTAG-overskriften.
 
-Upload alle filerne fra den færdige V59-mappe til GitHub main.
+V60 fjerner den røde runde diamant foran DELTAG og erstatter den med en
+fritstående gylden julestjerne med varm glød og diskret dybde.
+
+Upload alle filerne fra den færdige V60-mappe til GitHub main.
