@@ -3632,3 +3632,40 @@ body:has(#gameMenu.active) .wrap { width:min(1040px,100%); padding-top:18px; }
   }
   .gameMenuHostsArt { object-fit:cover; object-position:center 18%; }
 }
+
+/* V36 — frihøjde omkring figurerne og guirlanden */
+#gameMenu .gameMenuBrand {
+  min-height:225px;
+  padding:92px 22% 22px;
+  overflow:visible;
+}
+#gameMenu .gameMenuBrand::before {
+  top:-145px;
+  left:3%;
+  right:3%;
+  height:180px;
+}
+#gameMenu .gameMenuBrand h1 {
+  font-size:clamp(34px,5vw,50px);
+  white-space:nowrap;
+}
+#gameMenu .gameMenuBrand h1::before { display:none; }
+.gameMenuHostsArt {
+  object-fit:cover;
+  object-position:center top;
+}
+
+@media (max-width:700px) {
+  #gameMenu > .gameMenuBrand {
+    min-height:142px;
+    padding:58px 20% 14px;
+  }
+  #gameMenu .gameMenuBrand::before {
+    top:-76px;
+    left:2%;
+    right:2%;
+    height:104px;
+  }
+  #gameMenu .gameMenuBrand h1 { font-size:clamp(22px,7.2vw,33px); }
+  .gameMenuHostsArt { object-position:center top; }
+}

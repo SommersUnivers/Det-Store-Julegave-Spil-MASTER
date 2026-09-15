@@ -1,4 +1,4 @@
-Det Store Julegave-Spil – REN JULETOP V35
+Det Store Julegave-Spil – FRI JULETOP V36
 
 Forsiden er opgraderet til en magisk vinterscene med en original
 Julemand, snemand, elegante snefnug, iskrystaller og vinterglød.
@@ -82,7 +82,12 @@ som er lavet særligt til denne side. Kun rensdyret står til venstre og kun
 julekonen til højre; Julemanden er fjernet, ingen hoveder beskæres, og midten
 er fri til overskriften. Guirlanden vises nu i hele toppens bredde.
 
+V36 retter den endelige placering på iPad og mobil. Guirlanden er løftet op,
+så den ikke længere dækker gevir eller hår. Toppen har fået mere højde,
+figurerne vises fra toppen uden beskårne hoveder, og den runde stjerne ved
+overskriften er fjernet, så den ikke ligger oven på rensdyrets ansigt.
+
 Supabase multiplayer, cloud-gemning, Julebingo, terningespil,
 ligelig gavefordeling og tyverirunden er bevaret og testet.
 
-Upload alle filerne fra den færdige V35-mappe til GitHub main.
+Upload alle filerne fra den færdige V36-mappe til GitHub main.
