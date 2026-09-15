@@ -3987,9 +3987,9 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 }
 .elegantGiftArc .flyingPresent { z-index:1; }
 .elegantGiftArc .presentRedOne {
-  left:28%;
+  left:22%;
   top:20%;
-  width:103px;
+  width:118px;
 }
 .elegantGiftArc .presentGreenOne {
   left:calc(50% - 43px);
@@ -4000,17 +4000,19 @@ body:has(#gameMenu.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 }
 .elegantGiftArc .presentBlue {
   left:auto;
-  right:28%;
+  right:22%;
   top:19%;
   bottom:auto;
-  width:82px;
+  width:98px;
 }
 @media (max-width:700px) {
   .elegantGiftArc::before { left:24%; top:11%; width:52%; height:77px; }
   .elegantGiftArc::after { top:13%; width:47%; font-size:9px; letter-spacing:.12em; }
-  .elegantGiftArc .presentRedOne { left:24%; top:21%; width:61px; }
+  .elegantGiftArc .presentRedOne { left:18%; top:21%; width:70px; }
   .elegantGiftArc .presentGreenOne { left:calc(50% - 26px); top:auto; bottom:2%; width:52px; }
-  .elegantGiftArc .presentBlue { right:24%; top:20%; width:51px; }
+  .elegantGiftArc .presentBlue { right:18%; top:20%; width:60px; }
 }
 
 /* V43 — den grønne gave står fri af guirlandens klokker */
+
+/* V44 — sidepakkerne er større og står længere ude i scenen */
