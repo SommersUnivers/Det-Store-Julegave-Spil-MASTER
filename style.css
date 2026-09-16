@@ -990,194 +990,6 @@ h1 {
   .christmasQuiz ~ .gifts,.christmasDice ~ .gifts { padding:13px; }
 }
 
-/* V68 — fysisk pakkekvittering, stabil synkronisering og fast iPad-bredde */
-/* V70 — Grand Noël Tyverifinale */
-#finish.stealMode { width:min(1120px,100%); min-height:calc(100dvh - 18px); margin:0 auto; gap:10px; }
-#finish.stealMode > .brand { position:relative; min-height:128px!important; margin-top:54px!important; padding:44px 16px 13px!important; background:radial-gradient(circle at 76% 20%,#11927044,transparent 27%),linear-gradient(112deg,#78102f,#3b0a20 55%,#06423a)!important; }
-#finish.stealMode > .brand::after { content:"TYVERIFINALEN · 3 RUNDER · ALLE BEHOLDER LIGE MANGE"; display:block; margin:6px auto 0; color:#ffefa9; font-size:8px; font-weight:1000; letter-spacing:.13em; }
-#finish.stealMode > .finishCard { display:flex; min-height:calc(100dvh - 260px); padding:11px!important; flex-direction:column; border-color:#f0c760; background:radial-gradient(circle at 50% 0,#b51d4550,transparent 28%),radial-gradient(circle at 8% 90%,#07826035,transparent 30%),linear-gradient(145deg,#5d0c27,#240717 52%,#043b35)!important; box-shadow:0 0 0 4px #572107,0 0 0 7px #d7a538,0 18px 35px #0009,inset 0 1px 0 #fff4; }
-#finish.stealMode .finishCard::before { height:5px; margin:-11px -11px 9px; }
-#finish.stealMode .stealPanel { display:flex!important; flex:1; padding:12px 15px 15px; flex-direction:column; justify-content:flex-start; border-radius:17px; background:radial-gradient(circle at 50% 5%,#0d80624a,transparent 32%),linear-gradient(145deg,#063e39,#031e29 62%,#24071c); }
-#finish.stealMode .stealPanel::before { content:"❄"; top:auto; left:22px; bottom:20px; color:#aeefff; font-size:34px; opacity:.19; }
-#finish.stealMode .stealPanel::after { content:"✦"; right:25px; bottom:21px; }
-.stealStatusBar { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; max-width:690px; width:100%; margin:10px auto 3px; }
-.stealStatusBar span { display:grid; grid-template-columns:31px minmax(0,1fr); align-items:center; gap:6px; min-height:39px; padding:4px 7px; border:1px solid #b9862d; border-radius:10px; color:#f9e9ae; text-align:left; background:linear-gradient(110deg,#6e102c,#301020 62%,#075044); box-shadow:inset 0 1px 0 #fff3,0 3px 7px #0006; }
-.stealStatusBar i { display:grid; width:29px; height:29px; place-items:center; border:1px solid #ffe68d; border-radius:50%; color:#4b1808; background:linear-gradient(#fff6c9,#dca832); font-size:12px; font-style:normal; font-weight:1000; }
-.stealStatusBar b { font-size:8px; line-height:1.15; letter-spacing:.05em; }
-#finish.stealMode .stealLuxuryHead { max-width:850px; width:100%; margin:0 auto; grid-template-columns:68px minmax(0,1fr); }
-#finish.stealMode .stealProgress { width:min(100%,580px); }
-#finish.stealMode .stealRoundLine { width:min(100%,580px); }
-#finish.stealMode .luxuryDie { flex:0 0 auto; }
-#finish.stealMode .stealRollBtn,#finish.stealMode .stealNextBtn { margin-top:auto; }
-#finish.stealMode #stealEndBtn { min-height:42px; margin-top:9px!important; border-color:#d5af5a; opacity:.88; font-size:11px; }
-#finish.stealMode #stealEndBtn:disabled { cursor:not-allowed; opacity:.38; filter:grayscale(.55); }
-#finish.stealMode .stealInstruction,#finish.stealMode .stealResult { width:min(100%,690px); }
-#finish.stealMode .physicalSwap { width:min(100%,720px); }
-#finish.stealMode .stealOwners { width:100%; grid-template-columns:repeat(2,minmax(0,1fr)); }
-#finish.stealMode .stealOwner:last-child:nth-child(odd) { grid-column:1/-1; }
-@media (min-width:701px) and (max-width:1100px){
-  #finish.stealMode { padding:5px 9px 22px; }
-  #finish.stealMode > .brand { min-height:105px!important; margin-top:43px!important; padding:35px 12px 10px!important; }
-  #finish.stealMode > .brand::before { top:-46px!important; height:88px!important; }
-  #finish.stealMode > .brand h1 { font-size:35px!important; }
-  #finish.stealMode > .finishCard { min-height:calc(100dvh - 205px); }
-  #finish.stealMode .stealLuxuryHead { grid-template-columns:57px minmax(0,1fr); padding:8px 11px; }
-  #finish.stealMode .stealCurrentAvatar { width:51px; height:51px; }.stealMode .stealHeroAvatar{width:47px;height:47px}
-  #finish.stealMode .stealLuxuryHead h2 { font-size:23px; }
-  #finish.stealMode .luxuryDie { width:98px; margin:8px auto 14px; padding:17px; }
-}
-@media (max-width:700px){
-  #finish.stealMode{padding:4px 4px 18px;gap:6px}
-  #finish.stealMode>.brand{min-height:82px!important;margin-top:35px!important;padding:28px 6px 7px!important}
-  #finish.stealMode>.brand::before{top:-37px!important;height:70px!important}
-  #finish.stealMode>.brand h1{font-size:22px!important}#finish.stealMode>.brand::after{font-size:6px;letter-spacing:.06em}
-  #finish.stealMode>.finishCard{min-height:calc(100dvh - 158px);padding:6px!important}
-  #finish.stealMode .stealPanel{padding:6px}
-  .stealStatusBar{gap:3px;margin:6px auto 2px}.stealStatusBar span{grid-template-columns:23px minmax(0,1fr);gap:3px;min-height:31px;padding:3px}.stealStatusBar i{width:21px;height:21px;font-size:9px}.stealStatusBar b{font-size:6px}
-  #finish.stealMode .stealOwners{grid-template-columns:1fr}
-}
-
-/* V71 — levende julemagi og tydelig sne i tyverifinalen */
-#finish.stealMode { position:relative; isolation:isolate; }
-#finish.stealMode > .brand,
-#finish.stealMode > .finishCard,
-#finish.stealMode > .onlineBadge { position:relative; z-index:3; }
-.stealChristmasCrown {
-  display:flex; align-items:center; justify-content:center; gap:12px;
-  width:min(100%,760px); margin:0 auto 8px; padding:6px 14px;
-  border:1px solid #efd06d; border-radius:999px;
-  color:#fff2b0; background:linear-gradient(90deg,#073f36,#97133b,#073f36);
-  box-shadow:0 0 0 2px #6d3c0a,0 6px 14px #0007,inset 0 1px 0 #fff5;
-  font-size:10px; font-weight:1000; letter-spacing:.12em;
-}
-.stealChristmasCrown span { font-size:18px; filter:drop-shadow(0 2px 2px #0008); }
-.stealFallingSnow {
-  position:fixed; inset:0; z-index:8; overflow:hidden; pointer-events:none;
-  contain:layout paint; filter:drop-shadow(0 0 5px #88dcff);
-}
-.stealFallingSnow[hidden] { display:none!important; }
-.stealFallingSnow i {
-  position:absolute; top:-12vh;
-  color:#fff; opacity:.9; font-style:normal; line-height:1;
-  font-size:var(--size);
-  text-shadow:0 0 4px #fff,0 0 10px #55cfff,0 2px 2px #07365f;
-  animation:steal-snowfall var(--duration) linear infinite;
-  animation-delay:var(--delay);
-}
-.stealFallingSnow i:nth-child(3n) { color:#dff8ff; opacity:.72; }
-.stealFallingSnow i:nth-child(4n) { animation-timing-function:ease-in; }
-@keyframes steal-snowfall {
-  0% { transform:translate3d(0,-8vh,0) rotate(0deg); }
-  48% { transform:translate3d(24px,52vh,0) rotate(185deg); }
-  100% { transform:translate3d(-18px,116vh,0) rotate(390deg); }
-}
-#finish.stealMode .stealPanel {
-  background:
-    radial-gradient(circle at 8% 8%,#f7d46c24 0 2px,transparent 3px),
-    radial-gradient(circle at 92% 16%,#ffffff30 0 2px,transparent 3px),
-    radial-gradient(circle at 50% 5%,#0d80625c,transparent 34%),
-    linear-gradient(145deg,#06483f,#031e29 62%,#300921)!important;
-  background-size:42px 42px,57px 57px,auto,auto!important;
-}
-#finish.stealMode .stealLuxuryHead { border-width:2px; box-shadow:inset 0 1px 0 #fff5,0 8px 19px #0009,0 0 19px #d3a83222; }
-#finish.stealMode .stealInstruction,
-#finish.stealMode .stealResult,
-#finish.stealMode .physicalSwap { box-shadow:0 7px 17px #0008,0 0 0 1px #ffe99a38,inset 0 1px 0 #fff7; }
-#finish.stealMode .stealRollBtn,
-#finish.stealMode .stealNextBtn { box-shadow:0 0 0 3px #7b460b,0 8px 0 #3b1508,0 14px 24px #0008,0 0 24px #ffd86555; }
-@media (max-width:700px){
-  .stealChristmasCrown { gap:7px; margin-bottom:5px; padding:4px 8px; font-size:7px; }
-  .stealChristmasCrown span { font-size:13px; }
-  .stealFallingSnow i { font-size:min(var(--size),24px); }
-}
-@media (prefers-reduced-motion:reduce){
-  .stealFallingSnow i { animation-duration:18s; }
-}
-
-/* V72 — ensartede, emoji-frie jule- og spilsymboler */
-.emoji,.mega,.festiveFeatureIcon,.prepareIcon,.choiceSeal,.actionCrest,
-.profileChoiceTitle,.hostMagicStatus>span,.gameMenuCornerMagic i {
-  font-family:Georgia,"Times New Roman",serif!important;
-  font-variant-emoji:text;
-}
-.emoji {
-  color:#ffe58c!important; letter-spacing:.3em!important;
-  text-shadow:0 2px 0 #60121f,0 0 14px #ffd65d!important;
-}
-.festiveFeatureIcon,.prepareIcon,.choiceSeal {
-  display:grid!important; place-items:center;
-  color:#fff2b5!important;
-  background:radial-gradient(circle at 35% 28%,#d72a50,#780d2b 62%,#310614)!important;
-  border:2px solid #f5cf62!important;
-  box-shadow:0 0 0 3px #75410b,0 5px 9px #0007,inset 0 1px 0 #fff7!important;
-  border-radius:50%!important;
-  font-style:normal!important;
-}
-.mega {
-  display:grid; width:86px; height:86px; margin:0 auto 8px; place-items:center;
-  border:3px solid #ffe58c; border-radius:50%; color:#fff1b2;
-  background:radial-gradient(circle at 35% 28%,#d72b52,#790d2e 62%,#310614);
-  box-shadow:0 0 0 4px #75410b,0 9px 18px #0008,inset 0 2px 0 #fff6;
-  font-size:42px!important;
-}
-.bingoSymbol {
-  display:grid!important; width:48px; height:48px; margin:auto; place-items:center;
-  border:2px solid #f0c75e; border-radius:50%;
-  color:#fff2ae; background:radial-gradient(circle at 35% 25%,#147c69,#063d38 62%,#041e29);
-  box-shadow:0 0 0 2px #724008,0 5px 9px #0007,inset 0 1px 0 #fff5;
-  font:900 27px/1 Georgia,"Times New Roman",serif!important;
-  font-variant-emoji:text;
-}
-.symbol-gift,.symbol-heart,.symbol-sock { background:radial-gradient(circle at 35% 25%,#d22b4e,#750d2c 62%,#310513)!important; }
-.symbol-star,.symbol-bell,.symbol-candle { color:#5a2707!important; background:radial-gradient(circle at 35% 25%,#fff6c8,#e4b43b 62%,#a15b0d)!important; }
-.symbol-snow,.symbol-snowman,.symbol-angel { color:#064265!important; background:radial-gradient(circle at 35% 25%,#fff,#ccefff 62%,#77bdd9)!important; }
-.symbol-santa,.symbol-elf,.symbol-deer { background:radial-gradient(circle at 35% 25%,#c92047,#650c29 62%,#073f38)!important; }
-.bingoCaller>.bingoSymbol { flex:0 0 58px; width:58px; height:58px; font-size:34px!important; }
-.onlineBadge::before { content:""; display:inline-block; width:12px; height:12px; margin-right:7px; border-radius:50%; background:#21c84b; box-shadow:0 0 8px #3cff6b; vertical-align:-1px; }
-.onlineBadge.off::before { background:#cf2443; box-shadow:0 0 8px #ff4665; }
-.confettiPiece { font-family:Georgia,"Times New Roman",serif!important; color:#ffe173; font-variant-emoji:text; }
-@media (max-width:700px){
-  .bingoSymbol{width:38px;height:38px;font-size:22px!important}
-  .mega{width:70px;height:70px;font-size:34px!important}
-}
-.diceMercyMeter { display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px 10px; max-width:480px; margin:7px auto 10px; padding:8px 11px; border:1px solid #dfb33f; border-radius:11px; color:#fff1b9; background:linear-gradient(100deg,#681029,#063d36); box-shadow:inset 0 1px 0 #fff3,0 4px 9px #0006; }
-.diceMercyMeter span,.diceMercyMeter b { font-size:9px; font-weight:1000; }.diceMercyMeter b { color:#ffe587; }
-.diceMercyMeter > i { grid-column:1/-1; height:8px; padding:1px; overflow:hidden; border:1px solid #d8ad40; border-radius:999px; background:#061b24; }
-.diceMercyMeter > i > em { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#15865e,#f1c948,#d51d45); box-shadow:0 0 8px #ffd65c; transition:width .25s ease; }
-.diceGiftReceipt { display:grid; grid-template-columns:118px minmax(0,1fr); align-items:center; gap:13px; max-width:620px; margin:9px auto 4px; padding:10px 14px; border:2px solid #f0ca61; border-radius:15px; color:#fff4c8; text-align:left; background:radial-gradient(circle at 10% 40%,#b5294c55,transparent 30%),linear-gradient(115deg,#74112d,#35091c 52%,#075042); box-shadow:0 0 0 3px #6d3a08,0 7px 15px #0008,inset 0 1px 0 #fff4; }
-.diceGiftReceipt > div { position:relative; display:grid; place-items:center; min-height:105px; }
-.diceGiftReceipt img { width:112px; height:92px; object-fit:contain; filter:drop-shadow(0 7px 5px #0009); }
-.diceGiftReceipt strong { position:absolute; bottom:0; min-width:39px; padding:2px 7px; border:2px solid #ffe889; border-radius:999px; color:#fff7d4; background:#920d31; box-shadow:0 0 0 2px #663604; text-align:center; }
-.diceGiftReceipt p { display:flex; margin:0; flex-direction:column; gap:5px; }.diceGiftReceipt p b { color:#ffe689; font-size:15px; }.diceGiftReceipt p span { font-size:10px; font-weight:750; line-height:1.45; }
-@media (min-width:701px) and (max-width:1100px){
-  #game.active .gameTableCard{grid-template-columns:minmax(250px,.68fr) minmax(0,1.32fr)!important}
-  #game.active .gameStatusColumn{min-width:0!important}
-  #game.active .sideMagicCharacter{min-height:160px;max-height:330px}
-  #game.active .gamePlayColumn>.gifts{max-height:385px;overflow-y:auto!important;overscroll-behavior:contain}
-  #game.active .hostRecovery{max-width:100%;overflow:hidden}
-}
-@media (max-width:700px){
-  .diceMercyMeter{margin:5px auto 7px;padding:6px 8px}.diceMercyMeter span,.diceMercyMeter b{font-size:7px}
-  .diceGiftReceipt{grid-template-columns:82px minmax(0,1fr);gap:7px;padding:7px}.diceGiftReceipt>div{min-height:78px}.diceGiftReceipt img{width:78px;height:65px}.diceGiftReceipt p b{font-size:11px}.diceGiftReceipt p span{font-size:8px}
-}
-html,body,.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { max-width:100%; overflow-x:hidden; }
-#game.active *,#finish.active * { min-width:0; }
-.hostRecovery { width:100%; max-width:100%; }
-.hostRecoveryBtn.btn { width:100%; max-width:100%; white-space:normal; overflow-wrap:anywhere; }
-.giftTrayHead { flex-wrap:wrap; }
-#hostMobileRecovery { max-width:100%; }
-.physicalSwap { max-width:680px; margin:9px auto 13px; padding:12px; border:2px solid #f1cb63; border-radius:17px; color:#fff6d4; background:radial-gradient(circle at 50% 0,#d72a5060,transparent 42%),linear-gradient(135deg,#74112d,#310819 55%,#064538); box-shadow:0 0 0 3px #79430a,0 9px 18px #0009,inset 0 1px 0 #fff4; }
-.swapAlert { margin-bottom:9px; color:#ffe88c; font-size:13px; font-weight:1000; letter-spacing:.08em; text-shadow:0 2px 4px #000; }
-.swapCards { display:grid; grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr); align-items:center; gap:7px; }
-.swapCards > div { display:flex; min-height:170px; padding:7px; flex-direction:column; align-items:center; justify-content:flex-end; border:1px solid #e9bd54; border-radius:13px; background:linear-gradient(#fff9de,#e6c678); color:#541a11; box-shadow:inset 0 1px 0 #fff,0 4px 9px #0006; }
-.swapCards img { width:min(100%,130px); height:100px; object-fit:contain; filter:drop-shadow(0 7px 5px #51180b66); }
-.swapCards small { font-size:8px; font-weight:1000; letter-spacing:.06em; }.swapCards b { font-size:13px; }.swapCards span { color:#8d0d2d; font-size:9px; font-weight:1000; }
-.swapCards > i { color:#ffe279; font:1000 31px/1 Georgia,serif; font-style:normal; text-shadow:0 0 12px #ffd55f; }
-.physicalSwap p { margin:9px auto 0; font-size:10px; font-weight:750; line-height:1.35; }
-@media (max-width:700px){
-  .physicalSwap{padding:8px}.swapCards{grid-template-columns:minmax(0,1fr) 25px minmax(0,1fr);gap:4px}.swapCards>div{min-height:133px;padding:4px}.swapCards img{height:75px}.swapCards>i{font-size:23px}.swapAlert{font-size:10px}.physicalSwap p{font-size:8px}
-}
-
 /* V28 — Julebingo: kompakt, levende og læsbart på samme spillebord */
 .quizPanel.christmasBingo {
   position:relative;
@@ -1219,7 +1031,7 @@ html,body,.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlay
     radial-gradient(circle at 50% -30%,#62dfb33b,transparent 48%);
 }
 .quizPanel.christmasBingo::after {
-  content:"◇  ✦  ▲  ✦  ◇";
+  content:"🔔  ✦  🎄  ✦  🔔";
   position:absolute;
   top:9px;
   right:14px;
@@ -2440,7 +2252,7 @@ body:has(#host.active) .wrap {
 
 /* Det hemmelige gavekammer — rubinrød og midnatsblå */
 #giftAdmin > .brand { background:radial-gradient(circle at 80% 10%,#2b83bf33,transparent 32%),linear-gradient(130deg,#7f0926,#3e071c 55%,#071e35)!important; }
-#giftAdmin > .brand h1::before { content:"◆"; font-size:23px; }
+#giftAdmin > .brand h1::before { content:"🎁"; font-size:23px; }
 #giftAdmin > .brand h1::after { content:"DET HEMMELIGE GAVEKAMMER"; }
 #giftAdmin > .card { color:#fff1ca; background:radial-gradient(circle at 90% 0,#267fad2b,transparent 32%),linear-gradient(145deg,#570b22,#1f0715 58%,#06192a); }
 #giftAdmin .adminGift,#giftAdmin .summaryBox { color:#35170d; background:linear-gradient(145deg,#fffef7,#e8f5f2); }
@@ -4649,130 +4461,6 @@ body:has(#join.active) .joinSnowOverlay {
   }
 }
 
-/* V68 EOF — lås bredden, også mens iPad venter på mobilen */
-html,body { width:100%; max-width:100%; overflow-x:hidden!important; }
-.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { max-width:100%!important; min-width:0!important; overflow-x:hidden!important; }
-#game.active *,#finish.active * { min-width:0!important; box-sizing:border-box; }
-#game.active .hostRecovery,#game.active .hostRecoveryBtn.btn { width:100%!important; max-width:100%!important; white-space:normal!important; overflow-wrap:anywhere!important; }
-#game.active .giftTrayHead { max-width:100%!important; flex-wrap:wrap!important; }
-#game.active #hostMobileRecovery { flex:1 1 100%!important; width:100%!important; max-width:100%!important; }
-#game.active #hostMobileRecovery .hostRecoveryBtn.btn { width:100%!important; max-width:100%!important; white-space:normal!important; text-overflow:clip!important; }
-#finish.active .swapCards>div { min-width:0!important; }
-
-/* V68 final breddebeskyttelse — skal ligge sidst i kaskaden */
-html,body { width:100%; max-width:100%; overflow-x:hidden!important; }
-.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { width:auto; max-width:100%!important; min-width:0!important; overflow-x:hidden!important; }
-#game.active * ,#finish.active * { min-width:0!important; box-sizing:border-box; }
-#game.active .hostRecovery,#game.active .hostRecoveryBtn.btn { width:100%!important; max-width:100%!important; min-width:0!important; white-space:normal!important; overflow-wrap:anywhere!important; }
-#game.active .giftTrayHead { max-width:100%; flex-wrap:wrap!important; }
-#game.active #hostMobileRecovery { flex:1 1 100%; width:100%; max-width:100%; }
-#game.active #hostMobileRecovery .hostRecoveryBtn.btn { width:100%!important; white-space:normal!important; text-overflow:clip!important; }
-#finish.active .swapCards > div { min-width:0!important; }
-
-/* V66 — komplet juleluksus til tyverifinalen */
-#finish:has(#stealPanel[style*="block"]) > .brand { background:linear-gradient(115deg,#0d5c48,#063b38 48%,#641028)!important; }
-#finish:has(#stealPanel[style*="block"]) > .card { background:radial-gradient(circle at 50% 0,#8f173955,transparent 35%),linear-gradient(145deg,#681027,#270817 55%,#072f2d); }
-.stealPanel { position:relative; overflow:hidden; padding:22px; background:radial-gradient(circle at 50% -8%,#c22a4d4d,transparent 35%),radial-gradient(circle at 90% 80%,#0da0702e,transparent 30%),linear-gradient(145deg,#063f38,#021f25 58%,#21071b); }
-.stealPanel::before,.stealPanel::after { content:"✦"; position:absolute; z-index:0; color:#ffe06b; font-size:22px; opacity:.55; text-shadow:0 0 14px #ffd55d; animation:twinkle 1.7s ease-in-out infinite alternate; }
-.stealPanel::before { top:18px; left:22px; }.stealPanel::after { right:25px; bottom:25px; animation-delay:.7s; }
-.stealPanel > * { position:relative; z-index:1; }
-.stealLuxuryHead { display:grid; grid-template-columns:88px 1fr; align-items:center; gap:17px; padding:15px 18px; border:1px solid #e8bc54; border-radius:17px; text-align:left; background:linear-gradient(100deg,#790f2f,#421022 55%,#063e35); box-shadow:inset 0 1px 0 #fff4,0 7px 17px #0008; }
-.stealCurrentAvatar { display:grid; width:78px; height:78px; place-items:center; border:3px solid #ffe990; border-radius:50%; background:radial-gradient(circle,#fff5cf,#cc8c23); box-shadow:0 0 0 4px #73122a,0 6px 13px #0009; overflow:hidden; }
-.stealHeroAvatar { width:72px; height:72px; }
-.stealLuxuryHead > div:last-child > span { color:#ffe898; font-size:10px; font-weight:1000; letter-spacing:.16em; }
-.stealLuxuryHead h2 { margin:3px 0 4px; font-size:clamp(22px,4vw,35px); line-height:1.05; }
-.stealLuxuryHead small { display:block; color:#e9f7ec; font-size:11px; font-weight:750; line-height:1.35; }
-.stealProgress { display:grid; grid-template-columns:auto 1fr auto 1fr auto; align-items:center; gap:7px; max-width:520px; margin:18px auto 9px; }
-.stealProgress span { display:flex; align-items:center; gap:5px; color:#75918c; font-size:9px; font-weight:1000; letter-spacing:.08em; }
-.stealProgress span i { display:grid; width:24px; height:24px; place-items:center; border:1px solid #6f7368; border-radius:50%; background:#142e30; font-style:normal; }
-.stealProgress span.active { color:#ffe99a; }.stealProgress span.active i { border-color:#ffe786; color:#4a1605; background:linear-gradient(#fff6c7,#dba82d); box-shadow:0 0 10px #ffd75a77; }
-.stealProgress b { height:3px; border-radius:999px; background:linear-gradient(90deg,#c9982c,#ffe98e,#c9982c); }
-.stealRoundLine { display:flex; max-width:520px; margin:0 auto 14px; justify-content:space-between; color:#e8d8ab; font-size:10px; font-weight:900; letter-spacing:.09em; }
-.stealInstruction,.stealResult { display:flex; max-width:650px; margin:13px auto 17px; padding:12px 15px; flex-direction:column; gap:4px; border:1px solid #e1b244; border-radius:13px; color:#4e200c; background:linear-gradient(110deg,#fff8d9,#e8c66c); box-shadow:inset 0 1px 0 #fff,0 5px 11px #0005; }
-.stealInstruction b,.stealResult b { font-size:13px; }.stealInstruction span,.stealResult span { font-size:10px; font-weight:700; line-height:1.4; }
-.stealInstruction.success,.stealResult.success { color:#f9efc9; background:linear-gradient(110deg,#087452,#034337); }.stealResult.noSwap { background:linear-gradient(110deg,#fff9e3,#dcb859); }
-.luxuryDie { position:relative; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); width:142px; aspect-ratio:1; margin:17px auto 25px; padding:25px; border:3px solid #fff3b0; border-radius:29px; background:linear-gradient(145deg,#fffef7,#f1d88d 68%,#c48b20); box-shadow:0 0 0 5px #94550b,0 12px 0 #4e1704,0 22px 29px #0009,inset 7px 7px 14px #fff,inset -10px -11px 18px #8d581d44; transform:rotate(-2deg); }
-.luxuryDie i { display:block; width:22px; height:22px; align-self:center; justify-self:center; border-radius:50%; background:radial-gradient(circle at 35% 28%,#ec4164,#8e0527 48%,#4f0012); box-shadow:inset 0 2px 2px #fff5,0 2px 2px #4a150777; }
-.luxuryDie.awaiting { display:grid; place-items:center; transform:rotate(-2deg); }.luxuryDie.awaiting span { color:#aa0e32; font-size:55px; text-shadow:0 2px 0 #fff,0 0 13px #d7a72c; animation:twinkle 1.2s ease-in-out infinite alternate; }
-.luxuryDie.face1 i { grid-area:2/2; }.luxuryDie.face2 i:nth-child(1){grid-area:1/1}.luxuryDie.face2 i:nth-child(2){grid-area:3/3}
-.luxuryDie.face3 i:nth-child(1){grid-area:1/1}.luxuryDie.face3 i:nth-child(2){grid-area:2/2}.luxuryDie.face3 i:nth-child(3){grid-area:3/3}
-.luxuryDie.face4 i:nth-child(1){grid-area:1/1}.luxuryDie.face4 i:nth-child(2){grid-area:1/3}.luxuryDie.face4 i:nth-child(3){grid-area:3/1}.luxuryDie.face4 i:nth-child(4){grid-area:3/3}
-.luxuryDie.face5 i:nth-child(1){grid-area:1/1}.luxuryDie.face5 i:nth-child(2){grid-area:1/3}.luxuryDie.face5 i:nth-child(3){grid-area:2/2}.luxuryDie.face5 i:nth-child(4){grid-area:3/1}.luxuryDie.face5 i:nth-child(5){grid-area:3/3}
-.luxuryDie.face6 i:nth-child(1){grid-area:1/1}.luxuryDie.face6 i:nth-child(2){grid-area:1/3}.luxuryDie.face6 i:nth-child(3){grid-area:2/1}.luxuryDie.face6 i:nth-child(4){grid-area:2/3}.luxuryDie.face6 i:nth-child(5){grid-area:3/1}.luxuryDie.face6 i:nth-child(6){grid-area:3/3}
-.stealVaultTitle { margin:21px 0 12px; color:#ffe88c; font:900 14px Georgia,serif; letter-spacing:.1em; text-shadow:0 3px 5px #000; }
-.stealOwner { color:#fff3c4; background:radial-gradient(circle at 100% 0,#af214449,transparent 38%),linear-gradient(120deg,#0a5b49,#06352f); box-shadow:inset 0 1px 0 #fff3,0 7px 14px #0009; }
-.stealOwnerName { justify-content:flex-start; }.stealOwnerName .stealAvatar { border:2px solid #ffe48a; border-radius:50%; box-shadow:0 3px 7px #0008; }
-.stealGift { position:relative; min-height:160px; padding:5px 7px 27px; background:radial-gradient(circle at 50% 35%,#7d1d36,#360916 72%); transition:transform .18s ease,filter .18s ease,box-shadow .18s ease; }
-.stealGift img { display:block; width:100%; height:112px; object-fit:contain; filter:drop-shadow(0 8px 6px #0009); }
-.stealGift strong { position:absolute; left:50%; bottom:28px; min-width:38px; padding:2px 7px; transform:translateX(-50%); border:2px solid #ffe987; border-radius:999px; color:#fff4c3; background:#8c0c2c; box-shadow:0 0 0 2px #683906; font-size:10px; }
-.stealGift small { position:absolute; left:3px; right:3px; bottom:7px; margin:0; font-size:8px; letter-spacing:.05em; }
-.stealGift:not(:disabled):hover { transform:translateY(-4px) scale(1.02); filter:brightness(1.1); box-shadow:0 0 0 2px #ffe48a,0 10px 0 #441005,0 17px 22px #0008; }
-.stealGift:disabled { opacity:.72; filter:saturate(.7); }
-
-@media (max-width:700px) {
-  .stealPanel { padding:12px 9px 18px; }
-  .stealLuxuryHead { grid-template-columns:61px 1fr; gap:10px; padding:11px; }
-  .stealCurrentAvatar { width:56px; height:56px; }.stealHeroAvatar { width:52px; height:52px; }
-  .stealLuxuryHead > div:last-child > span { font-size:7px; }.stealLuxuryHead h2 { font-size:20px; }.stealLuxuryHead small { font-size:8px; }
-  .stealProgress { margin-top:14px; }.stealProgress span { font-size:7px; }.stealProgress span i { width:21px; height:21px; }
-  .luxuryDie { width:116px; padding:21px; border-radius:24px; }.luxuryDie i { width:17px; height:17px; }
-  .stealGifts { grid-template-columns:repeat(2,minmax(0,1fr)); }.stealGift { min-height:135px; }.stealGift img { height:91px; }
-}
-.modal.stealFlash { position:relative; overflow:hidden; border-color:#ffe88f; color:#fff3cb; background:radial-gradient(circle at 50% 0,#b9204b66,transparent 40%),linear-gradient(145deg,#650e29,#280718 62%,#06382f); box-shadow:0 0 0 8px #572107,0 0 0 11px #e2ae38,0 28px 85px #000; }
-.modal.stealFlash::before { content:""; position:absolute; z-index:0; top:-45px; left:-5%; width:110%; height:130px; background:url("premium-garland.png") center 47%/100% auto no-repeat; filter:drop-shadow(0 8px 7px #0009); }
-.modal.stealFlash > * { position:relative; z-index:1; }.modal.stealFlash .mega { margin-top:54px; filter:drop-shadow(0 7px 6px #0009); }.modal.stealFlash h2 { color:#ffe58d; }.modal.stealFlash #modalText { color:#fff7dc; font-size:16px; font-weight:800; }
-@media (max-width:700px){.modal.stealFlash::before{top:-28px;height:90px;background-size:115% auto}.modal.stealFlash .mega{margin-top:34px;font-size:54px}.modal.stealFlash #modalText{font-size:12px}}
-
-/* V67 — tyverirunden uden afbrydende popup eller manuel bladren */
-#finish:has(#stealPanel[style*="block"]) { padding-top:6px; }
-#finish:has(#stealPanel[style*="block"]) > .brand {
-  min-height:118px!important;
-  margin-top:52px!important;
-  padding:43px 12px 12px!important;
-}
-#finish:has(#stealPanel[style*="block"]) > .brand::before {
-  top:-55px!important;
-  left:-2%!important;
-  right:-2%!important;
-  height:105px!important;
-  background-size:100% auto!important;
-}
-#finish:has(#stealPanel[style*="block"]) > .brand h1 { margin:0; font-size:clamp(29px,5vw,48px); line-height:1; }
-#finish:has(#stealPanel[style*="block"]) > .brand h1::after { margin-top:5px; font-size:8px; }
-#finish:has(#stealPanel[style*="block"]) > .finishCard { padding:13px!important; }
-#finish:has(#stealPanel[style*="block"]) .finishCard::before { height:4px; margin:-13px -13px 12px; }
-#finish:has(#stealPanel[style*="block"]) .stealPanel { padding:13px 15px 16px; scroll-margin-top:8px; }
-#finish:has(#stealPanel[style*="block"]) .stealLuxuryHead { grid-template-columns:65px 1fr; gap:11px; padding:10px 13px; }
-#finish:has(#stealPanel[style*="block"]) .stealCurrentAvatar { width:58px; height:58px; }
-#finish:has(#stealPanel[style*="block"]) .stealHeroAvatar { width:54px; height:54px; }
-#finish:has(#stealPanel[style*="block"]) .stealLuxuryHead h2 { font-size:clamp(20px,3.5vw,29px); }
-#finish:has(#stealPanel[style*="block"]) .stealProgress { margin:11px auto 5px; }
-#finish:has(#stealPanel[style*="block"]) .stealRoundLine { margin-bottom:8px; }
-#finish:has(#stealPanel[style*="block"]) .stealInstruction,
-#finish:has(#stealPanel[style*="block"]) .stealResult { margin:8px auto 10px; padding:8px 12px; }
-#finish:has(#stealPanel[style*="block"]) .luxuryDie { width:105px; margin:11px auto 17px; padding:19px; border-radius:22px; }
-#finish:has(#stealPanel[style*="block"]) .luxuryDie i { width:16px; height:16px; }
-#finish:has(#stealPanel[style*="block"]) .luxuryDie.awaiting span { font-size:39px; }
-#finish:has(#stealPanel[style*="block"]) .stealRollBtn,
-#finish:has(#stealPanel[style*="block"]) .stealNextBtn { min-height:52px; font-size:16px; }
-#finish:has(#stealPanel[style*="block"]) #stealEndBtn { min-height:43px; margin-top:10px!important; padding:8px; font-size:12px; }
-
-@media (max-width:700px) {
-  #finish:has(#stealPanel[style*="block"]) > .brand { min-height:91px!important; margin-top:39px!important; padding:31px 7px 8px!important; }
-  #finish:has(#stealPanel[style*="block"]) > .brand::before { top:-42px!important; height:79px!important; background-size:108% auto!important; }
-  #finish:has(#stealPanel[style*="block"]) > .brand h1 { font-size:25px; }
-  #finish:has(#stealPanel[style*="block"]) > .finishCard { padding:8px!important; }
-  #finish:has(#stealPanel[style*="block"]) .stealPanel { padding:8px 7px 11px; }
-  #finish:has(#stealPanel[style*="block"]) .stealLuxuryHead { grid-template-columns:49px 1fr; padding:7px; }
-  #finish:has(#stealPanel[style*="block"]) .stealCurrentAvatar { width:45px; height:45px; }
-  #finish:has(#stealPanel[style*="block"]) .stealHeroAvatar { width:42px; height:42px; }
-  #finish:has(#stealPanel[style*="block"]) .stealLuxuryHead h2 { font-size:16px; }
-  #finish:has(#stealPanel[style*="block"]) .stealLuxuryHead small { display:none; }
-  #finish:has(#stealPanel[style*="block"]) .stealProgress { margin:8px auto 3px; }
-  #finish:has(#stealPanel[style*="block"]) .stealInstruction span { font-size:8px; }
-  #finish:has(#stealPanel[style*="block"]) .luxuryDie { width:90px; margin:8px auto 14px; padding:16px; }
-}
-
 /* =========================================================
    V63 — Det kongelige julebord + synlig, låst ligefordeling
    ========================================================= */
@@ -5053,7 +4741,7 @@ body:has(#game.active) .wrap { width:min(1220px,100%); padding:18px 14px 42px; }
   box-shadow:inset 0 0 0 3px #2a0807,inset 0 0 26px #0009,0 8px 18px #0008!important;
 }
 #game.active .gamePlayColumn > .gifts::before {
-  content:"◆  PAKKERNE UNDER JULETRÆET  ◆";
+  content:"🎁  PAKKERNE UNDER JULETRÆET  🎁";
   grid-column:1/-1;
   padding:4px 8px 7px;
   color:#ffeaa1;
@@ -5179,92 +4867,6 @@ body:has(#game.active) .wrap { width:min(1220px,100%); padding:18px 14px 42px; }
   #game.giftTrayOpen .gamePlayColumn > .gifts { grid-template-columns:repeat(3,minmax(82px,1fr)); max-height:none; }
   #game.giftTrayOpen .gift.realGift { min-height:116px; }
   #game.giftTrayOpen .realGiftImage { height:91px; }
-}
-
-/* =========================================================
-   V65 — Fyldt spillebord og kongelig gavefinale
-   ========================================================= */
-#game.active .gameStatusColumn { align-self:stretch; }
-.gameSideMagic {
-  position:relative;
-  display:flex;
-  flex:1 1 360px;
-  min-height:390px;
-  flex-direction:column;
-  align-items:center;
-  margin-top:3px;
-  padding:17px 13px 0;
-  overflow:hidden;
-  border:1px solid #d9ab42;
-  border-radius:17px;
-  color:#fff0b6;
-  background:
-    radial-gradient(circle at 50% 14%,rgba(255,220,110,.2),transparent 27%),
-    radial-gradient(circle at 15% 48%,rgba(77,211,188,.16),transparent 28%),
-    linear-gradient(160deg,#073d38,#071b32 63%,#300b24);
-  box-shadow:inset 0 1px 0 #fff4,inset 0 0 28px #001626aa,0 6px 15px #0007;
-}
-.sideMagicKicker { color:#ffe39a; font-size:10px; font-weight:1000; letter-spacing:.1em; text-align:center; }
-.sideMagicStats { display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; margin:13px 0 9px; }
-.sideMagicStats > div { display:flex; min-width:0; padding:9px 5px; flex-direction:column; border:1px solid #d7a23d88; border-radius:11px; background:#061a2dc4; text-align:center; }
-.sideMagicStats strong { color:#fff4bc; font:900 27px/1 Georgia,serif; text-shadow:0 2px 0 #8c1029; }
-.sideMagicStats span { margin-top:4px; color:#b9e9e1; font-size:9px; font-weight:850; }
-.sideMagicProgress { width:100%; height:12px; padding:2px; overflow:hidden; border:1px solid #e6bd58; border-radius:999px; background:#031823; box-shadow:inset 0 2px 4px #000b; }
-.sideMagicProgress i { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#aa0b2e,#ef3150,#f7d35f,#18aa72); box-shadow:0 0 10px #ffd661; transition:width .35s ease; }
-.gameSideMagic > small { margin-top:6px; color:#b9e9e1; font-size:9px; font-weight:800; }
-.sideMagicCharacter { position:relative; flex:1; width:100%; min-height:230px; margin-top:6px; overflow:hidden; }
-.sideMagicCharacter::after { content:"JULEMAGIEN HOLDER VAGT"; position:absolute; left:9px; right:9px; bottom:11px; padding:7px; border:1px solid #efd06a; border-radius:999px; color:#fff3bb; background:#700b27df; box-shadow:0 4px 10px #0009; font-size:9px; font-weight:1000; letter-spacing:.08em; text-align:center; }
-.sideMagicCharacter img { position:absolute; left:-15px; bottom:0; width:auto; max-width:none; height:100%; filter:drop-shadow(0 8px 8px #000a); }
-
-#finish > .brand {
-  min-height:180px;
-  margin-top:118px!important;
-  padding-top:66px!important;
-  overflow:visible!important;
-}
-#finish > .brand::before {
-  top:-118px!important;
-  left:-3%!important;
-  right:-3%!important;
-  height:205px!important;
-  background:url("premium-garland.png") center 43% / 100% auto no-repeat!important;
-  filter:drop-shadow(0 12px 9px #000b) drop-shadow(0 0 13px #ffd55e88)!important;
-}
-#finish > .brand h1,#finish > .brand h1::before,#finish > .brand h1::after { position:relative; z-index:7; }
-#finish > .brand h1 { text-shadow:0 2px 0 #a20f2d,0 6px 0 #460514,0 11px 18px #000c,0 0 17px #ffd45b55; }
-#finish > .card {
-  overflow:visible;
-  background:
-    radial-gradient(circle at 50% 0,rgba(255,220,112,.2),transparent 30%),
-    radial-gradient(circle at 10% 65%,rgba(14,119,81,.2),transparent 28%),
-    linear-gradient(145deg,#781229,#310718 60%,#3c2909);
-}
-.finalePresents { display:flex; align-items:center; justify-content:center; gap:8px; min-height:145px; margin:-5px auto 4px; }
-.finalePresents img { width:min(27%,170px); height:135px; object-fit:contain; filter:drop-shadow(0 10px 7px #0009) drop-shadow(0 0 9px #ffd55955); }
-.finalePresents span { color:#ffe16f; font-size:43px; text-shadow:0 0 15px #ffd65f; animation:twinkle 1.8s ease-in-out infinite alternate; }
-#finish #scores { display:grid; gap:13px; margin-top:16px; }
-.finalPlayerCard { overflow:hidden; border:2px solid #e8bb4e; border-radius:17px; color:#3b170e; background:linear-gradient(145deg,#fffdf1,#efd8a5); box-shadow:0 0 0 3px #6f3b09,0 7px 15px #0008,inset 0 1px 0 #fff; }
-.finalPlayerCard > header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 14px; border-bottom:1px solid #bd821f; background:linear-gradient(90deg,#fff9de,#efd79d); }
-.finalPlayerCard > header strong { flex:0 0 auto; color:#74132a; font-size:16px; }
-.finalGiftGrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:10px; padding:12px; }
-.finalRealGift { position:relative; display:flex; min-width:0; min-height:164px; padding:4px 7px 39px; flex-direction:column; align-items:center; justify-content:flex-end; border:1px solid #b67b24; border-radius:13px; background:radial-gradient(circle at 50% 40%,#fff8df,transparent 65%),linear-gradient(#f6e4bc,#dfbd73); box-shadow:inset 0 1px 0 #fff,0 4px 8px #5c300633; }
-.finalRealGift img { width:min(100%,145px); height:112px; object-fit:contain; filter:drop-shadow(0 8px 6px #4c210977); }
-.finalRealGift > span { position:absolute; left:50%; bottom:32px; min-width:43px; padding:3px 8px; transform:translateX(-50%); border:2px solid #ffeb92; border-radius:999px; color:#fff8d4; background:linear-gradient(#aa1736,#6d061f); box-shadow:0 0 0 2px #74410a,0 3px 5px #0007; font-size:10px; font-weight:1000; }
-.finalRealGift small { position:absolute; left:6px; right:6px; bottom:7px; overflow:hidden; color:#4c1d0c; font-size:9px; font-weight:850; text-overflow:ellipsis; white-space:nowrap; }
-
-@media (max-width:700px) {
-  .gameSideMagic { display:none; }
-  #finish > .brand { min-height:132px; margin-top:78px!important; padding:48px 8px 17px!important; }
-  #finish > .brand::before { top:-78px!important; left:-7%!important; right:-7%!important; height:137px!important; background-size:112% auto!important; }
-  .finalePresents { min-height:105px; }
-  .finalePresents img { width:min(34%,120px); height:96px; }
-  .finalePresents span { font-size:29px; }
-  .finalPlayerCard > header { padding:9px; }
-  .finalPlayerCard > header strong { font-size:12px; }
-  .finalGiftGrid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:8px; }
-  .finalRealGift { min-height:134px; padding-bottom:35px; }
-  .finalRealGift img { height:88px; }
-  .finalRealGift small { font-size:7px; }
 }
 
 /* V59 — snemand og elf i selvstændige, afbalancerede sidefelter */
