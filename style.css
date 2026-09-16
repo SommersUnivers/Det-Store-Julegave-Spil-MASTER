@@ -1036,6 +1036,63 @@ h1 {
   .stealStatusBar{gap:3px;margin:6px auto 2px}.stealStatusBar span{grid-template-columns:23px minmax(0,1fr);gap:3px;min-height:31px;padding:3px}.stealStatusBar i{width:21px;height:21px;font-size:9px}.stealStatusBar b{font-size:6px}
   #finish.stealMode .stealOwners{grid-template-columns:1fr}
 }
+
+/* V71 — levende julemagi og tydelig sne i tyverifinalen */
+#finish.stealMode { position:relative; isolation:isolate; }
+#finish.stealMode > .brand,
+#finish.stealMode > .finishCard,
+#finish.stealMode > .onlineBadge { position:relative; z-index:3; }
+.stealChristmasCrown {
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  width:min(100%,760px); margin:0 auto 8px; padding:6px 14px;
+  border:1px solid #efd06d; border-radius:999px;
+  color:#fff2b0; background:linear-gradient(90deg,#073f36,#97133b,#073f36);
+  box-shadow:0 0 0 2px #6d3c0a,0 6px 14px #0007,inset 0 1px 0 #fff5;
+  font-size:10px; font-weight:1000; letter-spacing:.12em;
+}
+.stealChristmasCrown span { font-size:18px; filter:drop-shadow(0 2px 2px #0008); }
+.stealFallingSnow {
+  position:fixed; inset:0; z-index:8; overflow:hidden; pointer-events:none;
+  contain:layout paint; filter:drop-shadow(0 0 5px #88dcff);
+}
+.stealFallingSnow[hidden] { display:none!important; }
+.stealFallingSnow i {
+  position:absolute; top:-12vh;
+  color:#fff; opacity:.9; font-style:normal; line-height:1;
+  font-size:var(--size);
+  text-shadow:0 0 4px #fff,0 0 10px #55cfff,0 2px 2px #07365f;
+  animation:steal-snowfall var(--duration) linear infinite;
+  animation-delay:var(--delay);
+}
+.stealFallingSnow i:nth-child(3n) { color:#dff8ff; opacity:.72; }
+.stealFallingSnow i:nth-child(4n) { animation-timing-function:ease-in; }
+@keyframes steal-snowfall {
+  0% { transform:translate3d(0,-8vh,0) rotate(0deg); }
+  48% { transform:translate3d(24px,52vh,0) rotate(185deg); }
+  100% { transform:translate3d(-18px,116vh,0) rotate(390deg); }
+}
+#finish.stealMode .stealPanel {
+  background:
+    radial-gradient(circle at 8% 8%,#f7d46c24 0 2px,transparent 3px),
+    radial-gradient(circle at 92% 16%,#ffffff30 0 2px,transparent 3px),
+    radial-gradient(circle at 50% 5%,#0d80625c,transparent 34%),
+    linear-gradient(145deg,#06483f,#031e29 62%,#300921)!important;
+  background-size:42px 42px,57px 57px,auto,auto!important;
+}
+#finish.stealMode .stealLuxuryHead { border-width:2px; box-shadow:inset 0 1px 0 #fff5,0 8px 19px #0009,0 0 19px #d3a83222; }
+#finish.stealMode .stealInstruction,
+#finish.stealMode .stealResult,
+#finish.stealMode .physicalSwap { box-shadow:0 7px 17px #0008,0 0 0 1px #ffe99a38,inset 0 1px 0 #fff7; }
+#finish.stealMode .stealRollBtn,
+#finish.stealMode .stealNextBtn { box-shadow:0 0 0 3px #7b460b,0 8px 0 #3b1508,0 14px 24px #0008,0 0 24px #ffd86555; }
+@media (max-width:700px){
+  .stealChristmasCrown { gap:7px; margin-bottom:5px; padding:4px 8px; font-size:7px; }
+  .stealChristmasCrown span { font-size:13px; }
+  .stealFallingSnow i { font-size:min(var(--size),24px); }
+}
+@media (prefers-reduced-motion:reduce){
+  .stealFallingSnow i { animation-duration:18s; }
+}
 .diceMercyMeter { display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px 10px; max-width:480px; margin:7px auto 10px; padding:8px 11px; border:1px solid #dfb33f; border-radius:11px; color:#fff1b9; background:linear-gradient(100deg,#681029,#063d36); box-shadow:inset 0 1px 0 #fff3,0 4px 9px #0006; }
 .diceMercyMeter span,.diceMercyMeter b { font-size:9px; font-weight:1000; }.diceMercyMeter b { color:#ffe587; }
 .diceMercyMeter > i { grid-column:1/-1; height:8px; padding:1px; overflow:hidden; border:1px solid #d8ad40; border-radius:999px; background:#061b24; }
