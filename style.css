@@ -4869,6 +4869,92 @@ body:has(#game.active) .wrap { width:min(1220px,100%); padding:18px 14px 42px; }
   #game.giftTrayOpen .realGiftImage { height:91px; }
 }
 
+/* =========================================================
+   V65 — Fyldt spillebord og kongelig gavefinale
+   ========================================================= */
+#game.active .gameStatusColumn { align-self:stretch; }
+.gameSideMagic {
+  position:relative;
+  display:flex;
+  flex:1 1 360px;
+  min-height:390px;
+  flex-direction:column;
+  align-items:center;
+  margin-top:3px;
+  padding:17px 13px 0;
+  overflow:hidden;
+  border:1px solid #d9ab42;
+  border-radius:17px;
+  color:#fff0b6;
+  background:
+    radial-gradient(circle at 50% 14%,rgba(255,220,110,.2),transparent 27%),
+    radial-gradient(circle at 15% 48%,rgba(77,211,188,.16),transparent 28%),
+    linear-gradient(160deg,#073d38,#071b32 63%,#300b24);
+  box-shadow:inset 0 1px 0 #fff4,inset 0 0 28px #001626aa,0 6px 15px #0007;
+}
+.sideMagicKicker { color:#ffe39a; font-size:10px; font-weight:1000; letter-spacing:.1em; text-align:center; }
+.sideMagicStats { display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; margin:13px 0 9px; }
+.sideMagicStats > div { display:flex; min-width:0; padding:9px 5px; flex-direction:column; border:1px solid #d7a23d88; border-radius:11px; background:#061a2dc4; text-align:center; }
+.sideMagicStats strong { color:#fff4bc; font:900 27px/1 Georgia,serif; text-shadow:0 2px 0 #8c1029; }
+.sideMagicStats span { margin-top:4px; color:#b9e9e1; font-size:9px; font-weight:850; }
+.sideMagicProgress { width:100%; height:12px; padding:2px; overflow:hidden; border:1px solid #e6bd58; border-radius:999px; background:#031823; box-shadow:inset 0 2px 4px #000b; }
+.sideMagicProgress i { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#aa0b2e,#ef3150,#f7d35f,#18aa72); box-shadow:0 0 10px #ffd661; transition:width .35s ease; }
+.gameSideMagic > small { margin-top:6px; color:#b9e9e1; font-size:9px; font-weight:800; }
+.sideMagicCharacter { position:relative; flex:1; width:100%; min-height:230px; margin-top:6px; overflow:hidden; }
+.sideMagicCharacter::after { content:"JULEMAGIEN HOLDER VAGT"; position:absolute; left:9px; right:9px; bottom:11px; padding:7px; border:1px solid #efd06a; border-radius:999px; color:#fff3bb; background:#700b27df; box-shadow:0 4px 10px #0009; font-size:9px; font-weight:1000; letter-spacing:.08em; text-align:center; }
+.sideMagicCharacter img { position:absolute; left:-15px; bottom:0; width:auto; max-width:none; height:100%; filter:drop-shadow(0 8px 8px #000a); }
+
+#finish > .brand {
+  min-height:180px;
+  margin-top:118px!important;
+  padding-top:66px!important;
+  overflow:visible!important;
+}
+#finish > .brand::before {
+  top:-118px!important;
+  left:-3%!important;
+  right:-3%!important;
+  height:205px!important;
+  background:url("premium-garland.png") center 43% / 100% auto no-repeat!important;
+  filter:drop-shadow(0 12px 9px #000b) drop-shadow(0 0 13px #ffd55e88)!important;
+}
+#finish > .brand h1,#finish > .brand h1::before,#finish > .brand h1::after { position:relative; z-index:7; }
+#finish > .brand h1 { text-shadow:0 2px 0 #a20f2d,0 6px 0 #460514,0 11px 18px #000c,0 0 17px #ffd45b55; }
+#finish > .card {
+  overflow:visible;
+  background:
+    radial-gradient(circle at 50% 0,rgba(255,220,112,.2),transparent 30%),
+    radial-gradient(circle at 10% 65%,rgba(14,119,81,.2),transparent 28%),
+    linear-gradient(145deg,#781229,#310718 60%,#3c2909);
+}
+.finalePresents { display:flex; align-items:center; justify-content:center; gap:8px; min-height:145px; margin:-5px auto 4px; }
+.finalePresents img { width:min(27%,170px); height:135px; object-fit:contain; filter:drop-shadow(0 10px 7px #0009) drop-shadow(0 0 9px #ffd55955); }
+.finalePresents span { color:#ffe16f; font-size:43px; text-shadow:0 0 15px #ffd65f; animation:twinkle 1.8s ease-in-out infinite alternate; }
+#finish #scores { display:grid; gap:13px; margin-top:16px; }
+.finalPlayerCard { overflow:hidden; border:2px solid #e8bb4e; border-radius:17px; color:#3b170e; background:linear-gradient(145deg,#fffdf1,#efd8a5); box-shadow:0 0 0 3px #6f3b09,0 7px 15px #0008,inset 0 1px 0 #fff; }
+.finalPlayerCard > header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 14px; border-bottom:1px solid #bd821f; background:linear-gradient(90deg,#fff9de,#efd79d); }
+.finalPlayerCard > header strong { flex:0 0 auto; color:#74132a; font-size:16px; }
+.finalGiftGrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:10px; padding:12px; }
+.finalRealGift { position:relative; display:flex; min-width:0; min-height:164px; padding:4px 7px 39px; flex-direction:column; align-items:center; justify-content:flex-end; border:1px solid #b67b24; border-radius:13px; background:radial-gradient(circle at 50% 40%,#fff8df,transparent 65%),linear-gradient(#f6e4bc,#dfbd73); box-shadow:inset 0 1px 0 #fff,0 4px 8px #5c300633; }
+.finalRealGift img { width:min(100%,145px); height:112px; object-fit:contain; filter:drop-shadow(0 8px 6px #4c210977); }
+.finalRealGift > span { position:absolute; left:50%; bottom:32px; min-width:43px; padding:3px 8px; transform:translateX(-50%); border:2px solid #ffeb92; border-radius:999px; color:#fff8d4; background:linear-gradient(#aa1736,#6d061f); box-shadow:0 0 0 2px #74410a,0 3px 5px #0007; font-size:10px; font-weight:1000; }
+.finalRealGift small { position:absolute; left:6px; right:6px; bottom:7px; overflow:hidden; color:#4c1d0c; font-size:9px; font-weight:850; text-overflow:ellipsis; white-space:nowrap; }
+
+@media (max-width:700px) {
+  .gameSideMagic { display:none; }
+  #finish > .brand { min-height:132px; margin-top:78px!important; padding:48px 8px 17px!important; }
+  #finish > .brand::before { top:-78px!important; left:-7%!important; right:-7%!important; height:137px!important; background-size:112% auto!important; }
+  .finalePresents { min-height:105px; }
+  .finalePresents img { width:min(34%,120px); height:96px; }
+  .finalePresents span { font-size:29px; }
+  .finalPlayerCard > header { padding:9px; }
+  .finalPlayerCard > header strong { font-size:12px; }
+  .finalGiftGrid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:8px; }
+  .finalRealGift { min-height:134px; padding-bottom:35px; }
+  .finalRealGift img { height:88px; }
+  .finalRealGift small { font-size:7px; }
+}
+
 /* V59 — snemand og elf i selvstændige, afbalancerede sidefelter */
 .joinSnowmanArt,
 .joinElfArt {

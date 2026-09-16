@@ -207,6 +207,13 @@
       if(owner){const label=document.createElement('span');label.className='owned realGiftOwner';label.textContent=owner.name;button.append(label)}
     });
   }
+  function renderGameSideMagic(){
+    const column=document.querySelector('#game .gameStatusColumn');if(!column)return;
+    let panel=document.getElementById('gameSideMagic');
+    if(!panel){panel=document.createElement('section');panel.id='gameSideMagic';panel.className='gameSideMagic';column.appendChild(panel)}
+    const remaining=Math.max(0,state.giftCount-state.taken.length),progress=state.giftCount?Math.round(state.taken.length/state.giftCount*100):0;
+    panel.innerHTML='<div class="sideMagicKicker">✦ JULECENTRALENS GAVEVAGT ✦</div><div class="sideMagicStats"><div><strong>'+remaining+'</strong><span>'+(remaining===1?'pakke venter':'pakker venter')+'</span></div><div><strong>'+state.players.length+'</strong><span>'+(state.players.length===1?'spiller':'spillere')+'</span></div></div><div class="sideMagicProgress"><i style="width:'+progress+'%"></i></div><small>'+progress+'% af julegaverne er fordelt</small><div class="sideMagicCharacter"><img src="julespil-vaerter-v35.png" alt="Et glad julerensdyr holder øje med pakkerne"></div>';
+  }
   async function sendAction(type,extra={}){
     if(sending||!state||!state.quiz||!active(myId,state.quiz.turn))return;
     const d={roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type,turn:state.quiz.turn,actionId:nextActionId(),...extra};
@@ -246,6 +253,7 @@
   renderGame=function(){
     prepare();oldRender();if(!state||!state.started)return;
     decorateRealGiftButtons();
+    renderGameSideMagic();
     const mobileRecovery=document.getElementById('hostMobileRecovery');if(mobileRecovery)mobileRecovery.innerHTML='';
     const q=state.quiz, mine=q&&q.playerId===myId, can=mine&&!sending&&!state.finished&&!state.awaitNext;
     if(window.innerWidth<=700)document.getElementById('game').classList.toggle('giftTrayOpen',!!(q&&q.status==='gift'));
@@ -488,6 +496,21 @@
     setTimeout(()=>{stealSending=false;if(state&&state.finished)renderFinish()},ok?1200:0);
   };
 
+  function finalPackageAsset(number){return ['julepakke-roed-v41.png','julepakke-groen-v41.png','julepakke-blaa-v41.png'][(number-1)%3]}
+  function renderLuxuryFinalScores(){
+    const scores=document.getElementById('scores'),reveal=(state.settings||DEFAULT_SETTINGS).reveal;
+    scores.innerHTML=state.players.map(player=>{
+      const gifts=(state.owners[player.id]||[]).slice().sort((a,b)=>a-b),points=(state.julePoints&&state.julePoints[player.id])||0;
+      const packages=gifts.map(number=>{
+        const secret=(state.giftSecrets||{})[number]||{},origin=(state.giftOrigins||{})[number]||{};
+        const title=reveal?(secret.name?escapeHtml(secret.name):(origin.playerName?'Medbragt af '+escapeHtml(origin.playerName):'Hemmelig gave')):'Hemmelig gave';
+        const price=reveal&&secret.price?' · '+escapeHtml(secret.price)+' kr.':'';
+        return '<div class="finalRealGift"><img src="'+finalPackageAsset(number)+'" alt="Pakke nummer '+number+'"><span>#'+number+'</span><small>'+title+price+'</small></div>';
+      }).join('');
+      return '<section class="finalPlayerCard"><header><span class="scorePlayer">'+avatarMarkup(player.avatar,'scoreAvatar')+'<b>'+escapeHtml(player.name)+'</b>'+(points?' · ⭐ '+points+' julepoint':'')+'</span><strong>'+gifts.length+' '+(gifts.length===1?'gave':'gaver')+'</strong></header><div class="finalGiftGrid">'+packages+'</div></section>';
+    }).join('');
+  }
+
   renderFinish=function(){
     oldRenderFinish();
     const sr=state.stealRound||{active:false,completed:false};
@@ -499,13 +522,14 @@
     panel.style.display=sr.active?'block':'none';
     intro.style.display=sr.active?'none':'block';
     if(!sr.active){
+      renderLuxuryFinalScores();
       const target=state.players.length?state.giftCount/state.players.length:0,equal=Number.isInteger(target)&&state.players.every(p=>(state.owners[p.id]||[]).length===target);
       let seal=document.getElementById('fairFinalSeal');
       if(!seal){seal=document.createElement('div');seal.id='fairFinalSeal';seal.className='fairFinalSeal';document.getElementById('scores').before(seal)}
       seal.innerHTML=equal?'<span>✓</span><div><b>JULECENTRALENS SLUTKONTROL BESTÅET</b><small>Alle spillere har præcis '+target+' '+(target===1?'gave':'gaver')+' hver</small></div>':'<span>!</span><div><b>FORDELINGEN SKAL KONTROLLERES</b><small>Pakkerne må ikke åbnes endnu</small></div>';
       seal.classList.toggle('warning',!equal);
       document.getElementById('finishTitle').textContent=sr.completed?'GAVERNE MÅ ÅBNES!':'GAVERNE ER FORDELT!';
-      if(sr.completed)intro.innerHTML='<div class="big">🎁🔔🎁</div><h2>TYVERIRUNDEN ER SLUT!</h2><p>Alle har stadig lige mange gaver. Nu må de hemmelige pakker åbnes!</p>';
+      intro.innerHTML='<div class="finalePresents"><img src="julepakke-roed-v41.png" alt=""><span>✦</span><img src="julepakke-groen-v41.png" alt=""></div><h2>'+(sr.completed?'TYVERIRUNDEN ER SLUT!':'ALLE HAR LIGE MANGE GAVER!')+'</h2><p>'+(sr.completed?'Alle har stadig lige mange gaver. Nu må de hemmelige pakker åbnes!':'Start tyverirunden, hvis I har lyst: Alle får tre forsøg på at slå en 1’er og bytte en hemmelig gave.')+'</p>';
       return;
     }
     const finalSeal=document.getElementById('fairFinalSeal');if(finalSeal)finalSeal.remove();
