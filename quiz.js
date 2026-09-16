@@ -188,6 +188,25 @@
     if(action&&window.innerWidth<=700&&q.status==='gift'&&mobileSlot){mobileSlot.innerHTML=action;return}
     if(action){const box=document.createElement('div');box.className='hostRecovery';box.innerHTML=action+'<small>Brug kun nødhjælpen, hvis spilleren er gået offline eller ikke kan fortsætte.</small>';panel.appendChild(box)}
   }
+  function decorateRealGiftButtons(){
+    const variants=[
+      {key:'red',src:'julepakke-roed-v41.png'},
+      {key:'green',src:'julepakke-groen-v41.png'},
+      {key:'blue',src:'julepakke-blaa-v41.png'}
+    ];
+    const tray=document.getElementById('gifts'),buttons=tray?tray.querySelectorAll('.gift'):[];
+    if(tray)tray.classList.toggle('fewRealGifts',buttons.length<=4);
+    buttons.forEach((button,index)=>{
+      const number=index+1,owner=ownerOf(number),variant=variants[index%variants.length];
+      button.classList.add('realGift','giftVariant-'+variant.key);
+      button.setAttribute('aria-label',owner?'Pakke nummer '+number+', ejet af '+owner.name:'Vælg pakke nummer '+number);
+      button.replaceChildren();
+      const image=document.createElement('img');image.className='realGiftImage';image.src=variant.src;image.alt='';image.setAttribute('aria-hidden','true');
+      const badge=document.createElement('span');badge.className='realGiftNumber';badge.textContent='#'+number;
+      button.append(image,badge);
+      if(owner){const label=document.createElement('span');label.className='owned realGiftOwner';label.textContent=owner.name;button.append(label)}
+    });
+  }
   async function sendAction(type,extra={}){
     if(sending||!state||!state.quiz||!active(myId,state.quiz.turn))return;
     const d={roomCode,device:deviceKey(),playerId:myId,sessionKey:mySessionKey,type,turn:state.quiz.turn,actionId:nextActionId(),...extra};
@@ -226,6 +245,7 @@
   }
   renderGame=function(){
     prepare();oldRender();if(!state||!state.started)return;
+    decorateRealGiftButtons();
     const mobileRecovery=document.getElementById('hostMobileRecovery');if(mobileRecovery)mobileRecovery.innerHTML='';
     const q=state.quiz, mine=q&&q.playerId===myId, can=mine&&!sending&&!state.finished&&!state.awaitNext;
     if(window.innerWidth<=700)document.getElementById('game').classList.toggle('giftTrayOpen',!!(q&&q.status==='gift'));
