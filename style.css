@@ -991,6 +991,26 @@ h1 {
 }
 
 /* V68 — fysisk pakkekvittering, stabil synkronisering og fast iPad-bredde */
+.diceMercyMeter { display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px 10px; max-width:480px; margin:7px auto 10px; padding:8px 11px; border:1px solid #dfb33f; border-radius:11px; color:#fff1b9; background:linear-gradient(100deg,#681029,#063d36); box-shadow:inset 0 1px 0 #fff3,0 4px 9px #0006; }
+.diceMercyMeter span,.diceMercyMeter b { font-size:9px; font-weight:1000; }.diceMercyMeter b { color:#ffe587; }
+.diceMercyMeter > i { grid-column:1/-1; height:8px; padding:1px; overflow:hidden; border:1px solid #d8ad40; border-radius:999px; background:#061b24; }
+.diceMercyMeter > i > em { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#15865e,#f1c948,#d51d45); box-shadow:0 0 8px #ffd65c; transition:width .25s ease; }
+.diceGiftReceipt { display:grid; grid-template-columns:118px minmax(0,1fr); align-items:center; gap:13px; max-width:620px; margin:9px auto 4px; padding:10px 14px; border:2px solid #f0ca61; border-radius:15px; color:#fff4c8; text-align:left; background:radial-gradient(circle at 10% 40%,#b5294c55,transparent 30%),linear-gradient(115deg,#74112d,#35091c 52%,#075042); box-shadow:0 0 0 3px #6d3a08,0 7px 15px #0008,inset 0 1px 0 #fff4; }
+.diceGiftReceipt > div { position:relative; display:grid; place-items:center; min-height:105px; }
+.diceGiftReceipt img { width:112px; height:92px; object-fit:contain; filter:drop-shadow(0 7px 5px #0009); }
+.diceGiftReceipt strong { position:absolute; bottom:0; min-width:39px; padding:2px 7px; border:2px solid #ffe889; border-radius:999px; color:#fff7d4; background:#920d31; box-shadow:0 0 0 2px #663604; text-align:center; }
+.diceGiftReceipt p { display:flex; margin:0; flex-direction:column; gap:5px; }.diceGiftReceipt p b { color:#ffe689; font-size:15px; }.diceGiftReceipt p span { font-size:10px; font-weight:750; line-height:1.45; }
+@media (min-width:701px) and (max-width:1100px){
+  #game.active .gameTableCard{grid-template-columns:minmax(250px,.68fr) minmax(0,1.32fr)!important}
+  #game.active .gameStatusColumn{min-width:0!important}
+  #game.active .sideMagicCharacter{min-height:160px;max-height:330px}
+  #game.active .gamePlayColumn>.gifts{max-height:385px;overflow-y:auto!important;overscroll-behavior:contain}
+  #game.active .hostRecovery{max-width:100%;overflow:hidden}
+}
+@media (max-width:700px){
+  .diceMercyMeter{margin:5px auto 7px;padding:6px 8px}.diceMercyMeter span,.diceMercyMeter b{font-size:7px}
+  .diceGiftReceipt{grid-template-columns:82px minmax(0,1fr);gap:7px;padding:7px}.diceGiftReceipt>div{min-height:78px}.diceGiftReceipt img{width:78px;height:65px}.diceGiftReceipt p b{font-size:11px}.diceGiftReceipt p span{font-size:8px}
+}
 html,body,.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { max-width:100%; overflow-x:hidden; }
 #game.active *,#finish.active * { min-width:0; }
 .hostRecovery { width:100%; max-width:100%; }

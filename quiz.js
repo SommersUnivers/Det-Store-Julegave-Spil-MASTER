@@ -67,12 +67,13 @@
     selectedGame=type;show('host');
     document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Slå en 6’er – julehjælp efter seks forgæves kast':'Julebingo · Få tre julemotiver på række og vælg en gave';
   };
-  initState=function(){const s=oldInit();s.gameType=selectedGame;s.diceMisses=0;if(['dice','bingo'].includes(selectedGame))s.settings={...s.settings,chaos:false,duels:false,santa:false,chaosChance:0};return s;};
+  initState=function(){const s=oldInit();s.gameType=selectedGame;s.diceMisses=0;s.diceMissesByPlayer={};if(['dice','bingo'].includes(selectedGame))s.settings={...s.settings,chaos:false,duels:false,santa:false,chaosChance:0};return s;};
   const oldLobby=broadcastLobby, oldPlayerData=handlePlayerData;
   let sending=false;
   const turnKey=()=>String(state.turns)+':'+String(state.turnIndex);
   const bingoLines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
   function makeBingoBoard(){return shuffle(bingoSymbols.map(x=>x.id).slice()).slice(0,9)}
+  function dicePackageAsset(number){return ['julepakke-roed-v41.png','julepakke-groen-v41.png','julepakke-blaa-v41.png'][(number-1)%3]}
   function ensureBingoBoards(){state.bingoBoards=state.bingoBoards||{};for(const p of state.players)if(!Array.isArray(state.bingoBoards[p.id])||state.bingoBoards[p.id].length!==9)state.bingoBoards[p.id]=makeBingoBoard()}
   function hasBingo(pid){const board=(state.bingoBoards||{})[pid]||[],drawn=(state.quiz&&state.quiz.drawn)||[];return bingoLines.some(line=>line.every(i=>drawn.includes(board[i])))}
   function prepare(){
@@ -81,6 +82,8 @@
     if(state.gameType==='quiz'){state.gameType='bingo';state.quiz=null;state.bingoBoards={}}
     if(state.quiz && state.quiz.turn===turnKey())return;
     if(state.gameType==='dice'){
+      state.diceMissesByPlayer=state.diceMissesByPlayer||{};
+      for(const player of state.players)if(!Number.isSafeInteger(state.diceMissesByPlayer[player.id])||state.diceMissesByPlayer[player.id]<0)state.diceMissesByPlayer[player.id]=0;
       state.quiz={turn:turnKey(),playerId:currentPlayer().id,status:'roll',recipient:null,options:[],die:null};
       state.event=currentPlayer().name+' skal slå med terningen.';return;
     }
@@ -91,9 +94,10 @@
   function active(pid,turn){return state&&state.started&&!state.finished&&!state.awaitNext&&state.quiz&&state.quiz.turn===turn&&state.quiz.playerId===pid&&currentPlayer().id===pid;}
   function giftTarget(){return state&&state.players.length&&state.giftCount%state.players.length===0?state.giftCount/state.players.length:Number.MAX_SAFE_INTEGER}
   function fairRecipient(preferred,exclude){
-    const target=giftTarget(),preferredPlayer=state.players.find(p=>p.id===preferred);
-    if(preferredPlayer&&preferredPlayer.id!==exclude&&(state.owners[preferredPlayer.id]||[]).length<target)return preferredPlayer;
-    return state.players.filter(p=>p.id!==exclude&&(state.owners[p.id]||[]).length<target).sort((a,b)=>(state.owners[a.id]||[]).length-(state.owners[b.id]||[]).length)[0]||null;
+    const target=giftTarget(),eligible=state.players.filter(p=>p.id!==exclude&&(state.owners[p.id]||[]).length<target);
+    if(!eligible.length)return null;
+    const minimum=Math.min(...eligible.map(p=>(state.owners[p.id]||[]).length)),lowest=eligible.filter(p=>(state.owners[p.id]||[]).length===minimum);
+    return lowest.find(p=>p.id===preferred)||lowest[0];
   }
   function hostQuizAction(pid,d){
     if(mode!=='host'||!state||!state.started||state.finished||state.awaitNext||!state.quiz||state.quiz.turn!==d.turn)return false;
@@ -118,7 +122,10 @@
     if(!active(pid,d.turn))return false;
     if(d.type==='diceRoll'){
       if(state.gameType!=='dice'||q.status!=='roll')return false;
-      q.die=secureRandomInt(6)+1;state.diceMisses=q.die===6?0:(state.diceMisses||0)+1;q.mercy=q.die!==6&&state.diceMisses>=6;q.correct=q.die===6||q.mercy;if(q.correct)state.diceMisses=0;
+      state.diceMissesByPlayer=state.diceMissesByPlayer||{};
+      const previous=Math.max(0,Number(state.diceMissesByPlayer[pid])||0);
+      q.die=secureRandomInt(6)+1;q.mercy=q.die!==6&&previous>=5;q.correct=q.die===6||q.mercy;
+      state.diceMissesByPlayer[pid]=q.correct?0:previous+1;state.diceMisses=state.diceMissesByPlayer[pid];
       const fair=q.correct?fairRecipient(pid):null;
       if(q.correct&&!fair){validateGameState();if(state.taken.length>=state.giftCount){finishGame();return true}q.correct=false;q.mercy=false}
       q.status=q.correct?'gift':'done';q.recipient=fair?fair.id:null;q.fairOverride=!!(fair&&fair.id!==pid);
@@ -240,8 +247,12 @@
     if(mode!=='host'||!active(pid,turn)||state.quiz.status!=='gift'||!Number.isInteger(n)||n<1||n>state.giftCount||state.taken.includes(n))return false;
     const q=state.quiz,to=state.players.find(p=>p.id===q.recipient);
     if(!to||(q.correct?(!q.fairOverride&&to.id!==pid):(!q.fairOverride&&to.id===pid))||(state.owners[to.id]||[]).length>=giftTarget())return false;
-    q.status='done';q.gift=n;state.awaitNext=true;
-    state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);if(state.gameType==='bingo'){ensureBingoBoards();for(const p of state.players)state.bingoBoards[p.id]=makeBingoBoard()}validateGameState();state.turns++;
+    const before=(state.owners[to.id]||[]).slice(),takenBefore=state.taken.slice();
+    q.status='done';q.gift=n;q.deliveredTo=to.id;state.awaitNext=true;
+    state.owners[to.id]=state.owners[to.id]||[];state.owners[to.id].push(n);state.taken.push(n);
+    const unique=validateGameState(),target=giftTarget(),valid=unique&&(state.owners[to.id]||[]).length<=target&&state.taken.includes(n)&&ownerOf(n)&&ownerOf(n).id===to.id;
+    if(!valid){state.owners[to.id]=before;state.taken=takenBefore;q.status='gift';q.gift=null;q.deliveredTo=null;state.awaitNext=false;validateGameState();state.event='⚠️ Gaven blev ikke fordelt, fordi sikkerhedskontrollen stoppede en fejl.';broadcastGame();return false}
+    if(state.gameType==='bingo'){ensureBingoBoards();for(const p of state.players)state.bingoBoards[p.id]=makeBingoBoard()}state.turns++;
     state.event=currentPlayer().name+(q.correct?' valgte gave #'+n+' til '+(to.id===pid?'sig selv':to.name)+'.':' gav gave #'+n+' fra bunken til '+to.name+'.');addLog(state.event);
     if(state.taken.length>=state.giftCount){finishGame();return true}
     if(state.turns%state.players.length===0)state.round++;
@@ -273,7 +284,7 @@
     const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','⚖️ RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
     let balance=document.getElementById('giftBalanceBoard');
     if(!balance){balance=document.createElement('div');balance.id='giftBalanceBoard';balance.className='giftBalanceBoard';document.getElementById('gifts').before(balance)}
-    balance.innerHTML=state.players.map(p=>{const count=(state.owners[p.id]||[]).length,done=count===target;return '<div class="giftBalancePlayer '+(done?'complete':'')+'">'+avatarMarkup(p.avatar,'giftBalanceAvatar')+'<span><b>'+escapeHtml(p.name)+'</b><small>'+count+' / '+target+' gaver</small></span><i>'+(done?'✓':'🎁')+'</i></div>'}).join('');
+    balance.innerHTML=state.players.map(p=>{const count=(state.owners[p.id]||[]).length,done=count===target;return '<div class="giftBalancePlayer '+(done?'complete':'')+'">'+avatarMarkup(p.avatar,'giftBalanceAvatar')+'<span><b>'+escapeHtml(p.name)+'</b><small>'+count+' / '+target+' '+(target===1?'gave':'gaver')+'</small></span><i>'+(done?'✓':'🎁')+'</i></div>'}).join('');
     if(!q){add('p','Venter på at Julecentralen starter …');return}
     if(state.gameType==='bingo'){
       document.getElementById('phase').textContent='🔔 Julebingo';
@@ -308,9 +319,15 @@
       else {face.textContent='✦';face.classList.add('unrolled');}
       face.setAttribute('aria-label',q.die?'Terningen viser '+q.die:'Terningen er ikke slået');
       const diceTo=q.recipient&&state.players.find(p=>p.id===q.recipient);
+      const misses=Math.max(0,Number((state.diceMissesByPlayer||{})[q.playerId])||0),tries=add('div','','diceMercyMeter');
+      tries.innerHTML='<span>🎅🏻 JULEMANDENS HJÆLP</span><b>'+Math.min(misses,6)+' / 6 forgæves kast</b><i><em style="width:'+Math.min(100,misses/6*100)+'%"></em></i>';
       const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?(q.mercy?'Julemandens hjælp! Vælg en gave fra bunken til ':'Du må vælge en gave fra bunken til ')+(diceTo&&diceTo.id!==q.playerId?diceTo.name:'dig selv')+'.':currentPlayer().name+(q.mercy?' fik Julemandens hjælp og vælger en gave.':' vælger en gave.')) : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
       const feedback=add('p',sending?'Sender dit kast …':label,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
       if(q.status==='roll'){const b=add('button','SLÅ MED TERNINGEN','btn green');b.type='button';b.disabled=!can;b.addEventListener('click',()=>sendAction('diceRoll'));}
+      if(q.status==='done'&&q.correct&&q.gift&&diceTo){
+        const receipt=add('div','','diceGiftReceipt');receipt.innerHTML='<div><img src="'+dicePackageAsset(q.gift)+'" alt="Pakke '+q.gift+'"><strong>#'+q.gift+'</strong></div><p><b>🎁 GIV PAKKEN TIL '+escapeHtml(diceTo.name).toUpperCase()+'</b><span>'+escapeHtml(currentPlayer().name)+' valgte pakke #'+q.gift+'. Pakken skal fysisk ligge hos '+escapeHtml(diceTo.name)+', før I fortsætter.</span></p>';
+      }
+      const next=document.getElementById('nextBtn');if(next&&mode==='host'&&state.awaitNext)next.textContent=q.correct&&q.gift?'✓ PAKKEN ER GIVET – NÆSTE TUR':'NÆSTE TUR ➜';
       document.getElementById('instruction').textContent=label;
       document.querySelectorAll('#gifts .gift').forEach(b=>{b.disabled=!(can&&q.status==='gift'&&!b.classList.contains('taken'));});
       addHostRecovery(panel,q);document.getElementById('secretCard').style.display='none';document.getElementById('hostBar').style.display='none';
@@ -353,6 +370,7 @@
       alert('For at alle kan få præcis lige mange gaver, skal det samlede antal kunne deles med '+state.players.length+' spillere. Lige nu er der '+state.giftCount+' gaver – tilføj eller fjern '+Math.min(rest,state.players.length-rest)+' gave(r).');
       return;
     }
+    if(mode==='host'&&state){state.diceMissesByPlayer={};for(const player of state.players)state.diceMissesByPlayer[player.id]=0;state.diceMisses=0;state.finalDistribution=null}
     return oldStart();
   };
 
