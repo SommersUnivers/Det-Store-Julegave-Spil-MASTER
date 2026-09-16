@@ -4515,6 +4515,56 @@ body:has(#join.active) .joinSnowOverlay {
 .modal.stealFlash > * { position:relative; z-index:1; }.modal.stealFlash .mega { margin-top:54px; filter:drop-shadow(0 7px 6px #0009); }.modal.stealFlash h2 { color:#ffe58d; }.modal.stealFlash #modalText { color:#fff7dc; font-size:16px; font-weight:800; }
 @media (max-width:700px){.modal.stealFlash::before{top:-28px;height:90px;background-size:115% auto}.modal.stealFlash .mega{margin-top:34px;font-size:54px}.modal.stealFlash #modalText{font-size:12px}}
 
+/* V67 — tyverirunden uden afbrydende popup eller manuel bladren */
+#finish:has(#stealPanel[style*="block"]) { padding-top:6px; }
+#finish:has(#stealPanel[style*="block"]) > .brand {
+  min-height:118px!important;
+  margin-top:52px!important;
+  padding:43px 12px 12px!important;
+}
+#finish:has(#stealPanel[style*="block"]) > .brand::before {
+  top:-55px!important;
+  left:-2%!important;
+  right:-2%!important;
+  height:105px!important;
+  background-size:100% auto!important;
+}
+#finish:has(#stealPanel[style*="block"]) > .brand h1 { margin:0; font-size:clamp(29px,5vw,48px); line-height:1; }
+#finish:has(#stealPanel[style*="block"]) > .brand h1::after { margin-top:5px; font-size:8px; }
+#finish:has(#stealPanel[style*="block"]) > .finishCard { padding:13px!important; }
+#finish:has(#stealPanel[style*="block"]) .finishCard::before { height:4px; margin:-13px -13px 12px; }
+#finish:has(#stealPanel[style*="block"]) .stealPanel { padding:13px 15px 16px; scroll-margin-top:8px; }
+#finish:has(#stealPanel[style*="block"]) .stealLuxuryHead { grid-template-columns:65px 1fr; gap:11px; padding:10px 13px; }
+#finish:has(#stealPanel[style*="block"]) .stealCurrentAvatar { width:58px; height:58px; }
+#finish:has(#stealPanel[style*="block"]) .stealHeroAvatar { width:54px; height:54px; }
+#finish:has(#stealPanel[style*="block"]) .stealLuxuryHead h2 { font-size:clamp(20px,3.5vw,29px); }
+#finish:has(#stealPanel[style*="block"]) .stealProgress { margin:11px auto 5px; }
+#finish:has(#stealPanel[style*="block"]) .stealRoundLine { margin-bottom:8px; }
+#finish:has(#stealPanel[style*="block"]) .stealInstruction,
+#finish:has(#stealPanel[style*="block"]) .stealResult { margin:8px auto 10px; padding:8px 12px; }
+#finish:has(#stealPanel[style*="block"]) .luxuryDie { width:105px; margin:11px auto 17px; padding:19px; border-radius:22px; }
+#finish:has(#stealPanel[style*="block"]) .luxuryDie i { width:16px; height:16px; }
+#finish:has(#stealPanel[style*="block"]) .luxuryDie.awaiting span { font-size:39px; }
+#finish:has(#stealPanel[style*="block"]) .stealRollBtn,
+#finish:has(#stealPanel[style*="block"]) .stealNextBtn { min-height:52px; font-size:16px; }
+#finish:has(#stealPanel[style*="block"]) #stealEndBtn { min-height:43px; margin-top:10px!important; padding:8px; font-size:12px; }
+
+@media (max-width:700px) {
+  #finish:has(#stealPanel[style*="block"]) > .brand { min-height:91px!important; margin-top:39px!important; padding:31px 7px 8px!important; }
+  #finish:has(#stealPanel[style*="block"]) > .brand::before { top:-42px!important; height:79px!important; background-size:108% auto!important; }
+  #finish:has(#stealPanel[style*="block"]) > .brand h1 { font-size:25px; }
+  #finish:has(#stealPanel[style*="block"]) > .finishCard { padding:8px!important; }
+  #finish:has(#stealPanel[style*="block"]) .stealPanel { padding:8px 7px 11px; }
+  #finish:has(#stealPanel[style*="block"]) .stealLuxuryHead { grid-template-columns:49px 1fr; padding:7px; }
+  #finish:has(#stealPanel[style*="block"]) .stealCurrentAvatar { width:45px; height:45px; }
+  #finish:has(#stealPanel[style*="block"]) .stealHeroAvatar { width:42px; height:42px; }
+  #finish:has(#stealPanel[style*="block"]) .stealLuxuryHead h2 { font-size:16px; }
+  #finish:has(#stealPanel[style*="block"]) .stealLuxuryHead small { display:none; }
+  #finish:has(#stealPanel[style*="block"]) .stealProgress { margin:8px auto 3px; }
+  #finish:has(#stealPanel[style*="block"]) .stealInstruction span { font-size:8px; }
+  #finish:has(#stealPanel[style*="block"]) .luxuryDie { width:90px; margin:8px auto 14px; padding:16px; }
+}
+
 /* =========================================================
    V63 — Det kongelige julebord + synlig, låst ligefordeling
    ========================================================= */
