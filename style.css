@@ -2649,6 +2649,15 @@ body:has(#home.active) .wrap { width:min(1100px,100%); padding-top:34px; }
 .giftTransition.opening .giftLid { animation:gift-pop 1s cubic-bezier(.2,.8,.2,1) both; }
 .giftTransition.opening .giftMagic { animation:gift-spark 1s ease-out both; }
 .giftTransition.opening .transitionText { animation:gift-text 1s ease both; }
+.transitionGarland{position:absolute;top:-8px;left:0;right:0;height:130px;z-index:3;overflow:hidden;filter:drop-shadow(0 10px 12px #0009)}
+.transitionGarland img{width:100%;height:100%;object-fit:cover;object-position:center bottom;transform:scale(1.08)}
+.transitionSnow{position:absolute;inset:0;z-index:4;overflow:hidden;pointer-events:none}
+.transitionSnow i{position:absolute;top:-50px;color:#e8fbff;text-shadow:0 0 8px #fff,0 0 16px #71d6ed;font-style:normal;font-size:25px;opacity:0}
+.transitionSnow i:nth-child(1){left:8%;animation:snow-travel 1.2s ease-in infinite .02s}.transitionSnow i:nth-child(2){left:21%;font-size:17px;animation:snow-travel 1.05s ease-in infinite .2s}.transitionSnow i:nth-child(3){left:36%;font-size:31px;animation:snow-travel 1.35s ease-in infinite .08s}.transitionSnow i:nth-child(4){left:57%;font-size:18px;animation:snow-travel 1.1s ease-in infinite .3s}.transitionSnow i:nth-child(5){left:73%;font-size:29px;animation:snow-travel 1.25s ease-in infinite .14s}.transitionSnow i:nth-child(6){left:90%;font-size:20px;animation:snow-travel 1.18s ease-in infinite .38s}.transitionSnow i:nth-child(7){left:47%;font-size:14px;animation:snow-travel 1.4s ease-in infinite .5s}.transitionSnow i:nth-child(8){left:64%;font-size:16px;animation:snow-travel 1.3s ease-in infinite .65s}
+.transitionGiftImage{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 16px 18px #000b)}
+.transitionRule{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:12px;color:#ffe59a;letter-spacing:.14em;font-size:11px;font-weight:900;text-shadow:0 2px 6px #000}
+.transitionRule span{width:54px;height:2px;background:linear-gradient(90deg,transparent,#f7ca55)}.transitionRule span:last-child{background:linear-gradient(90deg,#f7ca55,transparent)}
+@keyframes snow-travel{0%{transform:translate3d(0,-30px,0) rotate(0);opacity:0}18%{opacity:.95}100%{transform:translate3d(28px,108vh,0) rotate(220deg);opacity:0}}
 @keyframes gift-overlay { 0%{opacity:0} 16%,72%{opacity:1} 100%{opacity:0} }
 @keyframes gift-pop { 0%{transform:scale(.25) rotate(-12deg)} 38%{transform:scale(1.08) rotate(4deg)} 62%{transform:scale(1)} 100%{transform:scale(.9) translateY(15px);opacity:.2} }
 @keyframes gift-rays { 0%{transform:translate(-50%,-50%) scale(.2) rotate(0);opacity:0} 45%{opacity:1} 100%{transform:translate(-50%,-50%) scale(1.5) rotate(35deg);opacity:0} }
@@ -2662,6 +2671,7 @@ body:has(#home.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   .transitionGift { width:125px; height:125px; }
   .giftLid { font-size:98px; }
   .transitionText { font-size:12px; }
+  .transitionGarland{height:92px}.transitionRule{font-size:9px;gap:7px}.transitionRule span{width:30px}
 }
 
 @media (prefers-reduced-motion:reduce) {

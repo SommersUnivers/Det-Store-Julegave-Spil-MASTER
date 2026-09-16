@@ -489,6 +489,13 @@
   };
 
   renderFinish=function(){
+    /* Slutvisningen må altid bygges fra én kanonisk ejerliste. Det forhindrer
+       gamle klientdata i at vise en anden fordeling end værten. */
+    if(state&&state.finished){
+      const before=JSON.stringify(state.owners||{});
+      repairEqualGiftDistribution();
+      if(mode==='host'&&before!==JSON.stringify(state.owners||{}))broadcastGame();
+    }
     oldRenderFinish();
     const sr=state.stealRound||{active:false,completed:false};
     const intro=document.getElementById('finishIntro'),panel=document.getElementById('stealPanel');
