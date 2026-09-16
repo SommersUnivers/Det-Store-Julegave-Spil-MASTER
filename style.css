@@ -990,6 +990,25 @@ h1 {
   .christmasQuiz ~ .gifts,.christmasDice ~ .gifts { padding:13px; }
 }
 
+/* V68 — fysisk pakkekvittering, stabil synkronisering og fast iPad-bredde */
+html,body,.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { max-width:100%; overflow-x:hidden; }
+#game.active *,#finish.active * { min-width:0; }
+.hostRecovery { width:100%; max-width:100%; }
+.hostRecoveryBtn.btn { width:100%; max-width:100%; white-space:normal; overflow-wrap:anywhere; }
+.giftTrayHead { flex-wrap:wrap; }
+#hostMobileRecovery { max-width:100%; }
+.physicalSwap { max-width:680px; margin:9px auto 13px; padding:12px; border:2px solid #f1cb63; border-radius:17px; color:#fff6d4; background:radial-gradient(circle at 50% 0,#d72a5060,transparent 42%),linear-gradient(135deg,#74112d,#310819 55%,#064538); box-shadow:0 0 0 3px #79430a,0 9px 18px #0009,inset 0 1px 0 #fff4; }
+.swapAlert { margin-bottom:9px; color:#ffe88c; font-size:13px; font-weight:1000; letter-spacing:.08em; text-shadow:0 2px 4px #000; }
+.swapCards { display:grid; grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr); align-items:center; gap:7px; }
+.swapCards > div { display:flex; min-height:170px; padding:7px; flex-direction:column; align-items:center; justify-content:flex-end; border:1px solid #e9bd54; border-radius:13px; background:linear-gradient(#fff9de,#e6c678); color:#541a11; box-shadow:inset 0 1px 0 #fff,0 4px 9px #0006; }
+.swapCards img { width:min(100%,130px); height:100px; object-fit:contain; filter:drop-shadow(0 7px 5px #51180b66); }
+.swapCards small { font-size:8px; font-weight:1000; letter-spacing:.06em; }.swapCards b { font-size:13px; }.swapCards span { color:#8d0d2d; font-size:9px; font-weight:1000; }
+.swapCards > i { color:#ffe279; font:1000 31px/1 Georgia,serif; font-style:normal; text-shadow:0 0 12px #ffd55f; }
+.physicalSwap p { margin:9px auto 0; font-size:10px; font-weight:750; line-height:1.35; }
+@media (max-width:700px){
+  .physicalSwap{padding:8px}.swapCards{grid-template-columns:minmax(0,1fr) 25px minmax(0,1fr);gap:4px}.swapCards>div{min-height:133px;padding:4px}.swapCards img{height:75px}.swapCards>i{font-size:23px}.swapAlert{font-size:10px}.physicalSwap p{font-size:8px}
+}
+
 /* V28 — Julebingo: kompakt, levende og læsbart på samme spillebord */
 .quizPanel.christmasBingo {
   position:relative;
@@ -4460,6 +4479,26 @@ body:has(#join.active) .joinSnowOverlay {
     padding:50px 76px 22px;
   }
 }
+
+/* V68 EOF — lås bredden, også mens iPad venter på mobilen */
+html,body { width:100%; max-width:100%; overflow-x:hidden!important; }
+.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { max-width:100%!important; min-width:0!important; overflow-x:hidden!important; }
+#game.active *,#finish.active * { min-width:0!important; box-sizing:border-box; }
+#game.active .hostRecovery,#game.active .hostRecoveryBtn.btn { width:100%!important; max-width:100%!important; white-space:normal!important; overflow-wrap:anywhere!important; }
+#game.active .giftTrayHead { max-width:100%!important; flex-wrap:wrap!important; }
+#game.active #hostMobileRecovery { flex:1 1 100%!important; width:100%!important; max-width:100%!important; }
+#game.active #hostMobileRecovery .hostRecoveryBtn.btn { width:100%!important; max-width:100%!important; white-space:normal!important; text-overflow:clip!important; }
+#finish.active .swapCards>div { min-width:0!important; }
+
+/* V68 final breddebeskyttelse — skal ligge sidst i kaskaden */
+html,body { width:100%; max-width:100%; overflow-x:hidden!important; }
+.wrap,.screen,#game,#finish,.gameTableCard,.gameStatusColumn,.gamePlayColumn,.finishCard,.stealPanel { width:auto; max-width:100%!important; min-width:0!important; overflow-x:hidden!important; }
+#game.active * ,#finish.active * { min-width:0!important; box-sizing:border-box; }
+#game.active .hostRecovery,#game.active .hostRecoveryBtn.btn { width:100%!important; max-width:100%!important; min-width:0!important; white-space:normal!important; overflow-wrap:anywhere!important; }
+#game.active .giftTrayHead { max-width:100%; flex-wrap:wrap!important; }
+#game.active #hostMobileRecovery { flex:1 1 100%; width:100%; max-width:100%; }
+#game.active #hostMobileRecovery .hostRecoveryBtn.btn { width:100%!important; white-space:normal!important; text-overflow:clip!important; }
+#finish.active .swapCards > div { min-width:0!important; }
 
 /* V66 — komplet juleluksus til tyverifinalen */
 #finish:has(#stealPanel[style*="block"]) > .brand { background:linear-gradient(115deg,#0d5c48,#063b38 48%,#641028)!important; }

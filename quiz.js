@@ -154,8 +154,14 @@
   broadcastLobby=function(){if(state&&state.started){broadcastGame();return}oldLobby();};
   handlePlayerData=function(d){
     if(d&&d.type==='lobby'&&d.state&&d.state.started)d={...d,type:'state'};
+    if(d&&d.state&&state&&Number.isSafeInteger(d.state.syncVersion)&&Number.isSafeInteger(state.syncVersion)&&d.state.syncVersion<state.syncVersion)return;
     if(d&&['state','welcome','lobby'].includes(d.type))sending=false;
     oldPlayerData(d);
+  };
+  const authoritativeBroadcast=broadcastGame;
+  broadcastGame=function(special){
+    if(mode==='host'&&state)state.syncVersion=(Number.isSafeInteger(state.syncVersion)?state.syncVersion:0)+1;
+    return authoritativeBroadcast(special);
   };
   handleRealtimeAction=function(d){
     if(!d||!['diceRoll','quizAnswer','quizRecipient','bingoClaim','takeGift','stealRoll','stealGift'].includes(d.type)){oldHandle(d);return}
@@ -375,7 +381,11 @@
     validateGameState();
     const assigned=state.players.flatMap(player=>state.owners[player.id]);
     const valid=assigned.length===state.giftCount&&new Set(assigned).size===state.giftCount&&state.players.every(player=>state.owners[player.id].length===target);
-    if(valid){const line='⚖️ Slutkontrol bestået: '+state.players.length+' spillere har præcis '+target+' gave(r) hver.';if(!state.log||state.log[state.log.length-1]!==line)addLog(line)}
+    if(valid){
+      const owners={};for(const player of state.players)owners[player.id]=state.owners[player.id].slice().sort((a,b)=>a-b);
+      state.finalDistribution={target,total:state.giftCount,owners,proof:state.players.map(player=>player.id+':'+owners[player.id].join(',')).join('|')};
+      const line='⚖️ Slutkontrol bestået: '+state.players.length+' spillere har præcis '+target+' gave(r) hver.';if(!state.log||state.log[state.log.length-1]!==line)addLog(line)
+    }
     return valid;
   }
 
@@ -395,6 +405,7 @@
   };
 
   function sendFinishState(special){
+    if(mode==='host'&&state)state.syncVersion=(Number.isSafeInteger(state.syncVersion)?state.syncVersion:0)+1;
     renderFinish();cloudSaveState();
     const inlineOnly=!!(special&&special.kind==='steal');
     if(mode==='host'&&realtimeChannel){
@@ -511,6 +522,16 @@
       return '<section class="finalPlayerCard"><header><span class="scorePlayer">'+avatarMarkup(player.avatar,'scoreAvatar')+'<b>'+escapeHtml(player.name)+'</b>'+(points?' · ⭐ '+points+' julepoint':'')+'</span><strong>'+gifts.length+' '+(gifts.length===1?'gave':'gaver')+'</strong></header><div class="finalGiftGrid">'+packages+'</div></section>';
     }).join('');
   }
+  function finalDistributionIsExact(){
+    const audit=state&&state.finalDistribution;if(!audit||!audit.owners||audit.total!==state.giftCount)return false;
+    const target=state.giftCount/state.players.length,all=[];
+    for(const player of state.players){
+      const actual=(state.owners[player.id]||[]).slice().sort((a,b)=>a-b),expected=(audit.owners[player.id]||[]).slice().sort((a,b)=>a-b);
+      if(actual.length!==target||actual.join(',')!==expected.join(','))return false;
+      all.push(...actual);
+    }
+    return all.length===state.giftCount&&new Set(all).size===state.giftCount;
+  }
 
   function stealDieMarkup(value){
     if(!value)return '<div class="luxuryDie awaiting" aria-label="Terningen er klar"><span>✦</span></div>';
@@ -538,7 +559,7 @@
     intro.style.display=sr.active?'none':'block';
     if(!sr.active){
       renderLuxuryFinalScores();
-      const target=state.players.length?state.giftCount/state.players.length:0,equal=Number.isInteger(target)&&state.players.every(p=>(state.owners[p.id]||[]).length===target);
+      const target=state.players.length?state.giftCount/state.players.length:0,equal=Number.isInteger(target)&&finalDistributionIsExact();
       let seal=document.getElementById('fairFinalSeal');
       if(!seal){seal=document.createElement('div');seal.id='fairFinalSeal';seal.className='fairFinalSeal';document.getElementById('scores').before(seal)}
       seal.innerHTML=equal?'<span>✓</span><div><b>JULECENTRALENS SLUTKONTROL BESTÅET</b><small>Alle spillere har præcis '+target+' '+(target===1?'gave':'gaver')+' hver</small></div>':'<span>!</span><div><b>FORDELINGEN SKAL KONTROLLERES</b><small>Pakkerne må ikke åbnes endnu</small></div>';
@@ -559,7 +580,12 @@
     }
     html+=stealDieMarkup(sr.die);
     if(sr.status==='done'){
-      html+='<div class="stealResult '+(sr.die===1?'success':'noSwap')+'"><b>'+(sr.die===1?'🎁 PAKKEBYTTET ER GENNEMFØRT':'❄️ INGEN PAKKEBYTTE DENNE GANG')+'</b><span>'+(sr.die===1?'Julecentralen har sikret, at alle stadig har lige mange gaver.':'Terningen viste '+sr.die+'. Pakkerne bliver hos deres nuværende ejere.')+'</span></div>'+(mode==='host'?'<button class="btn gold stealNextBtn" onclick="hostNextStealTurn()">NÆSTE TUR ➜</button>':'<div class="stealWaiting">Værten fortsætter til næste spiller…</div>');
+      const swap=sr.die===1&&sr.history&&sr.history.length?sr.history[sr.history.length-1]:null;
+      if(swap){
+        const thief=state.players.find(p=>p.id===swap.thief),victim=state.players.find(p=>p.id===swap.victim);
+        html+='<div class="physicalSwap"><div class="swapAlert">🔔 BYT PAKKERNE FYSISK NU</div><div class="swapCards"><div><small>'+escapeHtml(victim.name)+' GIVER</small><img src="'+finalPackageAsset(swap.gift)+'" alt="Pakke '+swap.gift+'"><b>PAKKE #'+swap.gift+'</b><span>TIL '+escapeHtml(thief.name).toUpperCase()+'</span></div><i>⇄</i><div><small>'+escapeHtml(thief.name)+' GIVER TILBAGE</small><img src="'+finalPackageAsset(swap.returned)+'" alt="Pakke '+swap.returned+'"><b>PAKKE #'+swap.returned+'</b><span>TIL '+escapeHtml(victim.name).toUpperCase()+'</span></div></div><p>Byttet er først færdigt, når begge pakker fysisk har skiftet hænder. Begge har fortsat '+(state.owners[thief.id]||[]).length+' '+((state.owners[thief.id]||[]).length===1?'gave':'gaver')+'.</p></div>';
+      }else html+='<div class="stealResult noSwap"><b>❄️ INGEN PAKKEBYTTE DENNE GANG</b><span>Terningen viste '+sr.die+'. Pakkerne bliver hos deres nuværende ejere.</span></div>';
+      html+=(mode==='host'?'<button class="btn gold stealNextBtn" onclick="hostNextStealTurn()">'+(swap?'✓ BYTTET ER UDFØRT – NÆSTE TUR':'NÆSTE TUR ➜')+'</button>':'<div class="stealWaiting">Værten fortsætter, når pakkerne er byttet fysisk…</div>');
       showStealBoard(panel,html);return;
     }
     html+='<div class="stealInstruction success"><b>✨ PAKKEVAULTEN ER ÅBEN!</b><span>'+(mine?'Vælg én lukket pakke. Julecentralen sender automatisk én af dine egne pakker retur.':escapeHtml(current.name)+' vælger nu en pakke fra en anden spiller.')+'</span></div>'+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">⏭️ SPRING SPILLEREN OVER</button>':'')+'<div class="stealVaultTitle">🎁 VÆLG EN HEMMELIG PAKKE 🎁</div><div class="stealOwners">';
