@@ -1031,7 +1031,7 @@ h1 {
     radial-gradient(circle at 50% -30%,#62dfb33b,transparent 48%);
 }
 .quizPanel.christmasBingo::after {
-  content:"🔔  ✦  🎄  ✦  🔔";
+  content:"  ✦    ✦  ";
   position:absolute;
   top:9px;
   right:14px;
@@ -2252,7 +2252,7 @@ body:has(#host.active) .wrap {
 
 /* Det hemmelige gavekammer — rubinrød og midnatsblå */
 #giftAdmin > .brand { background:radial-gradient(circle at 80% 10%,#2b83bf33,transparent 32%),linear-gradient(130deg,#7f0926,#3e071c 55%,#071e35)!important; }
-#giftAdmin > .brand h1::before { content:"🎁"; font-size:23px; }
+#giftAdmin > .brand h1::before { content:""; font-size:23px; }
 #giftAdmin > .brand h1::after { content:"DET HEMMELIGE GAVEKAMMER"; }
 #giftAdmin > .card { color:#fff1ca; background:radial-gradient(circle at 90% 0,#267fad2b,transparent 32%),linear-gradient(145deg,#570b22,#1f0715 58%,#06192a); }
 #giftAdmin .adminGift,#giftAdmin .summaryBox { color:#35170d; background:linear-gradient(145deg,#fffef7,#e8f5f2); }
@@ -4471,6 +4471,154 @@ body:has(#join.active) .joinSnowOverlay {
   }
 }
 
+/* V80 – illustrerede bingobrikker. Ingen telefon-emojis i spillefladen. */
+.bingoArt{display:inline-block;width:clamp(52px,7vw,82px);aspect-ratio:1;flex:0 0 auto;background-image:url("julebingo-luksus-v80.png");background-repeat:no-repeat;background-size:400% 300%;background-position:var(--bingo-x,0%) var(--bingo-y,0%);filter:drop-shadow(0 7px 7px rgba(10,2,4,.38))}
+.bingo-santa{--bingo-x:0%;--bingo-y:0%}.bingo-elf{--bingo-x:33.333%;--bingo-y:0%}.bingo-deer{--bingo-x:66.666%;--bingo-y:0%}.bingo-snowman{--bingo-x:100%;--bingo-y:0%}
+.bingo-angel{--bingo-x:0%;--bingo-y:50%}.bingo-cookie{--bingo-x:33.333%;--bingo-y:50%}.bingo-candle{--bingo-x:66.666%;--bingo-y:50%}.bingo-stocking{--bingo-x:100%;--bingo-y:50%}
+.bingo-candy{--bingo-x:0%;--bingo-y:100%}.bingo-sleigh{--bingo-x:33.333%;--bingo-y:100%}.bingo-drum{--bingo-x:66.666%;--bingo-y:100%}.bingo-porridge{--bingo-x:100%;--bingo-y:100%}
+.bingoArt.lux-gift,.bingoArt.lux-tree,.bingoArt.lux-bell,.bingoArt.lux-star,.bingoArt.lux-snow{background-image:url("juleikoner-luksus-v80.png");background-size:400% 300%}
+.bingoArt.lux-gift{background-position:0% 0%}.bingoArt.lux-bell{background-position:33.333% 0%}.bingoArt.lux-tree{background-position:66.666% 0%}.bingoArt.lux-star{background-position:100% 0%}.bingoArt.lux-snow{background-position:100% 50%}
+.bingoCell>span.bingoArt{font-size:0;width:clamp(44px,7vw,74px);margin:auto}.bingoCaller>span.bingoArt{font-size:0;width:clamp(64px,9vw,96px)}
+
+/* V80 – juleluksus på alle sekundære rum. */
+#prepareGame>.brand,#giftAdmin>.brand,#settings>.brand,#cloudSetup>.brand,#playerLobby>.brand,#lobby>.brand{position:relative;overflow:visible;padding-top:92px;background:radial-gradient(circle at 50% 5%,rgba(24,182,129,.26),transparent 43%),linear-gradient(135deg,#063a46 0%,#082744 55%,#250a25 100%)}
+#prepareGame>.brand::before,#giftAdmin>.brand::before,#settings>.brand::before,#cloudSetup>.brand::before,#playerLobby>.brand::before,#lobby>.brand::before{content:"";position:absolute;z-index:2;left:0;right:0;top:-13px;height:132px;background:url("premium-garland.png") center top/cover no-repeat;pointer-events:none;filter:drop-shadow(0 12px 11px rgba(0,0,0,.45))}
+#prepareGame>.brand>*,#giftAdmin>.brand>*,#settings>.brand>*,#cloudSetup>.brand>*,#playerLobby>.brand>*,#lobby>.brand>*{position:relative;z-index:3}
+.card,.hostSetupCard,.gameShell,.finishCard{box-shadow:0 22px 50px rgba(0,0,0,.44),inset 0 0 30px rgba(255,239,166,.07)}
+.btn .luxIcon{width:48px;margin-right:10px;vertical-align:middle}.iconLabel{display:inline-flex;align-items:center;gap:8px}.iconLabel .luxIcon{width:32px}
+@media(max-width:700px){
+  #prepareGame>.brand,#giftAdmin>.brand,#settings>.brand,#cloudSetup>.brand,#playerLobby>.brand,#lobby>.brand{padding-top:68px}
+  #prepareGame>.brand::before,#giftAdmin>.brand::before,#settings>.brand::before,#cloudSetup>.brand::before,#playerLobby>.brand::before,#lobby>.brand::before{height:92px;background-size:cover}
+  .bingoArt{width:48px}.bingoCell>span.bingoArt{width:42px}.bingoCaller>span.bingoArt{width:60px}
+}
+.modalLuxIcon{width:clamp(92px,18vw,150px);margin:auto}.modal .mega{line-height:1}.modal .mega .luxIcon{display:block}
+.miniLuxIcon{width:clamp(52px,11vw,86px)}.slot .luxIcon{display:inline-block;margin:0 5px}.duelbox .btn{display:flex;align-items:center;justify-content:center;gap:8px}.duelbox .btn .luxIcon{width:38px;margin:0}
+.confettiPiece .luxIcon{width:40px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35))}
+.fairFinalSeal>.luxIcon{width:72px;flex:0 0 72px}.stealDie.unrolled .luxIcon{width:100%;height:100%}
+.stealDie.visualDie{display:grid!important;grid-template:repeat(3,1fr)/repeat(3,1fr);place-items:center;padding:22px;background:linear-gradient(145deg,#fffdf3,#f8d879);box-shadow:0 0 0 4px #9e5d10,0 10px 0 #5e2e08,0 18px 30px #050b15aa,inset 5px 5px 12px #fff}
+.stealPip{display:block;width:clamp(16px,3vw,25px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff6781,#9b0027 52%,#4e0014);box-shadow:inset 1px 2px 3px #ffd0d5,0 2px 4px #3a0011aa}
+.stealRollBtn{display:flex;align-items:center;justify-content:center;gap:10px}.stealRollBtn .luxIcon{width:44px;margin:0}
+
+/* ================================================================
+   V80 · SAMLET GRAFISK MASTER
+   Samme juleluksus, ikonografi og rytme på tværs af alle rum.
+   ================================================================ */
+:root{
+  --v80-navy:#071a32;
+  --v80-navy-2:#0a3150;
+  --v80-emerald:#00654d;
+  --v80-ruby:#9b0c35;
+  --v80-ruby-dark:#4d071d;
+  --v80-gold:#f2c85b;
+  --v80-cream:#fff4ce;
+  --v80-shadow:0 20px 48px rgba(0,0,0,.48);
+}
+.luxIcon{
+  display:inline-block;
+  width:1.25em;
+  height:1.25em;
+  flex:0 0 auto;
+  vertical-align:-.24em;
+  background-image:url("juleikoner-luksus-v80.png");
+  background-size:400% 300%;
+  background-repeat:no-repeat;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.48));
+}
+.lux-gift{background-position:0 0}.lux-bell{background-position:33.333% 0}.lux-tree{background-position:66.666% 0}.lux-star{background-position:100% 0}
+.lux-die{background-position:0 50%}.lux-swap{background-position:33.333% 50%}.lux-friends{background-position:66.666% 50%}.lux-snow{background-position:100% 50%}
+.lux-cloud{background-position:0 100%}.lux-settings{background-position:33.333% 100%}.lux-log{background-position:66.666% 100%}.lux-camera{background-position:100% 100%}
+.iconOnlyText{font-size:0!important}.iconOnlyText .luxIcon{font-size:54px}
+.iconLabel{display:inline-flex;align-items:center;justify-content:center;gap:.55em}
+
+body{overflow-x:hidden}
+.screen>.brand:not(.homeBrand):not(.gameMenuBrand):not(.joinBrand),
+.gameCockpitHeader{
+  box-shadow:var(--v80-shadow),inset 0 0 35px rgba(255,255,255,.06);
+}
+.screen>.card,
+.gameTableCard{
+  box-shadow:var(--v80-shadow),inset 0 0 0 1px rgba(255,238,165,.16);
+}
+.screen>.card:not(.finishCard):not(.gameTableCard){
+  background:
+    radial-gradient(circle at 18% 0,rgba(255,226,128,.09),transparent 26%),
+    linear-gradient(145deg,rgba(0,91,72,.97),rgba(6,33,60,.98) 58%,rgba(28,9,43,.98));
+}
+.btn,.prepareTile,.gameChoice,.profileOption,.counterBtn{
+  border-width:2px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 6px 0 rgba(62,25,4,.58),0 12px 20px rgba(0,0,0,.28);
+}
+.btn:active,.prepareTile:active,.gameChoice:active,.profileOption:active,.counterBtn:active{
+  transform:translateY(3px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 3px 0 rgba(62,25,4,.58),0 7px 13px rgba(0,0,0,.25);
+}
+.emoji{font-size:0!important;min-height:46px}
+.emoji::before{
+  content:"";
+  display:inline-block;
+  width:132px;
+  height:58px;
+  background:url("juleikoner-luksus-v80.png") 33.333% 0/400% 300% no-repeat;
+  filter:drop-shadow(0 6px 5px rgba(0,0,0,.55));
+}
+.festiveFeatureIcon,.choiceSeal,.actionCrest,.prepareIcon{
+  display:grid!important;
+  place-items:center;
+  font-size:0!important;
+  overflow:hidden;
+}
+.festiveFeatureIcon .luxIcon,.choiceSeal .luxIcon,.actionCrest .luxIcon,.prepareIcon .luxIcon{font-size:52px;width:1em;height:1em}
+.actionCrest .luxIcon{font-size:48px}.choiceSeal .luxIcon{font-size:62px}.prepareIcon .luxIcon{font-size:48px}
+.mobileGameDock .luxIcon,.giftTrayHead .luxIcon,.gameNote .luxIcon,.gameLogBook .luxIcon{font-size:23px}
+
+#prepareGame>.card,#giftAdmin>.card,#settings>.card,#cloudSetup>.card,#playerLobby>.card,#lobby>.card{
+  width:min(100%,1020px);
+  margin-inline:auto;
+}
+.prepareTiles,.settingsGrid,.adminActions,.shareRow{gap:14px}
+.field{font-size:16px;min-height:54px}
+.label,.settingRow b,.prepareTile b,.cabinetTitle{font-size:max(14px,.95rem)}
+
+#finish .brand{position:relative;overflow:visible}
+#finish .brand::before{
+  content:"";
+  position:absolute;
+  z-index:4;
+  left:4%;right:4%;top:-44px;
+  height:150px;
+  background:url("premium-garland.png") center/100% 100% no-repeat;
+  pointer-events:none;
+  filter:drop-shadow(0 12px 12px rgba(0,0,0,.55));
+}
+#finish .brand h1{position:relative;z-index:5;padding-top:54px}
+.finishCard{background:linear-gradient(150deg,rgba(119,8,42,.98),rgba(42,7,25,.98) 62%,rgba(8,44,54,.98));}
+.score,.revealGift,.finalPlayerCard{background:linear-gradient(135deg,#fff9e8,#f4d98b);color:#3b1420;border:2px solid #c99125}
+
+@media (min-width:701px) and (max-width:1180px){
+  .wrap{width:min(100% - 20px,1060px)}
+  .gameTableCard{grid-template-columns:minmax(250px,34%) minmax(0,1fr)}
+  .gameStatusColumn,.gamePlayColumn{min-width:0}
+  .gift{min-width:0}
+}
+@media (max-width:700px){
+  .wrap{width:100%;padding-inline:6px}
+  .screen{width:100%;min-width:0}
+  .screen>.brand:not(.homeBrand){border-radius:22px;margin-inline:2px}
+  .screen>.card{width:calc(100% - 4px);margin-inline:2px;padding:16px 12px;border-radius:20px}
+  .screen>.brand h1{line-height:1.02;overflow-wrap:anywhere}
+  .btn{min-height:54px;font-size:15px}
+  .prepareTiles,.adminActions,.shareRow,.settingsGrid{grid-template-columns:1fr!important}
+  .gameTableCard{display:block!important;padding:12px!important}
+  .gameStatusColumn,.gamePlayColumn,.gameControlsRow{width:100%;min-width:0}
+  .gameCockpitHeader{padding-inline:12px}
+  .gameHeaderCopy strong{font-size:clamp(22px,8vw,38px)}
+  .gameHud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%}
+  .gameHud .pill{min-width:0;padding:8px 4px;font-size:11px;white-space:normal}
+  #finish .brand::before{left:-2%;right:-2%;top:-24px;height:108px}
+  #finish .brand h1{padding-top:44px;font-size:clamp(30px,10vw,50px)}
+  .transitionGarland{height:86px}
+}
+
 /* =========================================================
    V63 — Det kongelige julebord + synlig, låst ligefordeling
    ========================================================= */
@@ -4751,7 +4899,7 @@ body:has(#game.active) .wrap { width:min(1220px,100%); padding:18px 14px 42px; }
   box-shadow:inset 0 0 0 3px #2a0807,inset 0 0 26px #0009,0 8px 18px #0008!important;
 }
 #game.active .gamePlayColumn > .gifts::before {
-  content:"🎁  PAKKERNE UNDER JULETRÆET  🎁";
+  content:"  PAKKERNE UNDER JULETRÆET  ";
   grid-column:1/-1;
   padding:4px 8px 7px;
   color:#ffeaa1;

@@ -54,13 +54,14 @@
   const oldRender=renderGame, oldPublic=publicStateFor, oldHandle=handleRealtimeAction;
   const oldInit=initState;
   const bingoSymbols=[
-    {id:'santa',icon:'🎅🏻',name:'Julemand'},{id:'gift',icon:'🎁',name:'Gave'},{id:'tree',icon:'🎄',name:'Juletræ'},
-    {id:'deer',icon:'🦌',name:'Rensdyr'},{id:'snowman',icon:'⛄',name:'Snemand'},{id:'bell',icon:'🔔',name:'Klokke'},
-    {id:'star',icon:'⭐',name:'Stjerne'},{id:'cookie',icon:'🍪',name:'Småkage'},{id:'candle',icon:'🕯️',name:'Julelys'},
-    {id:'elf',icon:'🧑🏻‍🎄',name:'Nisse'},{id:'heart',icon:'❤️',name:'Julehjerte'},{id:'snow',icon:'❄️',name:'Snefnug'},
-    {id:'sock',icon:'🧦',name:'Julesok'},{id:'candy',icon:'🍬',name:'Juleslik'},{id:'sled',icon:'🛷',name:'Kælk'},
-    {id:'drum',icon:'🥁',name:'Tromme'},{id:'angel',icon:'👼',name:'Engel'},{id:'porridge',icon:'🥣',name:'Risengrød'}
+    {id:'santa',art:'bingo-santa',name:'Julemand'},{id:'gift',art:'lux-gift',name:'Gave'},{id:'tree',art:'lux-tree',name:'Juletræ'},
+    {id:'deer',art:'bingo-deer',name:'Rensdyr'},{id:'snowman',art:'bingo-snowman',name:'Snemand'},{id:'bell',art:'lux-bell',name:'Klokke'},
+    {id:'star',art:'lux-star',name:'Stjerne'},{id:'cookie',art:'bingo-cookie',name:'Småkage'},{id:'candle',art:'bingo-candle',name:'Julelys'},
+    {id:'elf',art:'bingo-elf',name:'Nisse'},{id:'heart',art:'lux-star',name:'Julehjerte'},{id:'snow',art:'lux-snow',name:'Snefnug'},
+    {id:'sock',art:'bingo-stocking',name:'Julesok'},{id:'candy',art:'bingo-candy',name:'Juleslik'},{id:'sled',art:'bingo-sleigh',name:'Kælk'},
+    {id:'drum',art:'bingo-drum',name:'Tromme'},{id:'angel',art:'bingo-angel',name:'Engel'},{id:'porridge',art:'bingo-porridge',name:'Risengrød'}
   ];
+  const bingoSymbolMarkup=symbol=>symbol?'<span class="bingoArt '+symbol.art+'" aria-hidden="true"></span>':'';
   let selectedGame='bingo';
   window.chooseChristmasGame=function(type){
     if(!['bingo','dice'].includes(type))return;
@@ -86,7 +87,7 @@
     }
     ensureBingoBoards();
     state.quiz={turn:turnKey(),playerId:null,status:'draw',drawPool:shuffle(bingoSymbols.map(x=>x.id).slice()),drawn:[],last:null,recipient:null};
-    state.phase='Julebingo';state.event='🎅🏻 Julemanden er klar til at trække det første julemotiv.';
+    state.phase='Julebingo';state.event=' Julemanden er klar til at trække det første julemotiv.';
   }
   function active(pid,turn){return state&&state.started&&!state.finished&&!state.awaitNext&&state.quiz&&state.quiz.turn===turn&&state.quiz.playerId===pid&&currentPlayer().id===pid;}
   function giftTarget(){return state&&state.players.length&&state.giftCount%state.players.length===0?state.giftCount/state.players.length:Number.MAX_SAFE_INTEGER}
@@ -103,14 +104,14 @@
         if(pid!=='host'||q.status!=='draw'||!q.drawPool.length)return false;
         q.last=q.drawPool.shift();q.drawn.push(q.last);
         const symbol=bingoSymbols.find(x=>x.id===q.last);
-        state.event='🔔 Julemanden trak '+symbol.icon+' '+symbol.name+'!';addLog(state.event);broadcastGame();return true;
+        state.event='Julemanden trak '+symbol.name+'!';addLog(state.event);broadcastGame();return true;
       }
       if(d.type==='bingoClaim'){
         const player=state.players.find(p=>p.id===pid);
         if(q.status!=='draw'||!player||!hasBingo(pid)||(state.owners[pid]||[]).length>=giftTarget())return false;
         q.status='gift';q.playerId=pid;q.recipient=pid;q.correct=true;q.fairOverride=false;
         state.turnIndex=state.players.findIndex(p=>p.id===pid);
-        state.event='🎉 JULEBINGO! '+player.name+' har tre på række og må vælge en gave.';addLog(state.event);broadcastGame({kind:'bingo',emoji:'🔔🎄🎁',title:'JULEBINGO!',text:player.name+' har fået tre julemotiver på række!'});return true;
+        state.event=' JULEBINGO! '+player.name+' har tre på række og må vælge en gave.';addLog(state.event);broadcastGame({kind:'bingo',emoji:'',title:'JULEBINGO!',text:player.name+' har fået tre julemotiver på række!'});return true;
       }
       if(d.type==='takeGift')return takeGiftHost(pid,d.gift,d.turn);
       return false;
@@ -171,7 +172,7 @@
   hostSkipCurrentGameTurn=function(){
     if(mode!=='host'||!state||state.finished||state.awaitNext||state.gameType!=='dice'||!state.quiz||state.quiz.status!=='roll'||state.quiz.playerId==='host')return false;
     const p=state.players.find(x=>x.id===state.quiz.playerId);state.quiz.status='done';state.quiz.die=null;state.quiz.correct=false;state.awaitNext=true;state.turns++;if(state.turns%state.players.length===0)state.round++;
-    state.event='⏭️ Værten sprang '+(p?p.name:'spillerens')+' tur over.';addLog(state.event);broadcastGame();return true;
+    state.event='⏭ Værten sprang '+(p?p.name:'spillerens')+' tur over.';addLog(state.event);broadcastGame();return true;
   };
   hostChooseGiftForPlayer=function(){
     if(mode!=='host'||!state||state.finished||state.awaitNext||!state.quiz||state.quiz.status!=='gift'||state.quiz.playerId==='host')return false;
@@ -183,8 +184,8 @@
     if(mode!=='host'||!q||q.playerId==='host'||state.awaitNext||state.finished)return;
     const player=state.players.find(p=>p.id===q.playerId);if(!player)return;
     let action='';
-    if(state.gameType==='dice'&&q.status==='roll')action='<button type="button" class="btn ghost hostRecoveryBtn" onclick="hostSkipCurrentGameTurn()">⏭️ VÆRT: SPRING '+escapeHtml(player.name).toUpperCase()+'S TUR OVER</button>';
-    if(q.status==='gift')action='<button type="button" class="btn ghost hostRecoveryBtn" onclick="hostChooseGiftForPlayer()">🎁 VÆRT: FORDEL EN GAVE FOR '+escapeHtml(player.name).toUpperCase()+'</button>';
+    if(state.gameType==='dice'&&q.status==='roll')action='<button type="button" class="btn ghost hostRecoveryBtn" onclick="hostSkipCurrentGameTurn()">⏭ VÆRT: SPRING '+escapeHtml(player.name).toUpperCase()+'S TUR OVER</button>';
+    if(q.status==='gift')action='<button type="button" class="btn ghost hostRecoveryBtn" onclick="hostChooseGiftForPlayer()"> VÆRT: FORDEL EN GAVE FOR '+escapeHtml(player.name).toUpperCase()+'</button>';
     if(action&&window.innerWidth<=700&&q.status==='gift'&&mobileSlot){mobileSlot.innerHTML=action;return}
     if(action){const box=document.createElement('div');box.className='hostRecovery';box.innerHTML=action+'<small>Brug kun nødhjælpen, hvis spilleren er gået offline eller ikke kan fortsætte.</small>';panel.appendChild(box)}
   }
@@ -256,26 +257,26 @@
     const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
     add('div','JULECENTRALENS SPILLESTUE','christmasEyebrow');
     add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':state.gameType==='bingo'?'JULEBINGO':'JULEQUIZZEN');
-    const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','⚖️ RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
+    const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','⚖ RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
     let balance=document.getElementById('giftBalanceBoard');
     if(!balance){balance=document.createElement('div');balance.id='giftBalanceBoard';balance.className='giftBalanceBoard';document.getElementById('gifts').before(balance)}
-    balance.innerHTML=state.players.map(p=>{const count=(state.owners[p.id]||[]).length,done=count===target;return '<div class="giftBalancePlayer '+(done?'complete':'')+'">'+avatarMarkup(p.avatar,'giftBalanceAvatar')+'<span><b>'+escapeHtml(p.name)+'</b><small>'+count+' / '+target+' gaver</small></span><i>'+(done?'✓':'🎁')+'</i></div>'}).join('');
+    balance.innerHTML=state.players.map(p=>{const count=(state.owners[p.id]||[]).length,done=count===target;return '<div class="giftBalancePlayer '+(done?'complete':'')+'">'+avatarMarkup(p.avatar,'giftBalanceAvatar')+'<span><b>'+escapeHtml(p.name)+'</b><small>'+count+' / '+target+' gaver</small></span><i>'+(done?'✓':'')+'</i></div>'}).join('');
     if(!q){add('p','Venter på at Julecentralen starter …');return}
     if(state.gameType==='bingo'){
-      document.getElementById('phase').textContent='🔔 Julebingo';
+      document.getElementById('phase').textContent=' Julebingo';
       const me=state.players.find(p=>p.id===myId),board=(state.bingoBoards||{})[myId]||[],drawn=q.drawn||[],won=hasBingo(myId),winner=q.playerId&&state.players.find(p=>p.id===q.playerId);
-      document.getElementById('turnLead').textContent=q.status==='gift'?'🎉 VI HAR JULEBINGO':'🎅🏻 ALLE SPILLER MED';
+      document.getElementById('turnLead').textContent=q.status==='gift'?' VI HAR JULEBINGO':' ALLE SPILLER MED';
       document.getElementById('turnName').textContent=q.status==='gift'?(winner?winner.name:'JULEBINGO'):(me?me.name:'DIN BINGOPLADE');
       const call=add('div','','bingoCaller');
       const last=bingoSymbols.find(x=>x.id===q.last);
-      call.innerHTML=last?'<span>'+last.icon+'</span><div><small>JULEMANDEN TRAK</small><b>'+last.name+'</b></div>':'<span>🎅🏻</span><div><small>JULEMANDEN ER KLAR</small><b>Første motiv venter</b></div>';
+      call.innerHTML=last?bingoSymbolMarkup(last)+'<div><small>JULEMANDEN TRAK</small><b>'+last.name+'</b></div>':'<span class="bingoArt bingo-santa" aria-hidden="true"></span><div><small>JULEMANDEN ER KLAR</small><b>Første motiv venter</b></div>';
       const boardEl=add('div','','bingoBoard');
-      board.forEach((id,i)=>{const symbol=bingoSymbols.find(x=>x.id===id),cell=document.createElement('div');cell.className='bingoCell '+(drawn.includes(id)?'marked':'');cell.innerHTML='<span>'+symbol.icon+'</span><small>'+symbol.name+'</small>';cell.setAttribute('aria-label',symbol.name+(drawn.includes(id)?' markeret':''));boardEl.appendChild(cell)});
+      board.forEach((id,i)=>{const symbol=bingoSymbols.find(x=>x.id===id),cell=document.createElement('div');cell.className='bingoCell '+(drawn.includes(id)?'marked':'');cell.innerHTML=bingoSymbolMarkup(symbol)+'<small>'+symbol.name+'</small>';cell.setAttribute('aria-label',symbol.name+(drawn.includes(id)?' markeret':''));boardEl.appendChild(cell)});
       const progress=add('div',(drawn.length||0)+' af '+bingoSymbols.length+' motiver trukket','bingoProgress');
       if(q.status==='draw'){
         const action=add('div','','bingoActions');
-        if(mode==='host'){const draw=document.createElement('button');draw.type='button';draw.className='btn gold';draw.textContent='🔔 TRÆK NÆSTE MOTIV';draw.disabled=!q.drawPool||!q.drawPool.length;draw.onclick=hostBingoDraw;action.appendChild(draw)}
-        const claim=document.createElement('button');claim.type='button';claim.className='btn green bingoClaim';claim.textContent=won?'🎉 JULEBINGO!':'⭐ MANGLER EN RÆKKE';claim.disabled=!won||sending||(state.owners[myId]||[]).length>=giftTarget();claim.onclick=requestBingo;action.appendChild(claim);
+        if(mode==='host'){const draw=document.createElement('button');draw.type='button';draw.className='btn gold';draw.textContent=' TRÆK NÆSTE MOTIV';draw.disabled=!q.drawPool||!q.drawPool.length;draw.onclick=hostBingoDraw;action.appendChild(draw)}
+        const claim=document.createElement('button');claim.type='button';claim.className='btn green bingoClaim';claim.textContent=won?' JULEBINGO!':'⭐ MANGLER EN RÆKKE';claim.disabled=!won||sending||(state.owners[myId]||[]).length>=giftTarget();claim.onclick=requestBingo;action.appendChild(claim);
         document.getElementById('instruction').textContent=won?'Du har tre på række – tryk JULEBINGO!':'Følg Julemandens motiver på din egen plade.';
       }else{
         add('p',winner&&winner.id===myId?'Du har julebingo! Vælg nu en gave fra bunken.':winner.name+' har julebingo og vælger en gave.','quizFeedback');
@@ -344,7 +345,7 @@
 
   function repairEqualGiftDistribution(){
     if(!state||!Array.isArray(state.players)||!state.players.length||!Number.isSafeInteger(state.giftCount)||state.giftCount<1||state.giftCount%state.players.length!==0)return false;
-    const target=state.giftCount/state.players.length,seen=new Set(),pool=[];
+    const target=state.giftCount/state.players.length,seen=new Set();
     state.owners=state.owners||{};
     for(const player of state.players){
       const clean=[];
@@ -354,20 +355,12 @@
       }
       state.owners[player.id]=clean;
     }
-    for(let gift=1;gift<=state.giftCount;gift++)if(!seen.has(gift))pool.push(gift);
-    for(const player of state.players){
-      while(state.owners[player.id].length>target)pool.push(state.owners[player.id].pop());
-    }
-    pool.sort((a,b)=>a-b);
-    for(const player of state.players){
-      while(state.owners[player.id].length<target&&pool.length)state.owners[player.id].push(pool.shift());
-      state.owners[player.id].sort((a,b)=>a-b);
-    }
+    for(const player of state.players)state.owners[player.id].sort((a,b)=>a-b);
     state.taken=state.players.flatMap(player=>state.owners[player.id]).sort((a,b)=>a-b);
     validateGameState();
     const assigned=state.players.flatMap(player=>state.owners[player.id]);
     const valid=assigned.length===state.giftCount&&new Set(assigned).size===state.giftCount&&state.players.every(player=>state.owners[player.id].length===target);
-    if(valid){const line='⚖️ Slutkontrol bestået: '+state.players.length+' spillere har præcis '+target+' gave(r) hver.';if(!state.log||state.log[state.log.length-1]!==line)addLog(line)}
+    if(valid){const line='Slutkontrol bestået: '+state.players.length+' spillere har præcis '+target+' gave(r) hver.';if(!state.log||state.log[state.log.length-1]!==line)addLog(line)}
     return valid;
   }
 
@@ -376,7 +369,7 @@
     if(state&&state.taken.length>=state.giftCount){
       if(!repairEqualGiftDistribution()){
         state.finished=false;
-        state.event='⚠️ Julecentralen kunne ikke godkende gavefordelingen. Spillet er sat på pause uden at åbne pakkerne.';
+        state.event='⚠ Julecentralen kunne ikke godkende gavefordelingen. Spillet er sat på pause uden at åbne pakkerne.';
         addLog(state.event);
         if(mode==='host')broadcastGame();
         return false;
@@ -388,10 +381,11 @@
 
   function sendFinishState(special){
     renderFinish();cloudSaveState();
+    const broadcastSpecial=special&&special.kind==='steal'?null:special;
     if(mode==='host'&&realtimeChannel){
-      for(const p of state.players.filter(x=>x.id!=='host'))rtSend('host-message',{target:p.device,type:'state',state:publicStateFor(p.id),special:special||null});
+      for(const p of state.players.filter(x=>x.id!=='host'))rtSend('host-message',{target:p.device,type:'state',state:publicStateFor(p.id),special:broadcastSpecial||null});
     }
-    if(special)showSpecial(special);
+    if(broadcastSpecial)showSpecial(broadcastSpecial);
   }
 
   startStealRound=function(){
@@ -401,16 +395,16 @@
     if(!equal.length||!equal.every(n=>n===equal[0])||equal[0]<1){alert('Tyverirunden kan først starte, når alle har lige mange gaver.');return}
     state.stealRound={active:true,completed:false,turnIndex:secureRandomInt(state.players.length),turns:0,maxTurns:state.players.length*3,status:'roll',die:null,history:[]};
     const player=state.players[state.stealRound.turnIndex];
-    addLog('🎁 Tyverirunden begyndte. '+player.name+' starter.');
-    sendFinishState({kind:'steal',emoji:'🎲🔔🎁',title:'TYVERIRUNDEN STARTER!',text:player.name+' skal slå en 1’er for at få lov til at bytte en gave.'});
+    addLog(' Tyverirunden begyndte. '+player.name+' starter.');
+    sendFinishState({kind:'steal',emoji:'',title:'TYVERIRUNDEN STARTER!',text:player.name+' skal slå en 1’er for at få lov til at bytte en gave.'});
   };
 
   endStealRound=function(){
     if(mode!=='host'||!state||!state.stealRound||!state.stealRound.active)return;
     if(!repairEqualGiftDistribution()){alert('Afslutningen blev stoppet, fordi gavefordelingen ikke kunne godkendes.');return}
     state.stealRound.active=false;state.stealRound.completed=true;
-    addLog('🔔 Værten afsluttede tyverirunden.');
-    sendFinishState({kind:'finish',emoji:'🔔🎁🔔',title:'GAVERNE MÅ ÅBNES!',text:'Alle har lige mange gaver – nu må pakkerne åbnes!'});
+    addLog(' Værten afsluttede tyverirunden.');
+    sendFinishState({kind:'finish',emoji:'',title:'GAVERNE MÅ ÅBNES!',text:'Alle har lige mange gaver – nu må pakkerne åbnes!'});
   };
 
   stealRollHost=function(pid,turn){
@@ -420,8 +414,8 @@
     if(!player||player.id!==pid)return false;
     sr.die=secureRandomInt(6)+1;
     sr.status=sr.die===1?'gift':'done';
-    addLog('🎲 '+player.name+' slog '+sr.die+(sr.die===1?' og må bytte en gave!':'. Ingen gavebytte denne gang.'));
-    sendFinishState({kind:'steal',emoji:sr.die===1?'🎲🎁✨':'🎲❄️🎲',title:sr.die===1?'DU SLOG EN 1’ER!':'TERNINGEN VISTE '+sr.die,text:sr.die===1?'Vælg nu en lukket pakke fra en anden spiller.':'Ingen gavebytte på denne tur.'});
+    addLog(' '+player.name+' slog '+sr.die+(sr.die===1?' og må bytte en gave!':'. Ingen gavebytte denne gang.'));
+    sendFinishState({kind:'steal',emoji:sr.die===1?'✨':'❄',title:sr.die===1?'DU SLOG EN 1’ER!':'TERNINGEN VISTE '+sr.die,text:sr.die===1?'Vælg nu en lukket pakke fra en anden spiller.':'Ingen gavebytte på denne tur.'});
     return true;
   };
 
@@ -438,9 +432,9 @@
     state.owners[pid]=state.owners[pid].filter(g=>g!==returned);
     state.owners[pid].push(gift);state.owners[victim.id].push(returned);
     sr.history.push({thief:pid,victim:victim.id,gift,returned});
-    addLog('🎁 '+thief.name+' stjal gave #'+gift+' fra '+victim.name+'. En hemmelig pakke blev sendt tilbage.');
+    addLog(' '+thief.name+' stjal gave #'+gift+' fra '+victim.name+'. En hemmelig pakke blev sendt tilbage.');
     sr.status='done';
-    sendFinishState({kind:'steal',emoji:'🎁✨🎁',title:'PAKKEN ER BYTTET!',text:thief.name+' og '+victim.name+' har byttet en hemmelig pakke.'});
+    sendFinishState({kind:'steal',emoji:'✨',title:'PAKKEN ER BYTTET!',text:thief.name+' og '+victim.name+' har byttet en hemmelig pakke.'});
     return true;
   };
 
@@ -451,12 +445,12 @@
     if(sr.turns>=sr.maxTurns){
       if(!repairEqualGiftDistribution()){alert('Afslutningen blev stoppet, fordi gavefordelingen ikke kunne godkendes.');return false}
       sr.active=false;sr.completed=true;
-      sendFinishState({kind:'finish',emoji:'🔔🎁🔔',title:'TYVERIRUNDEN ER SLUT!',text:'Alle har stadig lige mange gaver. Nu må pakkerne åbnes!'});
+      sendFinishState({kind:'finish',emoji:'',title:'TYVERIRUNDEN ER SLUT!',text:'Alle har stadig lige mange gaver. Nu må pakkerne åbnes!'});
     }else{
       sr.turnIndex=(sr.turnIndex+1)%state.players.length;
       sr.status='roll';sr.die=null;
       const next=state.players[sr.turnIndex];
-      sendFinishState({kind:'steal',emoji:'🎲🎄🎲',title:'NÆSTE TERNINGEKAST!',text:next.name+' skal nu forsøge at slå en 1’er.'});
+      sendFinishState({kind:'steal',emoji:'',title:'NÆSTE TERNINGEKAST!',text:next.name+' skal nu forsøge at slå en 1’er.'});
     }
     return true;
   };
@@ -465,7 +459,7 @@
     const sr=state&&state.stealRound;
     if(mode!=='host'||!sr||!sr.active||!state.players[sr.turnIndex])return false;
     const skipped=state.players[sr.turnIndex];
-    addLog('⏭️ Værten sprang '+skipped.name+'s tur over.');
+    addLog('⏭ Værten sprang '+skipped.name+'s tur over.');
     sr.status='done';
     return hostNextStealTurn();
   };
@@ -492,9 +486,7 @@
     /* Slutvisningen må altid bygges fra én kanonisk ejerliste. Det forhindrer
        gamle klientdata i at vise en anden fordeling end værten. */
     if(state&&state.finished){
-      const before=JSON.stringify(state.owners||{});
       repairEqualGiftDistribution();
-      if(mode==='host'&&before!==JSON.stringify(state.owners||{}))broadcastGame();
     }
     oldRenderFinish();
     const sr=state.stealRound||{active:false,completed:false};
@@ -509,10 +501,10 @@
       const target=state.players.length?state.giftCount/state.players.length:0,equal=Number.isInteger(target)&&state.players.every(p=>(state.owners[p.id]||[]).length===target);
       let seal=document.getElementById('fairFinalSeal');
       if(!seal){seal=document.createElement('div');seal.id='fairFinalSeal';seal.className='fairFinalSeal';document.getElementById('scores').before(seal)}
-      seal.innerHTML=equal?'<span>✓</span><div><b>JULECENTRALENS SLUTKONTROL BESTÅET</b><small>Alle spillere har præcis '+target+' '+(target===1?'gave':'gaver')+' hver</small></div>':'<span>!</span><div><b>FORDELINGEN SKAL KONTROLLERES</b><small>Pakkerne må ikke åbnes endnu</small></div>';
+      seal.innerHTML=equal?luxIconMarkup('star')+'<div><b>JULECENTRALENS SLUTKONTROL BESTÅET</b><small>Alle spillere har præcis '+target+' '+(target===1?'gave':'gaver')+' hver</small></div>':luxIconMarkup('settings')+'<div><b>FORDELINGEN SKAL KONTROLLERES</b><small>Pakkerne må ikke åbnes endnu</small></div>';
       seal.classList.toggle('warning',!equal);
       document.getElementById('finishTitle').textContent=sr.completed?'GAVERNE MÅ ÅBNES!':'GAVERNE ER FORDELT!';
-      if(sr.completed)intro.innerHTML='<div class="big">🎁🔔🎁</div><h2>TYVERIRUNDEN ER SLUT!</h2><p>Alle har stadig lige mange gaver. Nu må de hemmelige pakker åbnes!</p>';
+      if(sr.completed)intro.innerHTML='<div class="big"></div><h2>TYVERIRUNDEN ER SLUT!</h2><p>Alle har stadig lige mange gaver. Nu må de hemmelige pakker åbnes!</p>';
       return;
     }
     const finalSeal=document.getElementById('fairFinalSeal');if(finalSeal)finalSeal.remove();
@@ -522,18 +514,19 @@
     const round=Math.floor(sr.turns/state.players.length)+1;
     let html='<div class="stealRibbon">RUNDE '+round+' AF 3 · TUR '+(sr.turns+1)+' AF '+sr.maxTurns+'</div><h2>'+(mine?'DET ER DIN TUR, ':'NU SPILLER ')+escapeHtml(current.name).toUpperCase()+'</h2>';
     if(sr.status==='roll'){
-      html+='<p>Slå en <b>1’er</b> for at få lov til at bytte én gave.</p><div class="stealDie unrolled">🎲</div>'+(mine&&!stealSending?'<button class="btn stealRollBtn" onclick="requestStealRoll()">SLÅ MED TERNINGEN</button>':'<div class="stealWaiting">Venter på terningekastet…</div>')+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">⏭️ SPRING SPILLEREN OVER</button>':'');
+      html+='<p>Slå en <b>1’er</b> for at få lov til at bytte én gave.</p><div class="stealDie unrolled">'+luxIconMarkup('die')+'</div>'+(mine&&!stealSending?'<button class="btn stealRollBtn" onclick="requestStealRoll()">'+luxIconMarkup('die')+'<span>SLÅ MED TERNINGEN</span></button>':'<div class="stealWaiting">Venter på terningekastet…</div>')+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">SPRING SPILLEREN OVER</button>':'');
       panel.innerHTML=html;return;
     }
-    html+='<div class="stealDie"> '+['','⚀','⚁','⚂','⚃','⚄','⚅'][sr.die]+'</div>';
+    const stealPips={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+    html+='<div class="stealDie visualDie" role="img" aria-label="Terningen viser '+sr.die+'">'+stealPips[sr.die].map(pos=>'<i class="stealPip" style="grid-area:'+Math.ceil(pos/3)+' / '+((pos-1)%3+1)+'"></i>').join('')+'</div>';
     if(sr.status==='done'){
       html+='<p>'+(sr.die===1?'Gaven er byttet.':'Terningen viste '+sr.die+'. Der bliver ikke byttet en gave på denne tur.')+'</p>'+(mode==='host'?'<button class="btn gold stealNextBtn" onclick="hostNextStealTurn()">NÆSTE TUR ➜</button>':'<div class="stealWaiting">Værten fortsætter til næste spiller…</div>');
       panel.innerHTML=html;return;
     }
-    html+='<p>'+(mine?'Du slog en 1’er! Vælg én lukket gave fra en anden spiller. Julecentralen sender automatisk én af dine pakker tilbage.':escapeHtml(current.name)+' slog en 1’er og vælger nu en pakke.')+'</p>'+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">⏭️ SPRING SPILLEREN OVER</button>':'')+'<div class="stealOwners">';
+    html+='<p>'+(mine?'Du slog en 1’er! Vælg én lukket gave fra en anden spiller. Julecentralen sender automatisk én af dine pakker tilbage.':escapeHtml(current.name)+' slog en 1’er og vælger nu en pakke.')+'</p>'+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">⏭ SPRING SPILLEREN OVER</button>':'')+'<div class="stealOwners">';
     for(const owner of state.players.filter(p=>p.id!==current.id)){
       html+='<div class="stealOwner"><b class="stealOwnerName">'+avatarMarkup(owner.avatar,'stealAvatar')+' '+escapeHtml(owner.name)+'</b><div class="stealGifts">';
-      for(const gift of (state.owners[owner.id]||[]))html+='<button class="stealGift" '+(mine&&!stealSending?'':'disabled')+' onclick="requestSteal('+gift+')"><span>🎁</span><small>PAKKE #'+gift+'</small></button>';
+      for(const gift of (state.owners[owner.id]||[]))html+='<button class="stealGift" '+(mine&&!stealSending?'':'disabled')+' onclick="requestSteal('+gift+')"><span></span><small>PAKKE #'+gift+'</small></button>';
       html+='</div></div>';
     }
     panel.innerHTML=html+'</div>';
