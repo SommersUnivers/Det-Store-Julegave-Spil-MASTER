@@ -4499,7 +4499,7 @@ body:has(#join.active) .joinSnowOverlay {
 .stealPip{display:block;width:clamp(16px,3vw,25px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff6781,#9b0027 52%,#4e0014);box-shadow:inset 1px 2px 3px #ffd0d5,0 2px 4px #3a0011aa}
 .stealRollBtn{display:flex;align-items:center;justify-content:center;gap:10px}.stealRollBtn .luxIcon{width:44px;margin:0}
 
-/* V81 – synlig QR-invitation og indbygget kamerascanner. */
+/* V82 – synlig QR-invitation og indbygget kamerascanner. */
 .qr #qrCode{display:grid;place-items:center;width:100%;min-height:220px;padding:5px;border-radius:13px;background:#fffdf4}
 .qr #qrCode canvas,.qr #qrCode img{display:block!important;width:min(100%,220px)!important;height:auto!important;image-rendering:pixelated}
 #join>.card>.scanQrBtn,#join>.card>.qrScannerPanel{grid-column:1/-1}

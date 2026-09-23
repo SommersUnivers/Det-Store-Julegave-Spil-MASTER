@@ -66,7 +66,7 @@
   window.chooseChristmasGame=function(type){
     if(!['bingo','dice'].includes(type))return;
     selectedGame=type;show('host');
-    document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Slå en 6’er – julehjælp efter seks forgæves kast':'Julebingo · Få tre julemotiver på række og vælg en gave';
+    document.getElementById('selectedGameLabel').textContent=type==='dice'?'Klassisk terningespil · Kun en 6’er giver en gave':'Julebingo · Få tre julemotiver på række og vælg en gave';
   };
   initState=function(){const s=oldInit();s.gameType=selectedGame;s.diceMisses=0;if(['dice','bingo'].includes(selectedGame))s.settings={...s.settings,chaos:false,duels:false,santa:false,chaosChance:0};return s;};
   const oldLobby=broadcastLobby, oldPlayerData=handlePlayerData;
@@ -119,11 +119,11 @@
     if(!active(pid,d.turn))return false;
     if(d.type==='diceRoll'){
       if(state.gameType!=='dice'||q.status!=='roll')return false;
-      q.die=secureRandomInt(6)+1;state.diceMisses=q.die===6?0:(state.diceMisses||0)+1;q.mercy=q.die!==6&&state.diceMisses>=6;q.correct=q.die===6||q.mercy;if(q.correct)state.diceMisses=0;
+      q.die=secureRandomInt(6)+1;q.mercy=false;q.correct=q.die===6;state.diceMisses=0;
       const fair=q.correct?fairRecipient(pid):null;
       if(q.correct&&!fair){validateGameState();if(state.taken.length>=state.giftCount){finishGame();return true}q.correct=false;q.mercy=false}
       q.status=q.correct?'gift':'done';q.recipient=fair?fair.id:null;q.fairOverride=!!(fair&&fair.id!==pid);
-      state.event=currentPlayer().name+' slog '+q.die+(q.mercy?' – Julemandens hjælp giver en gave efter seks forgæves kast!':q.correct?(q.fairOverride?' og vælger en gave til '+fair.name+', som mangler en gave!':' og må vælge en gave!'):'. Ingen gave på denne tur.');
+      state.event=currentPlayer().name+' slog '+q.die+(q.correct?(q.fairOverride?' og vælger en gave til '+fair.name+', som mangler en gave!':' og må vælge en gave!'):'. Kun en 6’er giver en gave, så turen går videre.');
       addLog(state.event);
       if(!q.correct){state.awaitNext=true;state.turns++;if(state.turns%state.players.length===0)state.round++;}
       broadcastGame();return true;
@@ -295,7 +295,7 @@
       else {face.textContent='✦';face.classList.add('unrolled');}
       face.setAttribute('aria-label',q.die?'Terningen viser '+q.die:'Terningen er ikke slået');
       const diceTo=q.recipient&&state.players.find(p=>p.id===q.recipient);
-      const label=q.status==='roll'?(mine?'Slå med terningen. En 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?(q.mercy?'Julemandens hjælp! Vælg en gave fra bunken til ':'Du må vælge en gave fra bunken til ')+(diceTo&&diceTo.id!==q.playerId?diceTo.name:'dig selv')+'.':currentPlayer().name+(q.mercy?' fik Julemandens hjælp og vælger en gave.':' vælger en gave.')) : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
+      const label=q.status==='roll'?(mine?'Slå med terningen. Kun en 6’er giver en gave!':'Vent, mens '+currentPlayer().name+' slår.') :q.status==='gift'?(mine?'Du slog en 6’er! Vælg en gave fra bunken til '+(diceTo&&diceTo.id!==q.playerId?diceTo.name:'dig selv')+'.':currentPlayer().name+' slog en 6’er og vælger en gave.') : 'Terningen viste '+q.die+'. '+(q.correct?'Gaven er fordelt. ':'Ingen gave denne gang. ')+'Værten fortsætter til næste spiller.';
       const feedback=add('p',sending?'Sender dit kast …':label,'quizFeedback');feedback.id='quizFeedback';feedback.setAttribute('aria-live','polite');
       if(q.status==='roll'){const b=add('button','SLÅ MED TERNINGEN','btn green');b.type='button';b.disabled=!can;b.addEventListener('click',()=>sendAction('diceRoll'));}
       document.getElementById('instruction').textContent=label;
