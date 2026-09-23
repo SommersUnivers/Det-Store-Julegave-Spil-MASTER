@@ -4471,6 +4471,33 @@ body:has(#join.active) .joinSnowOverlay {
   }
 }
 
+/* V86 FINAL OVERRIDES — skal ligge efter alle ældre terningeregler. */
+#finish.stealActive .stealDie.visualDie,
+#game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{
+  position:relative!important;
+  isolation:isolate;
+  border:4px solid #f4d47a!important;
+  border-radius:29px!important;
+  background:radial-gradient(circle at 27% 19%,#fff 0 4%,rgba(255,255,255,.58) 5%,transparent 17%),radial-gradient(circle at 72% 80%,rgba(175,117,29,.22),transparent 38%),linear-gradient(145deg,#fffef8 0%,#fff3c9 48%,#e8c069 100%)!important;
+  box-shadow:0 0 0 2px #7c430b,0 9px 0 #9a5d12,0 12px 0 #4a2107,0 22px 30px rgba(0,12,22,.65),inset 6px 7px 12px rgba(255,255,255,.95),inset -9px -10px 18px rgba(122,72,13,.22)!important;
+  transform:perspective(600px) rotateX(3deg) rotateZ(-1deg)!important;
+}
+#finish.stealActive .stealDie.visualDie{width:116px!important;padding:24px!important;margin:13px auto 20px!important}
+#game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{width:132px!important;padding:24px!important;margin:12px auto 21px!important}
+#finish.stealActive .stealPip,
+#game.active .gamePlayColumn .quizPanel.christmasDice .diePip{
+  width:17px!important;
+  border:1px solid #5e0017!important;
+  background:radial-gradient(circle at 33% 28%,#ffb1bc 0 5%,#b20b37 22%,#72001e 58%,#36000e 100%)!important;
+  box-shadow:inset 2px 3px 4px rgba(255,190,199,.38),inset -2px -3px 4px rgba(40,0,8,.65),0 2px 3px rgba(38,0,11,.42)!important;
+}
+@media(max-width:700px){
+  #finish.stealActive .stealDie.visualDie{width:94px!important;padding:19px!important}
+  #finish.stealActive .stealPip{width:13px!important}
+  #game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{width:min(98px,21dvh)!important;padding:18px!important;margin:6px auto 12px!important}
+  #game.active .gamePlayColumn .quizPanel.christmasDice .diePip{width:13px!important}
+}
+
 /* =========================================================
    V84 — komplet luksus-tyverifinale
    ========================================================= */
@@ -4635,6 +4662,66 @@ body:has(#join.active) .joinSnowOverlay {
   .stealGifts{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stealGift{min-height:112px}
   .stealGift img{width:70px;height:65px}
+}
+
+/* =========================================================
+   V86 — kongelig elfenbensterning og tydelig gavefordeling
+   ========================================================= */
+#finish .stealDie,
+#game.active .gamePlayColumn .christmasDice .diceFace{
+  position:relative;
+  isolation:isolate;
+  border:4px solid #f4d47a;
+  border-radius:29px;
+  background:
+    radial-gradient(circle at 27% 19%,#fff 0 4%,rgba(255,255,255,.58) 5%,transparent 17%),
+    radial-gradient(circle at 72% 80%,rgba(175,117,29,.22),transparent 38%),
+    linear-gradient(145deg,#fffef8 0%,#fff3c9 48%,#e8c069 100%);
+  box-shadow:
+    0 0 0 2px #7c430b,
+    0 9px 0 #9a5d12,
+    0 12px 0 #4a2107,
+    0 22px 30px rgba(0,12,22,.65),
+    inset 6px 7px 12px rgba(255,255,255,.95),
+    inset -9px -10px 18px rgba(122,72,13,.22);
+  transform:perspective(600px) rotateX(3deg) rotateZ(-1deg);
+}
+#finish .stealDie::before,
+#game.active .gamePlayColumn .christmasDice .diceFace::before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:7px;
+  border:1px solid rgba(255,255,255,.78);
+  border-radius:21px;
+  pointer-events:none;
+}
+#finish .stealPip,
+#game.active .gamePlayColumn .diePip{
+  position:relative;
+  z-index:2;
+  width:17px;
+  border:1px solid #5e0017;
+  background:
+    radial-gradient(circle at 33% 28%,#ffb1bc 0 5%,#b20b37 22%,#72001e 58%,#36000e 100%);
+  box-shadow:inset 2px 3px 4px rgba(255,190,199,.38),inset -2px -3px 4px rgba(40,0,8,.65),0 2px 3px rgba(38,0,11,.42);
+}
+#finish .stealDie{width:116px!important;padding:24px!important;margin:13px auto 20px!important}
+#finish .stealDie.unrolled{padding:17px!important}
+#game.active .gamePlayColumn .christmasDice .diceFace{width:132px;padding:24px;margin:12px auto 21px}
+#game.active .gamePlayColumn .christmasDice .diceFace.unrolled{padding:17px}
+.giftBalancePlayer.complete{
+  border-color:#9ff0c3;
+  background:linear-gradient(120deg,#0a7653,#054735);
+  box-shadow:0 0 0 2px #d4b14a,0 0 15px rgba(78,232,165,.25),inset 0 1px 0 #fff3;
+}
+.giftBalancePlayer.complete small::after{content:" · FÆRDIG";color:#b9ffd8;font-weight:950}
+
+@media(max-width:700px){
+  #finish .stealDie{width:94px!important;padding:19px!important}
+  #finish .stealPip{width:13px}
+  #game.active .gamePlayColumn .christmasDice .diceFace{width:min(98px,21dvh);padding:18px;margin:6px auto 12px}
+  #game.active .gamePlayColumn .diePip{width:13px}
 }
 
 /* V80 – illustrerede bingobrikker. Ingen telefon-emojis i spillefladen. */
@@ -5825,3 +5912,16 @@ body:has(#join.active) .wrap {
     padding:50px 76px 22px;
   }
 }
+
+/* V86 END — endelig prioritet til de nye luksusterninger. */
+#finish.stealActive .stealDie.visualDie,
+#game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{
+  position:relative!important;isolation:isolate;border:4px solid #f4d47a!important;border-radius:29px!important;
+  background:radial-gradient(circle at 27% 19%,#fff 0 4%,rgba(255,255,255,.58) 5%,transparent 17%),radial-gradient(circle at 72% 80%,rgba(175,117,29,.22),transparent 38%),linear-gradient(145deg,#fffef8 0%,#fff3c9 48%,#e8c069 100%)!important;
+  box-shadow:0 0 0 2px #7c430b,0 9px 0 #9a5d12,0 12px 0 #4a2107,0 22px 30px rgba(0,12,22,.65),inset 6px 7px 12px rgba(255,255,255,.95),inset -9px -10px 18px rgba(122,72,13,.22)!important;
+  transform:perspective(600px) rotateX(3deg) rotateZ(-1deg)!important;
+}
+#finish.stealActive .stealDie.visualDie{width:116px!important;padding:24px!important;margin:13px auto 20px!important}
+#game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{width:132px!important;padding:24px!important;margin:12px auto 21px!important}
+#finish.stealActive .stealPip,#game.active .gamePlayColumn .quizPanel.christmasDice .diePip{width:17px!important;border:1px solid #5e0017!important;background:radial-gradient(circle at 33% 28%,#ffb1bc 0 5%,#b20b37 22%,#72001e 58%,#36000e 100%)!important;box-shadow:inset 2px 3px 4px rgba(255,190,199,.38),inset -2px -3px 4px rgba(40,0,8,.65),0 2px 3px rgba(38,0,11,.42)!important}
+@media(max-width:700px){#finish.stealActive .stealDie.visualDie{width:94px!important;padding:19px!important}#finish.stealActive .stealPip{width:13px!important}#game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{width:min(98px,21dvh)!important;padding:18px!important;margin:6px auto 12px!important}#game.active .gamePlayColumn .quizPanel.christmasDice .diePip{width:13px!important}}
