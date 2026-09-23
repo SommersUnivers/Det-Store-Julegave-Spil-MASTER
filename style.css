@@ -4471,6 +4471,172 @@ body:has(#join.active) .joinSnowOverlay {
   }
 }
 
+/* =========================================================
+   V84 — komplet luksus-tyverifinale
+   ========================================================= */
+#finish.stealActive .finishBrand{
+  min-height:220px;
+  padding-top:103px;
+  background:
+    radial-gradient(circle at 50% 5%,rgba(255,218,111,.32),transparent 36%),
+    linear-gradient(120deg,#7e092c,#3e0a24 53%,#083d3b)!important;
+}
+#finish.stealActive .finishBrand h1{font-size:clamp(40px,6vw,70px)}
+#finish.stealActive .finishCard{
+  background:
+    radial-gradient(circle at 50% 0,rgba(59,211,157,.13),transparent 32%),
+    linear-gradient(145deg,#6b0b29,#26081c 50%,#043d39);
+}
+#finish.stealActive .finishActions{grid-template-columns:1fr}
+#finish.stealActive #stealEndBtn{max-width:650px;margin-inline:auto!important}
+#finish.stealActive #stealEndBtn:disabled{
+  opacity:.7;
+  cursor:not-allowed;
+  color:#6e5429;
+  background:linear-gradient(#fff8db,#d8b663);
+}
+#finish .stealPanel{
+  padding:17px;
+  border:2px solid #ffe28a;
+  border-radius:23px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(83,215,169,.18),transparent 35%),
+    radial-gradient(circle at 96% 92%,rgba(255,208,80,.14),transparent 28%),
+    linear-gradient(145deg,#075440,#032f2e 62%,#071e31);
+  box-shadow:0 0 0 4px #7b430c,0 12px 0 #321006,0 22px 35px #0008,inset 0 1px 0 #fff5;
+}
+.stealProgress{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:8px;
+  margin-bottom:12px;
+}
+.stealProgressPlayer{
+  display:grid;
+  grid-template-columns:43px minmax(0,1fr) auto;
+  align-items:center;
+  gap:9px;
+  min-height:58px;
+  padding:7px 10px;
+  border:1px solid #b3842b;
+  border-radius:13px;
+  color:#f8e9ba;
+  background:linear-gradient(130deg,#17384a,#111c32);
+  box-shadow:inset 0 1px 0 #fff2;
+}
+.stealProgressPlayer.current{
+  border-color:#fff0a5;
+  background:linear-gradient(130deg,#9a0c35,#4d0922);
+  box-shadow:0 0 0 2px #c89229,0 0 18px #ffcd4c44,inset 0 1px 0 #fff4;
+}
+.stealProgressPlayer.complete{background:linear-gradient(130deg,#0c7652,#064335)}
+.stealProgressAvatar{width:41px;height:41px}
+.stealProgressPlayer>span{display:grid;min-width:0;text-align:left}
+.stealProgressPlayer>span b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.stealProgressPlayer>span small{font-size:10px;color:#d9cfad}
+.stealProgressPlayer>i{display:flex;gap:4px}
+.stealProgressPlayer em{
+  width:13px;height:13px;border:2px solid #e2bd5d;border-radius:50%;background:#2a2631;box-shadow:inset 0 1px 3px #000;
+}
+.stealProgressPlayer em.filled{background:#78f0b5;box-shadow:0 0 8px #55e9a4,inset 0 1px 1px #fff}
+.stealTurnHero{
+  display:grid;
+  grid-template-columns:78px minmax(0,1fr);
+  align-items:center;
+  gap:15px;
+  padding:11px 17px;
+  border:1px solid #f2cf6f;
+  border-radius:17px;
+  text-align:left;
+  background:linear-gradient(100deg,#790d30,#4a0925 58%,#124846);
+  box-shadow:0 8px 18px #001b1a88,inset 0 1px 0 #fff4;
+}
+.stealHeroAvatar{width:72px;height:72px;filter:drop-shadow(0 7px 5px #0007)}
+.stealTurnHero small{color:#ffe49b;font-size:10px;font-weight:950;letter-spacing:.17em}
+.stealTurnHero h2{margin:3px 0 1px!important;font-size:clamp(23px,3.5vw,37px)!important}
+.stealTurnHero p{margin:0;color:#f6edcf;font-size:12px;font-weight:850}
+.stealSteps{
+  display:grid;
+  grid-template-columns:auto 1fr auto 1fr auto;
+  align-items:center;
+  gap:8px;
+  width:min(650px,100%);
+  margin:12px auto 10px;
+}
+.stealSteps span{display:flex;align-items:center;gap:5px;color:#799a91;font-size:10px;font-weight:950;letter-spacing:.12em}
+.stealSteps span i{display:grid;width:28px;height:28px;place-items:center;border:1px solid #6b8980;border-radius:50%;font-style:normal;background:#0a332e}
+.stealSteps span.active{color:#ffe79b}
+.stealSteps span.active i{color:#531124;border-color:#fff0a5;background:linear-gradient(#fff8d7,#d9aa39);box-shadow:0 0 12px #ffd75d66}
+.stealSteps>b{height:3px;border-radius:3px;background:linear-gradient(90deg,#d9a93b,#ffe48d,#d9a93b)}
+.stealInstruction,.stealResult{
+  display:grid;
+  gap:3px;
+  width:min(780px,100%);
+  margin:10px auto;
+  padding:10px 14px;
+  border:1px solid #d7a735;
+  border-radius:13px;
+  color:#43151b;
+  background:linear-gradient(100deg,#fff9dc,#e6c15e);
+  box-shadow:0 6px 14px #001b1a66,inset 0 1px 0 #fff;
+}
+.stealInstruction b,.stealResult b{font-size:14px;letter-spacing:.04em}
+.stealInstruction small,.stealResult small{font-size:11px;line-height:1.35}
+.stealInstruction.success,.stealResult.success{color:#f5ffea;background:linear-gradient(100deg,#0c8d61,#064a3d)}
+.stealResult.miss{background:linear-gradient(100deg,#fff8d8,#d8b151)}
+#finish .stealDie{
+  width:112px;
+  margin:11px auto 17px;
+  border-radius:24px;
+  box-shadow:0 0 0 4px #a36813,0 9px 0 #5a2509,0 16px 23px #001a1677,inset 6px 6px 12px #fff,inset -8px -9px 16px #9b641d40;
+}
+#finish .stealDie.unrolled{font-size:58px}
+#finish .visualDie{display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:22px}
+.stealRollBtn,.stealNextBtn,.stealAssistBtn{max-width:570px!important;min-height:58px!important}
+.stealAssistBtn{display:block;width:100%;margin:11px auto 0!important}
+.stealOwners{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.stealOwner{padding:10px;border:2px solid #d6a63a;border-radius:16px;background:linear-gradient(145deg,#fff9e8,#e6c875)}
+.stealOwnerName{display:flex!important;align-items:center;gap:9px;margin:0 0 8px!important}
+.stealOwnerName>span:last-child{display:grid}
+.stealOwnerName small{font-size:9px;color:#87521d;text-transform:uppercase;letter-spacing:.08em}
+.stealAvatar{width:42px;height:42px}
+.stealGifts{grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px}
+.stealGift{
+  min-height:125px;
+  padding:6px;
+  border:1px solid #f5d46e;
+  border-radius:13px;
+  background:radial-gradient(circle at 50% 18%,#881b32,#3b0718 75%);
+}
+.stealGift img{display:block;width:82px;height:76px;margin:0 auto;object-fit:contain;filter:drop-shadow(0 7px 5px #140005aa)}
+.stealGift span{display:block!important;font-size:12px!important;font-weight:950;filter:none!important}
+.stealGift small{margin-top:1px!important;color:#eacb7a;font-size:8px!important;text-transform:uppercase;letter-spacing:.06em}
+.stealGift:not(:disabled):hover{filter:brightness(1.13);transform:translateY(-2px)}
+
+@media (max-width:700px){
+  #finish.stealActive .finishBrand{min-height:174px;margin-top:40px;padding:70px 8px 14px}
+  #finish.stealActive .finishBrand h1{font-size:clamp(29px,9.4vw,43px)}
+  #finish .stealPanel{padding:10px 8px}
+  .stealProgress{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .stealProgressPlayer{grid-template-columns:35px minmax(0,1fr);min-height:50px;padding:5px 6px}
+  .stealProgressAvatar{width:34px;height:34px}
+  .stealProgressPlayer>i{grid-column:2}
+  .stealProgressPlayer em{width:10px;height:10px}
+  .stealTurnHero{grid-template-columns:57px minmax(0,1fr);padding:8px 10px}
+  .stealHeroAvatar{width:54px;height:54px}
+  .stealTurnHero h2{font-size:clamp(19px,6vw,28px)!important}
+  .stealTurnHero small{font-size:7px}
+  .stealSteps{gap:4px}
+  .stealSteps span{font-size:8px}
+  .stealSteps span i{width:24px;height:24px}
+  #finish .stealDie{width:96px;padding:18px}
+  #finish .stealDie.unrolled{font-size:48px}
+  .stealOwners{grid-template-columns:1fr}
+  .stealGifts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stealGift{min-height:112px}
+  .stealGift img{width:70px;height:65px}
+}
+
 /* V80 – illustrerede bingobrikker. Ingen telefon-emojis i spillefladen. */
 .bingoArt{display:inline-block;width:clamp(52px,7vw,82px);aspect-ratio:1;flex:0 0 auto;background-image:url("julebingo-luksus-v80.png");background-repeat:no-repeat;background-size:400% 300%;background-position:var(--bingo-x,0%) var(--bingo-y,0%);filter:drop-shadow(0 7px 7px rgba(10,2,4,.38))}
 .bingo-santa{--bingo-x:0%;--bingo-y:0%}.bingo-elf{--bingo-x:33.333%;--bingo-y:0%}.bingo-deer{--bingo-x:66.666%;--bingo-y:0%}.bingo-snowman{--bingo-x:100%;--bingo-y:0%}

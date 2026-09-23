@@ -374,7 +374,7 @@
         if(mode==='host')broadcastGame();
         return false;
       }
-      state.stealRound={active:false,completed:false,turnIndex:0,turns:0,maxTurns:state.players.length*3,status:'idle',die:null,history:[]};
+      state.stealRound={active:false,completed:false,turnIndex:0,turns:0,maxTurns:state.players.length*6,status:'idle',die:null,history:[],minSwaps:2,swapCounts:{},missStreaks:{}};
     }
     return oldFinish();
   };
@@ -390,19 +390,44 @@
 
   startStealRound=function(){
     if(mode!=='host'||!state||!state.finished)return;
+    if(state.players.length<2){alert('Tyverirunden kræver mindst to spillere, så der er nogen at bytte pakker med.');return}
     if(!repairEqualGiftDistribution()){alert('Julecentralens slutkontrol fandt en fejl i gavefordelingen. Tyverirunden er låst, indtil alle gaver kan fordeles lige.');return}
     const equal=state.players.map(p=>(state.owners[p.id]||[]).length);
     if(!equal.length||!equal.every(n=>n===equal[0])||equal[0]<1){alert('Tyverirunden kan først starte, når alle har lige mange gaver.');return}
-    state.stealRound={active:true,completed:false,turnIndex:secureRandomInt(state.players.length),turns:0,maxTurns:state.players.length*3,status:'roll',die:null,history:[]};
+    state.stealRound={active:true,completed:false,turnIndex:secureRandomInt(state.players.length),turns:0,maxTurns:state.players.length*6,status:'roll',die:null,history:[],minSwaps:2,swapCounts:{},missStreaks:{}};
+    for(const p of state.players){state.stealRound.swapCounts[p.id]=0;state.stealRound.missStreaks[p.id]=0}
     const player=state.players[state.stealRound.turnIndex];
     addLog(' Tyverirunden begyndte. '+player.name+' starter.');
-    sendFinishState({kind:'steal',emoji:'',title:'TYVERIRUNDEN STARTER!',text:player.name+' skal slå en 1’er for at få lov til at bytte en gave.'});
+    sendFinishState({kind:'steal',emoji:'',title:'TYVERIRUNDEN STARTER!',text:player.name+' starter. Alle skal gennemføre to bytter, og en 1’er åbner pakkevælgeren.'});
   };
+
+  function ensureStealProgress(sr){
+    sr.minSwaps=2;sr.swapCounts=sr.swapCounts||{};sr.missStreaks=sr.missStreaks||{};
+    for(const p of state.players){if(!Number.isInteger(sr.swapCounts[p.id]))sr.swapCounts[p.id]=0;if(!Number.isInteger(sr.missStreaks[p.id]))sr.missStreaks[p.id]=0}
+  }
+
+  function stealProgressComplete(sr){
+    ensureStealProgress(sr);return state.players.every(p=>sr.swapCounts[p.id]>=sr.minSwaps);
+  }
+
+  function nextStealPlayerIndex(sr){
+    ensureStealProgress(sr);
+    for(let step=1;step<=state.players.length;step++){
+      const index=(sr.turnIndex+step)%state.players.length;
+      if(sr.swapCounts[state.players[index].id]<sr.minSwaps)return index;
+    }
+    return -1;
+  }
 
   endStealRound=function(){
     if(mode!=='host'||!state||!state.stealRound||!state.stealRound.active)return;
+    const sr=state.stealRound;ensureStealProgress(sr);
+    if(!stealProgressComplete(sr)){
+      const missing=state.players.filter(p=>sr.swapCounts[p.id]<sr.minSwaps).map(p=>p.name+' mangler '+(sr.minSwaps-sr.swapCounts[p.id])).join(', ');
+      alert('Tyverirunden kan først afsluttes, når alle har gennemført to bytter. '+missing+'.');return;
+    }
     if(!repairEqualGiftDistribution()){alert('Afslutningen blev stoppet, fordi gavefordelingen ikke kunne godkendes.');return}
-    state.stealRound.active=false;state.stealRound.completed=true;
+    sr.active=false;sr.completed=true;
     addLog(' Værten afsluttede tyverirunden.');
     sendFinishState({kind:'finish',emoji:'',title:'GAVERNE MÅ ÅBNES!',text:'Alle har lige mange gaver – nu må pakkerne åbnes!'});
   };
@@ -412,10 +437,13 @@
     if(mode!=='host'||!state||!state.finished||!sr||!sr.active||sr.status!=='roll'||turn!==sr.turns)return false;
     const player=state.players[sr.turnIndex];
     if(!player||player.id!==pid)return false;
-    sr.die=secureRandomInt(6)+1;
+    ensureStealProgress(sr);
+    const guaranteed=sr.swapCounts[pid]<sr.minSwaps&&sr.missStreaks[pid]>=2;
+    sr.die=guaranteed?1:secureRandomInt(6)+1;
+    sr.missStreaks[pid]=sr.die===1?0:sr.missStreaks[pid]+1;
     sr.status=sr.die===1?'gift':'done';
-    addLog(' '+player.name+' slog '+sr.die+(sr.die===1?' og må bytte en gave!':'. Ingen gavebytte denne gang.'));
-    sendFinishState({kind:'steal',emoji:sr.die===1?'✨':'❄',title:sr.die===1?'DU SLOG EN 1’ER!':'TERNINGEN VISTE '+sr.die,text:sr.die===1?'Vælg nu en lukket pakke fra en anden spiller.':'Ingen gavebytte på denne tur.'});
+    addLog(' '+player.name+' slog '+sr.die+(sr.die===1?' og skal bytte en gave!':'. Ingen gavebytte denne gang.'));
+    sendFinishState({kind:'steal',emoji:sr.die===1?'✨':'❄',title:sr.die===1?'DU SLOG EN 1’ER!':'TERNINGEN VISTE '+sr.die,text:sr.die===1?'Vælg nu en lukket pakke fra en anden spiller.':(sr.missStreaks[pid]>=2?'Næste kast bliver hjulpet frem til en 1’er, så alle får deres to bytter.':'Ingen gavebytte på denne tur.')});
     return true;
   };
 
@@ -432,6 +460,7 @@
     state.owners[pid]=state.owners[pid].filter(g=>g!==returned);
     state.owners[pid].push(gift);state.owners[victim.id].push(returned);
     sr.history.push({thief:pid,victim:victim.id,gift,returned});
+    ensureStealProgress(sr);sr.swapCounts[pid]++;
     addLog(' '+thief.name+' stjal gave #'+gift+' fra '+victim.name+'. En hemmelig pakke blev sendt tilbage.');
     sr.status='done';
     sendFinishState({kind:'steal',emoji:'✨',title:'PAKKEN ER BYTTET!',text:thief.name+' og '+victim.name+' har byttet en hemmelig pakke.'});
@@ -442,15 +471,16 @@
     const sr=state&&state.stealRound;
     if(mode!=='host'||!sr||!sr.active||sr.status!=='done')return false;
     sr.turns++;
-    if(sr.turns>=sr.maxTurns){
+    if(stealProgressComplete(sr)){
       if(!repairEqualGiftDistribution()){alert('Afslutningen blev stoppet, fordi gavefordelingen ikke kunne godkendes.');return false}
       sr.active=false;sr.completed=true;
       sendFinishState({kind:'finish',emoji:'',title:'TYVERIRUNDEN ER SLUT!',text:'Alle har stadig lige mange gaver. Nu må pakkerne åbnes!'});
     }else{
-      sr.turnIndex=(sr.turnIndex+1)%state.players.length;
+      sr.turnIndex=nextStealPlayerIndex(sr);
       sr.status='roll';sr.die=null;
       const next=state.players[sr.turnIndex];
-      sendFinishState({kind:'steal',emoji:'',title:'NÆSTE TERNINGEKAST!',text:next.name+' skal nu forsøge at slå en 1’er.'});
+      const done=sr.swapCounts[next.id]||0;
+      sendFinishState({kind:'steal',emoji:'',title:'NÆSTE TERNINGEKAST!',text:next.name+' skal nu forsøge at slå en 1’er til bytte '+(done+1)+' af 2.'});
     }
     return true;
   };
@@ -462,6 +492,16 @@
     addLog('⏭ Værten sprang '+skipped.name+'s tur over.');
     sr.status='done';
     return hostNextStealTurn();
+  };
+
+  hostAssistStealRoll=function(){
+    const sr=state&&state.stealRound;if(mode!=='host'||!sr||!sr.active||sr.status!=='roll')return false;
+    const player=state.players[sr.turnIndex];return player?stealRollHost(player.id,sr.turns):false;
+  };
+
+  hostAssistStealGift=function(gift){
+    const sr=state&&state.stealRound;if(mode!=='host'||!sr||!sr.active||sr.status!=='gift')return false;
+    const player=state.players[sr.turnIndex];return player?stealGiftHost(player.id,Number(gift),sr.turns):false;
   };
 
   requestStealRoll=async function(){
@@ -491,13 +531,17 @@
     oldRenderFinish();
     const sr=state.stealRound||{active:false,completed:false};
     const intro=document.getElementById('finishIntro'),panel=document.getElementById('stealPanel');
+    const finishScreen=document.getElementById('finish'),edition=finishScreen.querySelector('.finishEdition');
     const start=document.getElementById('stealStartBtn'),end=document.getElementById('stealEndBtn'),fresh=document.getElementById('finishNewGameBtn');
     start.style.display=mode==='host'&&!sr.active&&!sr.completed?'block':'none';
     end.style.display=mode==='host'&&sr.active?'block':'none';
     fresh.style.display=sr.active?'none':'block';
     panel.style.display=sr.active?'block':'none';
     intro.style.display=sr.active?'none':'block';
+    finishScreen.classList.toggle('stealActive',!!sr.active);
+    edition.textContent=sr.active?'JULECENTRALENS LUKSUS-TYVERIFINALE · V84':'DEN STORE GAVEFINALE · V84';
     if(!sr.active){
+      end.disabled=false;end.textContent='AFSLUT TYVERIRUNDEN';
       const target=state.players.length?state.giftCount/state.players.length:0,equal=Number.isInteger(target)&&state.players.every(p=>(state.owners[p.id]||[]).length===target);
       let seal=document.getElementById('fairFinalSeal');
       if(!seal){seal=document.createElement('div');seal.id='fairFinalSeal';seal.className='fairFinalSeal';document.getElementById('scores').before(seal)}
@@ -507,26 +551,32 @@
       if(sr.completed)intro.innerHTML='<div class="big"></div><h2>TYVERIRUNDEN ER SLUT!</h2><p>Alle har stadig lige mange gaver. Nu må de hemmelige pakker åbnes!</p>';
       return;
     }
+    ensureStealProgress(sr);
     const finalSeal=document.getElementById('fairFinalSeal');if(finalSeal)finalSeal.remove();
     document.getElementById('finishTitle').textContent='AT STJÆLE PAKKER';
     const current=state.players[sr.turnIndex],mine=current.id===myId;
     document.getElementById('scores').innerHTML='';
-    const round=Math.floor(sr.turns/state.players.length)+1;
-    let html='<div class="stealRibbon">RUNDE '+round+' AF 3 · TUR '+(sr.turns+1)+' AF '+sr.maxTurns+'</div><h2>'+(mine?'DET ER DIN TUR, ':'NU SPILLER ')+escapeHtml(current.name).toUpperCase()+'</h2>';
+    const currentSwaps=sr.swapCounts[current.id]||0,misses=sr.missStreaks[current.id]||0,complete=stealProgressComplete(sr);
+    end.disabled=!complete;end.textContent=complete?'AFSLUT TYVERIRUNDEN':'LÅST · ALLE SKAL BYTTE 2 GANGE';
+    const progress='<div class="stealProgress">'+state.players.map(p=>{const count=Math.min(sr.minSwaps,sr.swapCounts[p.id]||0);return '<div class="stealProgressPlayer '+(p.id===current.id?'current':'')+' '+(count>=sr.minSwaps?'complete':'')+'">'+avatarMarkup(p.avatar,'stealProgressAvatar')+'<span><b>'+escapeHtml(p.name)+'</b><small>'+count+' af '+sr.minSwaps+' bytter</small></span><i>'+Array.from({length:sr.minSwaps},(_,i)=>'<em class="'+(i<count?'filled':'')+'"></em>').join('')+'</i></div>'}).join('')+'</div>';
+    const step=sr.status==='roll'?1:sr.status==='gift'?2:3;
+    const steps='<div class="stealSteps"><span class="'+(step>=1?'active':'')+'"><i>1</i>SLÅ</span><b></b><span class="'+(step>=2?'active':'')+'"><i>2</i>VÆLG</span><b></b><span class="'+(step>=3?'active':'')+'"><i>3</i>BYT</span></div>';
+    let html=progress+'<div class="stealTurnHero">'+avatarMarkup(current.avatar,'stealHeroAvatar')+'<div><small>JULECENTRALENS TYVERIFINALE</small><h2>'+(mine?'DET ER DIN TUR, ':'NU SPILLER ')+escapeHtml(current.name).toUpperCase()+'</h2><p>Bytte '+Math.min(currentSwaps+1,2)+' af 2 · '+(currentSwaps===0?'første luksusbytte':'sidste luksusbytte')+'</p></div></div>'+steps;
     if(sr.status==='roll'){
-      html+='<p>Slå en <b>1’er</b> for at få lov til at bytte én gave.</p><div class="stealDie unrolled">'+luxIconMarkup('die')+'</div>'+(mine&&!stealSending?'<button class="btn stealRollBtn" onclick="requestStealRoll()">'+luxIconMarkup('die')+'<span>SLÅ MED TERNINGEN</span></button>':'<div class="stealWaiting">Venter på terningekastet…</div>')+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">SPRING SPILLEREN OVER</button>':'');
+      html+='<div class="stealInstruction"><b>SLÅ EN 1’ER OG ÅBN PAKKEVAULTEN</b><small>'+(misses>=2?'Julecentralens garanti er aktiveret: Dette kast bliver en 1’er.':'Efter to forgæves kast sikrer Julecentralen, at næste kast bliver en 1’er.')+'</small></div><div class="stealDie unrolled">'+luxIconMarkup('die')+'</div>'+(mine&&!stealSending?'<button class="btn stealRollBtn" onclick="requestStealRoll()">'+luxIconMarkup('die')+'<span>SLÅ MED TERNINGEN</span></button>':'<div class="stealWaiting">Venter på '+escapeHtml(current.name)+'s terningekast…</div>')+(mode==='host'&&!mine?'<button class="btn gold stealAssistBtn" onclick="hostAssistStealRoll()">'+luxIconMarkup('die')+'<span>VÆRT: SLÅ FOR '+escapeHtml(current.name).toUpperCase()+'</span></button>':'');
       panel.innerHTML=html;return;
     }
     const stealPips={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
     html+='<div class="stealDie visualDie" role="img" aria-label="Terningen viser '+sr.die+'">'+stealPips[sr.die].map(pos=>'<i class="stealPip" style="grid-area:'+Math.ceil(pos/3)+' / '+((pos-1)%3+1)+'"></i>').join('')+'</div>';
     if(sr.status==='done'){
-      html+='<p>'+(sr.die===1?'Gaven er byttet.':'Terningen viste '+sr.die+'. Der bliver ikke byttet en gave på denne tur.')+'</p>'+(mode==='host'?'<button class="btn gold stealNextBtn" onclick="hostNextStealTurn()">NÆSTE TUR ➜</button>':'<div class="stealWaiting">Værten fortsætter til næste spiller…</div>');
+      html+='<div class="stealResult '+(sr.die===1?'success':'miss')+'"><b>'+(sr.die===1?'BYTTET ER GENNEMFØRT':'TERNINGEN VISTE '+sr.die)+'</b><small>'+(sr.die===1?escapeHtml(current.name)+' har nu gennemført '+(sr.swapCounts[current.id]||0)+' af 2 bytter.':(sr.missStreaks[current.id]>=2?'Næste kast er garanteret til at blive en 1’er.':'Ingen pakke skifter hænder på dette kast.'))+'</small></div>'+(mode==='host'?'<button class="btn gold stealNextBtn" onclick="hostNextStealTurn()">'+luxIconMarkup('star')+'<span>NÆSTE TUR</span></button>':'<div class="stealWaiting">Værten fortsætter til næste spiller…</div>');
       panel.innerHTML=html;return;
     }
-    html+='<p>'+(mine?'Du slog en 1’er! Vælg én lukket gave fra en anden spiller. Julecentralen sender automatisk én af dine pakker tilbage.':escapeHtml(current.name)+' slog en 1’er og vælger nu en pakke.')+'</p>'+(mode==='host'&&!mine?'<button class="btn ghost stealSkipBtn" onclick="hostSkipStealTurn()">⏭ SPRING SPILLEREN OVER</button>':'')+'<div class="stealOwners">';
+    html+='<div class="stealInstruction success"><b>1’EREN ÅBNEDE PAKKEVAULTEN</b><small>'+(mine?'Vælg én lukket gave. En af dine egne pakker sendes automatisk tilbage.':escapeHtml(current.name)+' vælger nu en pakke. Værten kan hjælpe, hvis enheden er offline.')+'</small></div><div class="stealOwners">';
+    const packageArt=['julepakke-roed-v41.png','julepakke-groen-v41.png','julepakke-blaa-v41.png'];
     for(const owner of state.players.filter(p=>p.id!==current.id)){
-      html+='<div class="stealOwner"><b class="stealOwnerName">'+avatarMarkup(owner.avatar,'stealAvatar')+' '+escapeHtml(owner.name)+'</b><div class="stealGifts">';
-      for(const gift of (state.owners[owner.id]||[]))html+='<button class="stealGift" '+(mine&&!stealSending?'':'disabled')+' onclick="requestSteal('+gift+')"><span></span><small>PAKKE #'+gift+'</small></button>';
+      html+='<div class="stealOwner"><b class="stealOwnerName">'+avatarMarkup(owner.avatar,'stealAvatar')+'<span>'+escapeHtml(owner.name)+'<small>Vælg en hemmelig pakke</small></span></b><div class="stealGifts">';
+      for(const gift of (state.owners[owner.id]||[])){const enabled=(mine&&!stealSending)||(mode==='host'&&!mine),action=mode==='host'&&!mine?'hostAssistStealGift('+gift+')':'requestSteal('+gift+')',art=packageArt[(gift-1)%packageArt.length];html+='<button class="stealGift" '+(enabled?'':'disabled')+' onclick="'+action+'"><img src="'+art+'" alt="Lukket julepakke nummer '+gift+'"><span>PAKKE #'+gift+'</span><small>Tryk for at bytte</small></button>'}
       html+='</div></div>';
     }
     panel.innerHTML=html+'</div>';
