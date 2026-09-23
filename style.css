@@ -4666,8 +4666,10 @@ body:has(#join.active) .joinSnowOverlay {
 .stealRollBtn{display:flex;align-items:center;justify-content:center;gap:10px}.stealRollBtn .luxIcon{width:44px;margin:0}
 
 /* V82 – synlig QR-invitation og indbygget kamerascanner. */
-.qr #qrCode{display:grid;place-items:center;width:100%;min-height:220px;padding:5px;border-radius:13px;background:#fffdf4}
-.qr #qrCode canvas,.qr #qrCode img{display:block!important;width:min(100%,220px)!important;height:auto!important;image-rendering:pixelated}
+.qr #qrCode{display:grid;place-items:center;width:220px;height:220px;min-height:0;padding:5px;border-radius:13px;background:#fffdf4}
+.qr #qrCode canvas{display:block!important;width:210px!important;height:210px!important;image-rendering:pixelated}
+.qr #qrCode canvas+img{display:none!important}
+.qr #qrCode>img:only-child{display:block!important;width:210px!important;height:210px!important;object-fit:contain;image-rendering:pixelated}
 #join>.card>.scanQrBtn,#join>.card>.qrScannerPanel{grid-column:1/-1}
 .scanQrBtn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;margin:0 0 4px}.scanQrBtn .luxIcon{width:45px;margin:0}
 .qrScannerPanel{overflow:hidden;padding:12px;border:2px solid #e5bd57;border-radius:18px;background:linear-gradient(145deg,#041b2c,#062f34);box-shadow:inset 0 0 24px #0008,0 8px 20px #0007}
@@ -4677,7 +4679,7 @@ body:has(#join.active) .joinSnowOverlay {
 #qrReader video{width:100%!important;max-height:420px;object-fit:cover}
 #qrReader img[alt="Info icon"]{display:none}
 #qrScannerStatus{margin-top:9px;color:#eaf8ff}
-@media(max-width:700px){.qr #qrCode{min-height:180px}.qr #qrCode canvas,.qr #qrCode img{width:min(100%,180px)!important}.scanQrBtn{min-height:54px}#qrReader{min-height:230px}}
+@media(max-width:700px){.qr #qrCode{width:180px;height:180px}.qr #qrCode canvas,.qr #qrCode>img:only-child{width:170px!important;height:170px!important}.scanQrBtn{min-height:54px}#qrReader{min-height:230px}}
 
 /* ================================================================
    V80 · SAMLET GRAFISK MASTER

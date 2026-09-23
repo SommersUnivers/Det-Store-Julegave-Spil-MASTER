@@ -539,7 +539,7 @@
     panel.style.display=sr.active?'block':'none';
     intro.style.display=sr.active?'none':'block';
     finishScreen.classList.toggle('stealActive',!!sr.active);
-    edition.textContent=sr.active?'JULECENTRALENS LUKSUS-TYVERIFINALE · V84':'DEN STORE GAVEFINALE · V84';
+    edition.textContent=sr.active?'JULECENTRALENS LUKSUS-TYVERIFINALE · V85':'DEN STORE GAVEFINALE · V85';
     if(!sr.active){
       end.disabled=false;end.textContent='AFSLUT TYVERIRUNDEN';
       const target=state.players.length?state.giftCount/state.players.length:0,equal=Number.isInteger(target)&&state.players.every(p=>(state.owners[p.id]||[]).length===target);
