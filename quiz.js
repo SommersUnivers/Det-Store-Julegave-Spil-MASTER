@@ -283,7 +283,7 @@
     const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;panel.appendChild(el);return el};
     add('div','JULECENTRALENS SPILLESTUE','christmasEyebrow');
     add('h2',state.gameType==='dice'?'KLASSISK TERNINGESPIL':state.gameType==='bingo'?'JULEBINGO':'JULEQUIZZEN');
-    const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','RETFÆRDIG FORDELING · MÅL: '+target+' GAVER TIL HVER','fairShareBadge');
+    const target=giftTarget();if(Number.isFinite(target)&&target<Number.MAX_SAFE_INTEGER)add('div','RETFÆRDIG FORDELING · MÅL: '+target+(target===1?' GAVE TIL HVER':' GAVER TIL HVER'),'fairShareBadge');
     let balance=document.getElementById('giftBalanceBoard');
     if(!balance){balance=document.createElement('div');balance.id='giftBalanceBoard';balance.className='giftBalanceBoard';document.getElementById('gifts').before(balance)}
     balance.innerHTML=state.players.map(p=>{const count=(state.owners[p.id]||[]).length,done=count===target;return '<div class="giftBalancePlayer '+(done?'complete':'')+'">'+avatarMarkup(p.avatar,'giftBalanceAvatar')+'<span><b>'+escapeHtml(p.name)+'</b><small>'+count+' / '+target+' gaver</small></span><i>'+(done?'✓':'')+'</i></div>'}).join('');
@@ -302,7 +302,7 @@
       if(q.status==='draw'){
         const action=add('div','','bingoActions');
         if(mode==='host'){const draw=document.createElement('button');draw.type='button';draw.className='btn gold';draw.textContent=' TRÆK NÆSTE MOTIV';draw.disabled=!q.drawPool||!q.drawPool.length;draw.onclick=hostBingoDraw;action.appendChild(draw)}
-        const claim=document.createElement('button');claim.type='button';claim.className='btn green bingoClaim';claim.textContent=won?' JULEBINGO!':'⭐ MANGLER EN RÆKKE';claim.disabled=!won||sending||(state.owners[myId]||[]).length>=giftTarget();claim.onclick=requestBingo;action.appendChild(claim);
+        const claim=document.createElement('button');claim.type='button';claim.className='btn green bingoClaim';claim.textContent=won?' JULEBINGO!':'MANGLER EN RÆKKE';claim.disabled=!won||sending||(state.owners[myId]||[]).length>=giftTarget();claim.onclick=requestBingo;action.appendChild(claim);
         document.getElementById('instruction').textContent=won?'Du har tre på række – tryk JULEBINGO!':'Følg Julemandens motiver på din egen plade.';
       }else{
         add('p',winner&&winner.id===myId?'Du har julebingo! Vælg nu en gave fra bunken.':winner.name+' har julebingo og vælger en gave.','quizFeedback');

@@ -6147,3 +6147,66 @@ body:has(#home.active) .wrap { width:min(1100px,100%); padding-top:34px; }
   #home .luxuryFeatures { gap:9px; }
   #home .luxuryFeatures button { min-height:72px; }
 }
+
+/* V90 — Bingo: motivfelt uden tekstoverløb og runde spillerportrætter. */
+#game.active .christmasBingo .bingoCaller {
+  flex-direction:column;
+  justify-content:center;
+  gap:8px;
+  padding:10px 8px;
+}
+#game.active .christmasBingo .bingoCaller > div { width:100%; min-width:0; text-align:center; }
+#game.active .christmasBingo .bingoCaller small {
+  font-size:8px;
+  letter-spacing:.06em;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+#game.active .christmasBingo .bingoCaller b {
+  font-size:clamp(16px,1.8vw,21px);
+  line-height:1.15;
+  overflow-wrap:anywhere;
+}
+/* Den gamle cirkelbaggrund nulstillede motivets spritebillede. */
+#game.active .christmasBingo .bingoCaller > span.bingoArt {
+  display:block;
+  width:56px;
+  height:56px;
+  aspect-ratio:1;
+  flex:0 0 56px;
+  background-image:url("julebingo-luksus-v80.png");
+  background-size:400% 300%;
+  background-repeat:no-repeat;
+  background-position:var(--bingo-x,0%) var(--bingo-y,0%);
+}
+#game.active .christmasBingo .bingoCaller > span.bingoArt:is(.lux-gift,.lux-tree,.lux-bell,.lux-star,.lux-snow) { background-image:url("juleikoner-luksus-v80.png"); }
+#game.active .christmasBingo .bingoCaller > span.lux-gift { background-position:0% 0%; }
+#game.active .christmasBingo .bingoCaller > span.lux-bell { background-position:33.333% 0%; }
+#game.active .christmasBingo .bingoCaller > span.lux-tree { background-position:66.666% 0%; }
+#game.active .christmasBingo .bingoCaller > span.lux-star { background-position:100% 0%; }
+#game.active .christmasBingo .bingoCaller > span.lux-snow { background-position:100% 50%; }
+#game:has(.christmasBingo) .giftBalancePlayer > .giftBalanceAvatar {
+  display:block;
+  flex:0 0 36px;
+  width:36px;
+  height:36px;
+  min-width:36px;
+  max-width:36px;
+  aspect-ratio:1;
+  border-radius:50%;
+}
+#game:has(.christmasBingo) .giftBalancePlayer > span:not(.giftBalanceAvatar) { min-width:0; flex:1 1 0; }
+#game:has(.christmasBingo) .giftBalancePlayer > i { flex:0 0 24px; }
+@media (min-width:701px) and (max-width:1180px) {
+  #game.active:has(.christmasBingo) .gameTableCard { grid-template-columns:minmax(205px,.55fr) minmax(0,1.45fr); }
+  #game.active .quizPanel.christmasBingo { grid-template-columns:minmax(125px,.65fr) minmax(0,1.35fr); }
+  #game.active .christmasBingo .bingoBoard { width:min(100%,294px); grid-template-columns:repeat(3,minmax(0,1fr)); }
+  #game.active .christmasBingo .bingoCell > span.bingoArt { width:min(74px,85%); }
+}
+@media (max-width:700px) {
+  #game.active .christmasBingo .bingoCaller { padding:7px 5px; gap:5px; }
+  #game.active .christmasBingo .bingoCaller > span.bingoArt { width:40px; height:40px; flex-basis:40px; }
+  #game.active .christmasBingo .bingoCaller small { font-size:7px; }
+  #game.active .christmasBingo .bingoCaller b { font-size:13px; }
+  #game:has(.christmasBingo) .giftBalancePlayer > .giftBalanceAvatar { flex-basis:28px; width:28px; height:28px; min-width:28px; max-width:28px; }
+}
