@@ -5925,3 +5925,176 @@ body:has(#join.active) .wrap {
 #game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{width:132px!important;padding:24px!important;margin:12px auto 21px!important}
 #finish.stealActive .stealPip,#game.active .gamePlayColumn .quizPanel.christmasDice .diePip{width:17px!important;border:1px solid #5e0017!important;background:radial-gradient(circle at 33% 28%,#ffb1bc 0 5%,#b20b37 22%,#72001e 58%,#36000e 100%)!important;box-shadow:inset 2px 3px 4px rgba(255,190,199,.38),inset -2px -3px 4px rgba(40,0,8,.65),0 2px 3px rgba(38,0,11,.42)!important}
 @media(max-width:700px){#finish.stealActive .stealDie.visualDie{width:94px!important;padding:19px!important}#finish.stealActive .stealPip{width:13px!important}#game.active .gamePlayColumn .quizPanel.christmasDice .diceFace{width:min(98px,21dvh)!important;padding:18px!important;margin:6px auto 12px!important}#game.active .gamePlayColumn .quizPanel.christmasDice .diePip{width:13px!important}}
+
+/* ==================================================================
+   V87 · JULECENTRALENS VISUELLE FINAL MASTER
+   Kun grafik, responsivitet og overgange. V86-spilreglerne er urørte.
+   ================================================================== */
+:root{
+  --v87-gold:#f6d777;
+  --v87-gold-deep:#9a5a10;
+  --v87-ruby:#b20b3c;
+  --v87-ruby-dark:#510617;
+  --v87-emerald:#087356;
+  --v87-night:#061a31;
+  --v87-cream:#fff6d8;
+  --v87-frame:0 0 0 2px #3b1705,0 0 0 5px #e9bd50,0 18px 42px rgba(0,0,0,.5);
+}
+
+html,body{max-width:100%;overflow-x:clip}
+.wrap,.screen,.screen>*{min-width:0;max-width:100%}
+.wrap{width:min(1180px,100%)}
+
+/* Tydelig, rolig julesne over alle rum. */
+.snow{
+  opacity:.82;
+  background-image:
+    radial-gradient(circle,#fff 0 1.7px,transparent 2px),
+    radial-gradient(circle,rgba(211,245,255,.92) 0 1.15px,transparent 1.6px),
+    radial-gradient(circle,rgba(255,255,255,.72) 0 2.2px,transparent 2.6px);
+  background-size:56px 56px,83px 83px,137px 137px;
+  background-position:0 0,27px 13px,68px -24px;
+  filter:drop-shadow(0 0 4px rgba(161,224,255,.8));
+  animation:v87-snowfall 18s linear infinite;
+}
+@keyframes v87-snowfall{to{background-position:18px 820px,-12px 1080px,110px 680px}}
+
+/* Hel guirlande i korrekt billedformat på alle mindre rum. */
+#prepareGame>.brand,#giftAdmin>.brand,#settings>.brand,#cloudSetup>.brand,
+#playerLobby>.brand,#lobby>.brand{
+  min-height:214px;
+  padding-top:112px;
+  overflow:visible;
+  border:3px solid var(--v87-gold-deep);
+  box-shadow:var(--v87-frame),inset 0 0 34px rgba(255,229,131,.1);
+}
+#prepareGame>.brand::before,#giftAdmin>.brand::before,#settings>.brand::before,
+#cloudSetup>.brand::before,#playerLobby>.brand::before,#lobby>.brand::before{
+  left:1.5%;right:1.5%;top:-58px;height:174px;
+  background-position:center;
+  background-size:contain;
+  filter:drop-shadow(0 14px 12px rgba(0,0,0,.58));
+}
+.gameCockpitHeader .gameGarland{
+  background-size:contain!important;
+  background-repeat:no-repeat!important;
+  background-position:center top!important;
+}
+
+/* Rigtige illustrerede mærker i stedet for standardsymboler. */
+.hostMagicStatus>span{
+  display:inline-block;width:54px;height:54px;flex:0 0 54px;font-size:0;
+  background:url("juleikoner-luksus-v80.png") 100% 0/400% 300% no-repeat;
+  filter:drop-shadow(0 5px 6px rgba(0,0,0,.48));
+}
+.emoji{min-height:48px}
+.fairShareBadge{display:inline-flex!important;align-items:center;justify-content:center;gap:9px}
+.fairShareBadge::before{
+  content:"";width:28px;height:28px;flex:0 0 28px;
+  background:url("juleikoner-luksus-v80.png") 33.333% 50%/400% 300% no-repeat;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.35));
+}
+
+/* Ensartede luksusknapper med en diskret lysstribe. */
+.btn,.homeAction,.gameChoice,.prepareTile,.changeGameBtn,.counterBtn{
+  position:relative;isolation:isolate;overflow:hidden;
+  border-color:var(--v87-gold)!important;
+}
+.btn::after,.homeAction::after,.gameChoice::after,.prepareTile::after,.changeGameBtn::after{
+  content:"";position:absolute;z-index:-1;inset:-70% -28%;pointer-events:none;
+  background:linear-gradient(112deg,transparent 42%,rgba(255,255,255,.3) 49%,transparent 56%);
+  transform:translateX(-70%);animation:v87-button-glint 7s ease-in-out infinite;
+}
+@keyframes v87-button-glint{0%,72%{transform:translateX(-70%)}88%,100%{transform:translateX(70%)}}
+.btn:focus-visible,.homeAction:focus-visible,.gameChoice:focus-visible,.prepareTile:focus-visible{
+  outline:3px solid #b8efff;outline-offset:4px;
+}
+
+/* Spilleflader må aldrig strække siden vandret. */
+body:has(#game.active),body:has(#finish.active){overflow-x:clip!important}
+#game.active,#finish.active,.gameTableCard,.gameStatusColumn,.gamePlayColumn,
+.quizPanel,.gifts,.finalScores,.stealPanel,.stealPlayers,.stealStage{min-width:0;max-width:100%}
+#game.active .gift{min-width:0}
+#game.active img,#finish.active img{max-width:100%;height:auto}
+
+/* Gavefinalen: hel guirlande og bedre visuel balance. */
+#finish .finishBrand{
+  box-shadow:var(--v87-frame),inset 0 0 48px rgba(255,214,104,.14)!important;
+}
+#finish .finishGarland{
+  object-fit:contain!important;object-position:center!important;
+  filter:drop-shadow(0 16px 13px rgba(0,0,0,.62)) brightness(1.04) saturate(1.08);
+}
+#finish .finishCard{
+  border-color:var(--v87-gold)!important;
+  box-shadow:var(--v87-frame),inset 0 0 42px rgba(255,219,116,.09)!important;
+}
+
+/* Overgangen mellem rummene er nu en lille luksus-juleportal. */
+.giftTransition{
+  gap:16px;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(17,153,111,.6) 0 10%,transparent 38%),
+    radial-gradient(circle at 50% 50%,rgba(8,54,73,.9),rgba(10,3,25,.985) 68%),
+    linear-gradient(135deg,#061a36,#300817);
+}
+.giftTransition::before,.giftTransition::after{
+  content:"";position:absolute;z-index:1;top:0;bottom:0;width:min(20vw,230px);
+  background:linear-gradient(90deg,#26000c,#8e0b30 46%,#d92b53 48%,#67051e 72%,#25000b);
+  box-shadow:inset -12px 0 20px rgba(0,0,0,.48),0 0 0 2px #d9a73d;
+  transform:scaleX(.2);opacity:0;
+}
+.giftTransition::before{left:0;transform-origin:left}
+.giftTransition::after{right:0;transform-origin:right;scale:-1 1}
+.giftTransition.opening::before,.giftTransition.opening::after{animation:v87-curtain 1.05s ease both}
+@keyframes v87-curtain{0%{transform:scaleX(1);opacity:1}45%,74%{transform:scaleX(.18);opacity:.72}100%{transform:scaleX(.05);opacity:0}}
+.transitionGarland{top:-2px;height:clamp(105px,18vh,188px);overflow:visible}
+.transitionGarland img{
+  width:100%;height:100%;object-fit:contain;object-position:center top;transform:none;
+  filter:brightness(1.08) saturate(1.1);
+}
+.transitionGlow{width:min(62vw,520px);height:min(62vw,520px)}
+.transitionGift{
+  width:clamp(138px,20vw,210px);height:clamp(138px,20vw,210px);
+  padding:12px;border:2px solid rgba(246,215,119,.7);border-radius:34px;
+  background:radial-gradient(circle,rgba(255,245,183,.2),rgba(4,36,48,.5));
+  box-shadow:0 0 0 5px rgba(82,15,27,.8),0 0 42px rgba(255,221,103,.45),inset 0 0 30px rgba(255,255,255,.09);
+}
+.transitionGiftImage{filter:drop-shadow(0 20px 18px rgba(0,0,0,.72)) saturate(1.12)}
+.transitionRule{font-size:clamp(9px,1.4vw,13px);text-shadow:0 2px 8px #000,0 0 14px #926111}
+.transitionText{
+  padding:9px 18px;border:1px solid rgba(246,215,119,.7);border-radius:999px;
+  background:linear-gradient(90deg,rgba(95,4,30,.8),rgba(0,102,77,.82),rgba(95,4,30,.8));
+  box-shadow:0 7px 20px rgba(0,0,0,.38);font-size:clamp(11px,1.8vw,16px);
+}
+
+@media (min-width:701px) and (max-width:1180px){
+  .wrap{width:calc(100% - 18px);padding-inline:9px}
+  #game.active .gameTableCard{grid-template-columns:minmax(236px,31%) minmax(0,1fr)}
+  #game.active .gifts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #finish .finalScores{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:700px){
+  .wrap{padding-inline:5px}
+  #prepareGame>.brand,#giftAdmin>.brand,#settings>.brand,#cloudSetup>.brand,
+  #playerLobby>.brand,#lobby>.brand{min-height:164px;padding-top:80px}
+  #prepareGame>.brand::before,#giftAdmin>.brand::before,#settings>.brand::before,
+  #cloudSetup>.brand::before,#playerLobby>.brand::before,#lobby>.brand::before{
+    left:-2%;right:-2%;top:-34px;height:120px;background-size:contain;
+  }
+  .transitionGarland{height:105px}
+  .giftTransition::before,.giftTransition::after{width:16vw}
+  .transitionGift{width:132px;height:132px;border-radius:25px;padding:8px}
+  #finish .finishBrand{margin-top:52px!important}
+  #finish .finishGarland{width:110%!important;left:-5%!important}
+  #game.active .gameCockpitHeader,#game.active .gameTableCard,#finish .finishBrand,#finish .finishCard{
+    width:100%;max-width:100%;margin-inline:0;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .snow,.btn::after,.homeAction::after,.gameChoice::after,.prepareTile::after,.changeGameBtn::after{
+    animation:none!important;
+  }
+}
